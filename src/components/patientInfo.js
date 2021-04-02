@@ -25,7 +25,7 @@ export default class patientInfo extends Component {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, repellendus. Totam nihil similique a repellat minus dolor amet quasi. Corporis nulla quaerat iste, sed quasi ab dolorem maxime minima animi.
         </div>
         <div id="prescription" style={{height: 500}}>
-        <h1>This is Prescription section</h1>
+        <h1>This is the Prescription section</h1>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, repellendus. Totam nihil similique a repellat minus dolor amet quasi. Corporis nulla quaerat iste, sed quasi ab dolorem maxime minima animi.
         </div>
             </>

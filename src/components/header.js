@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-scroll";
 
-export default class header extends Component {
+export default class Header extends Component {
     render() {
         return (
             <ul

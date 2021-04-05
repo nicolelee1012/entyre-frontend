@@ -1,0 +1,12 @@
+.box {
+    display:flex;
+    background-color: bisque;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.box > div {
+    flex: 1 auto;
+    display: flex;
+}
+

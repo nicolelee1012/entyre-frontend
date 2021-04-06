@@ -3,16 +3,21 @@ import { Link } from "react-scroll";
 import styled from 'styled-components';
 
 const NavbarStyled = styled.div`
+
   font-size: 24px;
   position: fixed;
-  width: 100%;
+  width: 200px;
   .header {
     background: black;
     padding: 40px;
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     margin: 0;
     color: white;
+    height: 100vh;
+    top: 0;
+    left: -100%;
     * {
       cursor: pointer;
     }

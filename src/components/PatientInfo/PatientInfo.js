@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import { FormControl, Row, Col, Button } from "react-bootstrap";
+import { Col, Button, Form, Container } from "react-bootstrap";
 import Wrapper from "../Wrapper/Wrapper";
 import styled from "styled-components";
-import { Formik, Field, useField, Form } from "formik";
+import { Formik, Field } from "formik";
 import * as yup from "yup";
 
 const PatientInfoStyled = styled.div`
@@ -11,16 +11,6 @@ const PatientInfoStyled = styled.div`
     margin-left: 200px;
     padding: 20px;
 `;
-
-const RadioOptions = ({ label, value, ...props }) => {
-    const [field] = useField(props);
-    return (
-        <div className="form-check form-check-inline">
-            <input {...field} value={value} type="radio" />
-            <label className="form-check-label">{label}</label>
-        </div>
-    );
-};
 
 const validationSchema = yup.object({
     firstName: yup.string().required(),
@@ -39,7 +29,7 @@ export default class PatientInfo extends Component {
         return (
             <PatientInfoStyled id="patientInfo">
                 <Wrapper>
-                    <div className="container">
+                    <Container>
                         <h1>Patient Information</h1>
                         <Formik
                             validateOnChange={true}
@@ -62,205 +52,216 @@ export default class PatientInfo extends Component {
                                 setSubmitting(false);
                             }}
                         >
-                            {({ values, isSubmitting }) => (
-                                <Form>
-                                    <Row>
-                                        <Col>
-                                            <div className="form-group">
-                                                <label htmlFor="firstName">
-                                                    First Name
-                                                </label>
-                                                <Field
-                                                    name="firstName"
-                                                    type="input"
-                                                    as={FormControl}
-                                                />
-                                            </div>
-                                        </Col>
-                                        <Col>
-                                            <div
-                                                className="form-group"
-                                                controlId="formLastName"
-                                            >
-                                                <label htmlFor="formLastName">
-                                                    Last Name
-                                                </label>
-                                                <Field
-                                                    name="lastName"
-                                                    type="input"
-                                                    as={FormControl}
-                                                />
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col>
-                                            <div
-                                                className="form-group"
-                                                controlId="formAge"
-                                            >
-                                                <label htmlFor="formAge">
-                                                    Age
-                                                </label>
-                                                <Field
-                                                    name="age"
-                                                    type="input"
-                                                    as={FormControl}
-                                                />
-                                            </div>
-                                        </Col>
-                                        <Col>
-                                            <div
-                                                className="form-group"
-                                                controlId="formWeight"
-                                            >
-                                                <label htmlFor="formWeight">
-                                                    Weight (kg)
-                                                </label>
-                                                <Field
-                                                    name="weight"
-                                                    type="input"
-                                                    as={FormControl}
-                                                />
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col>
-                                            <label
-                                                className="radio control-label"
-                                                htmlFor="gender"
-                                            >
-                                                Gender
-                                            </label>
-                                            <div className="form-group">
-                                                <RadioOptions
-                                                    name="gender"
-                                                    value="male"
-                                                    label="Male"
-                                                    id="genderRadioFemale"
-                                                />
-                                                <RadioOptions
-                                                    name="gender"
-                                                    value="female"
-                                                    label="Female"
-                                                    id="genderRadioFemale"
-                                                />
-                                                <RadioOptions
-                                                    name="gender"
-                                                    value="nonbinary"
-                                                    label="Non-Binary"
-                                                    id="genderRadioNonBinary"
-                                                />
-                                                <RadioOptions
-                                                    name="gender"
-                                                    value="other"
-                                                    label="Other"
-                                                    id="genderRadioOther"
-                                                />
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col>
-                                            <div
-                                                className="form-group"
-                                                controlId="formInsuranceCompanyName"
-                                            >
-                                                <label htmlFor="formInsuranceCompanyName">
-                                                    Insurance Company Name
-                                                </label>
-                                                <Field
-                                                    name="companyName"
-                                                    type="input"
-                                                    as={FormControl}
-                                                />
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col>
-                                            <div
-                                                className="form-group"
-                                                controlId="formSubscriberName"
-                                            >
-                                                <label htmlFor="formSubscriberName">
-                                                    Subscriber Name
-                                                </label>
-                                                <Field
-                                                    name="subscriberName"
-                                                    type="input"
-                                                    as={FormControl}
-                                                />
-                                            </div>
-                                        </Col>
-                                        <Col>
-                                            <div
-                                                className="form-group"
-                                                controlId="formMemberId"
-                                            >
-                                                <label htmlFor="formMemberId">
-                                                    Member ID
-                                                </label>
-                                                <Field
-                                                    name="memberId"
-                                                    type="input"
-                                                    as={FormControl}
-                                                />
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col>
-                                            <label
-                                                className="radio control-label"
-                                                htmlFor="subscriberRelationship"
-                                            >
+                            {({
+                                handleSubmit,
+                                handleChange,
+                                handleBlur,
+                                isSubmitting,
+                                values,
+                                touched,
+                                isValid,
+                                errors,
+                            }) => (
+                                <Form noValidate onSubmit={handleSubmit}>
+                                    <Form.Row>
+                                        <Form.Group
+                                            as={Col}
+                                            md="4"
+                                            controlId="firstName"
+                                        >
+                                            <Form.Label>First Name</Form.Label>
+                                            <Field
+                                                name="firstName"
+                                                type="input"
+                                                as={Form.Control}
+                                            />
+                                        </Form.Group>
+                                        <Form.Group
+                                            as={Col}
+                                            md="4"
+                                            controlId="LastName"
+                                        >
+                                            <Form.Label>Last Name</Form.Label>
+                                            <Field
+                                                name="lastName"
+                                                type="input"
+                                                as={Form.Control}
+                                            />
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group
+                                            as={Col}
+                                            md="4"
+                                            controlId="age"
+                                        >
+                                            <Form.Label>Age</Form.Label>
+                                            <Field
+                                                name="age"
+                                                type="input"
+                                                as={Form.Control}
+                                            />
+                                        </Form.Group>
+                                        <Form.Group
+                                            as={Col}
+                                            md="4"
+                                            controlId="weight"
+                                        >
+                                            <Form.Label>Weight (kg)</Form.Label>
+                                            <Field
+                                                name="weight"
+                                                type="input"
+                                                as={Form.Control}
+                                            />
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} controlId="gender">
+                                            <Form.Label>Gender</Form.Label>
+                                            <Form.Row>
+                                                <Col>
+                                                    <Field
+                                                        name="gender"
+                                                        value="male"
+                                                        label="Male"
+                                                        type="radio"
+                                                        inline
+                                                        as={Form.Check}
+                                                    />
+                                                    <Field
+                                                        name="gender"
+                                                        value="female"
+                                                        label="Female"
+                                                        type="radio"
+                                                        inline
+                                                        as={Form.Check}
+                                                    />
+                                                    <Field
+                                                        name="gender"
+                                                        value="nonbinary"
+                                                        label="Non-Binary"
+                                                        type="radio"
+                                                        inline
+                                                        as={Form.Check}
+                                                    />
+                                                    <Field
+                                                        name="gender"
+                                                        value="other"
+                                                        label="Other"
+                                                        type="radio"
+                                                        inline
+                                                        as={Form.Check}
+                                                    />
+                                                </Col>
+                                            </Form.Row>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group
+                                            as={Col}
+                                            md="4"
+                                            controlId="companyName"
+                                        >
+                                            <Form.Label>
+                                                Insurance Company Name
+                                            </Form.Label>
+                                            <Field
+                                                name="companyName"
+                                                type="input"
+                                                as={Form.Control}
+                                            />
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group
+                                            as={Col}
+                                            md="4"
+                                            controlId="subscriberName"
+                                        >
+                                            <Form.Label>
+                                                Subscriber Name
+                                            </Form.Label>
+                                            <Field
+                                                name="subscriberName"
+                                                type="input"
+                                                as={Form.Control}
+                                            />
+                                        </Form.Group>
+                                        <Form.Group
+                                            as={Col}
+                                            md="4"
+                                            controlId="memberId"
+                                        >
+                                            <Form.Label>Member ID</Form.Label>
+                                            <Field
+                                                name="memberId"
+                                                type="input"
+                                                as={Form.Control}
+                                            />
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group
+                                            as={Col}
+                                            controlId="subscriberRelationship"
+                                        >
+                                            <Form.Label>
                                                 Relationship to Subscriber
-                                            </label>
-                                            <div className="form-group">
-                                                <RadioOptions
-                                                    name="subscriberRelationship"
-                                                    value="self"
-                                                    label="Self"
-                                                    id="radioSubRelSelf"
-                                                />
-                                                <RadioOptions
-                                                    name="subscriberRelationship"
-                                                    value="spouse"
-                                                    label="Spouse"
-                                                    id="radioSubRelSpouse"
-                                                />
-                                                <RadioOptions
-                                                    name="subscriberRelationship"
-                                                    value="dependent"
-                                                    label="Dependent"
-                                                    id="radioSubRelDependent"
-                                                />
-                                                <RadioOptions
-                                                    name="subscriberRelationship"
-                                                    value="other"
-                                                    label="Other"
-                                                    id="radioSubRelOther  "
-                                                />
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col>
+                                            </Form.Label>
+                                            <Form.Row>
+                                                <Col>
+                                                    <Field
+                                                        name="subscriberRelationship"
+                                                        value="self"
+                                                        label="Self"
+                                                        type="radio"
+                                                        inline
+                                                        as={Form.Check}
+                                                    />
+                                                    <Field
+                                                        name="subscriberRelationship"
+                                                        value="spouse"
+                                                        label="Spouse"
+                                                        type="radio"
+                                                        inline
+                                                        as={Form.Check}
+                                                    />
+                                                    <Field
+                                                        name="subscriberRelationship"
+                                                        value="dependent"
+                                                        label="Dependent"
+                                                        type="radio"
+                                                        inline
+                                                        as={Form.Check}
+                                                    />
+                                                    <Field
+                                                        name="subscriberRelationship"
+                                                        value="other"
+                                                        label="Other"
+                                                        type="radio"
+                                                        inline
+                                                        as={Form.Check}
+                                                    />
+                                                </Col>
+                                            </Form.Row>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group>
                                             <Button
                                                 variant="secondary"
                                                 type="submit"
+                                                disabled={isSubmitting}
                                             >
                                                 Next
                                             </Button>
-                                        </Col>
-                                    </Row>
+                                        </Form.Group>
+                                    </Form.Row>
                                     <pre>{JSON.stringify(values, null, 2)}</pre>
                                 </Form>
                             )}
                         </Formik>
-                    </div>
+                    </Container>
                 </Wrapper>
             </PatientInfoStyled>
         );

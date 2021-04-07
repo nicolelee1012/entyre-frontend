@@ -4,47 +4,57 @@ import { FormControl, Row, Col, Button } from "react-bootstrap";
 import Wrapper from "../Wrapper/Wrapper";
 import styled from "styled-components";
 import { Formik, Field, useField, Form } from "formik";
+import * as yup from "yup";
 
 const PatientInfoStyled = styled.div`
     background-color: white;
+    margin-left: 200px;
+    padding: 20px;
 `;
 
-const RadioOptions = ({ name, label, id, form, ...props }) => {
+const RadioOptions = ({ label, value, ...props }) => {
     const [field] = useField(props);
     return (
-        <div class="form-check form-check-inline">
-            <input
-                class="form-check-input"
-                type="radio"
-                name={name}
-                id={id}
-                value={field}
-            />
-            <label class="form-check-label" for={id}>
-                {label}
-            </label>
+        <div className="form-check form-check-inline">
+            <input {...field} value={value} type="radio" />
+            <label className="form-check-label">{label}</label>
         </div>
     );
 };
+
+const validationSchema = yup.object({
+    firstName: yup.string().required(),
+    lastName: yup.string().required(),
+    age: yup.number().required(),
+    weight: yup.number().required(),
+    gender: yup.string().required("An option is required"),
+    insuranceCompanyName: yup.string().required(),
+    subscriberName: yup.string().required(),
+    memberId: yup.string().required(),
+    subscriberRelationship: yup.string().required("An option is required"),
+});
 
 export default class PatientInfo extends Component {
     render() {
         return (
             <PatientInfoStyled id="patientInfo">
                 <Wrapper>
-                    <div class="container">
+                    <div className="container">
                         <h1>Patient Information</h1>
                         <Formik
+                            validateOnChange={true}
                             initialValues={{
                                 firstName: "",
                                 lastName: "",
-                                // ages: 1,
-                                // weights: 1,
-                                // gender: "male",
+                                age: 0,
+                                weight: 0,
+                                gender: "",
                                 insuranceCompanyName: "",
                                 subscriberName: "",
                                 memberId: "",
+                                subscriberRelationship: "",
                             }}
+                            validationSchema={validationSchema}
                             onSubmit={(data, { setSubmitting }) => {
                                 setSubmitting(true);
                                 // make async call
@@ -56,11 +66,8 @@ export default class PatientInfo extends Component {
                                 <Form>
                                     <Row>
                                         <Col>
-                                            <div
-                                                class="form-group"
-                                                controlId="formFirstName"
-                                            >
-                                                <label for="firstName">
+                                            <div className="form-group">
+                                                <label htmlFor="firstName">
                                                     First Name
                                                 </label>
                                                 <Field
@@ -72,10 +79,10 @@ export default class PatientInfo extends Component {
                                         </Col>
                                         <Col>
                                             <div
-                                                class="form-group"
+                                                className="form-group"
                                                 controlId="formLastName"
                                             >
-                                                <label for="lastName">
+                                                <label htmlFor="formLastName">
                                                     Last Name
                                                 </label>
                                                 <Field
@@ -88,69 +95,65 @@ export default class PatientInfo extends Component {
                                     </Row>
                                     <Row>
                                         <Col>
-                                            <div class="form-group">
-                                                <label for="selectAge">
+                                            <div
+                                                className="form-group"
+                                                controlId="formAge"
+                                            >
+                                                <label htmlFor="formAge">
                                                     Age
                                                 </label>
-                                                <select
-                                                    class="form-control"
-                                                    id="selectAge"
-                                                >
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
+                                                <Field
+                                                    name="age"
+                                                    type="input"
+                                                    as={FormControl}
+                                                />
                                             </div>
                                         </Col>
                                         <Col>
-                                            <div class="form-group">
-                                                <label for="selectWeight">
+                                            <div
+                                                className="form-group"
+                                                controlId="formWeight"
+                                            >
+                                                <label htmlFor="formWeight">
                                                     Weight (kg)
                                                 </label>
-                                                <select
-                                                    class="form-control"
-                                                    id="selectWeight"
-                                                >
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
+                                                <Field
+                                                    name="weight"
+                                                    type="input"
+                                                    as={FormControl}
+                                                />
                                             </div>
                                         </Col>
                                     </Row>
                                     <Row>
                                         <Col>
                                             <label
-                                                class="radio control-label"
-                                                for="genderRadio"
+                                                className="radio control-label"
+                                                htmlFor="gender"
                                             >
                                                 Gender
                                             </label>
-                                            <div class="form-group">
+                                            <div className="form-group">
                                                 <RadioOptions
-                                                    name="genderRadio"
+                                                    name="gender"
                                                     value="male"
                                                     label="Male"
-                                                    id="genderRadioMale"
+                                                    id="genderRadioFemale"
                                                 />
                                                 <RadioOptions
-                                                    name="genderRadio"
+                                                    name="gender"
                                                     value="female"
                                                     label="Female"
                                                     id="genderRadioFemale"
                                                 />
                                                 <RadioOptions
-                                                    name="genderRadio"
+                                                    name="gender"
                                                     value="nonbinary"
                                                     label="Non-Binary"
                                                     id="genderRadioNonBinary"
                                                 />
                                                 <RadioOptions
-                                                    name="genderRadio"
+                                                    name="gender"
                                                     value="other"
                                                     label="Other"
                                                     id="genderRadioOther"
@@ -161,14 +164,14 @@ export default class PatientInfo extends Component {
                                     <Row>
                                         <Col>
                                             <div
-                                                class="form-group"
+                                                className="form-group"
                                                 controlId="formInsuranceCompanyName"
                                             >
-                                                <label for="insuranceCompanyName">
+                                                <label htmlFor="formInsuranceCompanyName">
                                                     Insurance Company Name
                                                 </label>
                                                 <Field
-                                                    name="insuranceCompanyName"
+                                                    name="companyName"
                                                     type="input"
                                                     as={FormControl}
                                                 />
@@ -178,10 +181,10 @@ export default class PatientInfo extends Component {
                                     <Row>
                                         <Col>
                                             <div
-                                                class="form-group"
+                                                className="form-group"
                                                 controlId="formSubscriberName"
                                             >
-                                                <label for="subscriberName">
+                                                <label htmlFor="formSubscriberName">
                                                     Subscriber Name
                                                 </label>
                                                 <Field
@@ -193,10 +196,10 @@ export default class PatientInfo extends Component {
                                         </Col>
                                         <Col>
                                             <div
-                                                class="form-group"
+                                                className="form-group"
                                                 controlId="formMemberId"
                                             >
-                                                <label for="memberId">
+                                                <label htmlFor="formMemberId">
                                                     Member ID
                                                 </label>
                                                 <Field
@@ -210,35 +213,35 @@ export default class PatientInfo extends Component {
                                     <Row>
                                         <Col>
                                             <label
-                                                class="radio control-label"
-                                                for="relationshipRadio"
+                                                className="radio control-label"
+                                                htmlFor="subscriberRelationship"
                                             >
                                                 Relationship to Subscriber
                                             </label>
-                                            <div class="form-group">
+                                            <div className="form-group">
                                                 <RadioOptions
-                                                    name="relationshipRadio"
+                                                    name="subscriberRelationship"
                                                     value="self"
                                                     label="Self"
-                                                    id="relationshipRadioSelf"
+                                                    id="radioSubRelSelf"
                                                 />
                                                 <RadioOptions
-                                                    name="relationshipRadio"
+                                                    name="subscriberRelationship"
                                                     value="spouse"
                                                     label="Spouse"
-                                                    id="relationshipRadioSpouse"
+                                                    id="radioSubRelSpouse"
                                                 />
                                                 <RadioOptions
-                                                    name="relationshipRadio"
+                                                    name="subscriberRelationship"
                                                     value="dependent"
                                                     label="Dependent"
-                                                    id="relationshipRadioDependent"
+                                                    id="radioSubRelDependent"
                                                 />
                                                 <RadioOptions
-                                                    name="relationshipRadio"
+                                                    name="subscriberRelationship"
                                                     value="other"
                                                     label="Other"
-                                                    id="relationshipRadioOther"
+                                                    id="radioSubRelOther  "
                                                 />
                                             </div>
                                         </Col>
@@ -249,10 +252,11 @@ export default class PatientInfo extends Component {
                                                 variant="secondary"
                                                 type="submit"
                                             >
-                                                Submit
+                                                Next
                                             </Button>
                                         </Col>
                                     </Row>
+                                    <pre>{JSON.stringify(values, null, 2)}</pre>
                                 </Form>
                             )}
                         </Formik>

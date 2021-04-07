@@ -5,6 +5,8 @@ import styled from "styled-components";
 
 const DiagnosisStyled = styled.div`
     background-color: white;
+    margin-left: 200px;
+    padding: 20px;
 `;
 
 export default class Diagnosis extends Component {
@@ -12,7 +14,7 @@ export default class Diagnosis extends Component {
         return (
             <DiagnosisStyled id="diagnosis">
                 <Wrapper>
-                    <div class="container">
+                    <div className="container">
                         <h1>This is Diagnosis section</h1>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Id, repellendus. Totam nihil similique a repellat minus

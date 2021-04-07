@@ -15,8 +15,23 @@ const PatientInfoStyled = styled.div`
 const validationSchema = yup.object({
     firstName: yup.string().required("First Name is required"),
     lastName: yup.string().required("Last Name is required"),
-    age: yup.number().required("Age is required"),
-    weight: yup.number().required("Weight is required"),
+    age: yup
+        .number()
+        .integer("Age must be an integer")
+        .required("Age is required")
+        .test(
+            "maxDigits",
+            "Age field must have less than 3 digits",
+            (age) => String(age).length <= 3
+        ),
+    weight: yup
+        .number()
+        .required("Weight is required")
+        .test(
+            "maxDigitsAfterDecimal",
+            "Weight field must have 1 digit after decimal",
+            (weight) => /^\d+(\.\d{1})?$/.test(weight)
+        ),
     gender: yup.string().required("An option is required"),
     companyName: yup.string().required("Company Name is required"),
     subscriberName: yup.string().required("Subscriber Name is required"),

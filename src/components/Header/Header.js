@@ -3,6 +3,7 @@ import { Link } from "react-scroll";
 import styled from "styled-components";
 
 const NavbarStyled = styled.div`
+<<<<<<< HEAD
   font-size: 24px;
   position: fixed;
   width: 200px;
@@ -19,18 +20,37 @@ const NavbarStyled = styled.div`
     left: -100%;
     * {
       cursor: pointer;
+=======
+    font-size: 24px;
+    position: fixed;
+    width: 200px;
+    .header {
+        background: black;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        margin: 0;
+        color: white;
+        height: 100vh;
+        top: 0;
+        left: -100%;
+        * {
+            cursor: pointer;
+        }
+        .active {
+            border-bottom: 1px solid white;
+        }
+>>>>>>> 6d9dd91de9a6cb1b9af0d09c40ab734a9ef86397
     }
-    .active {
-      border-bottom: 1px solid white;
+    .scrolling-buttons {
+        display: flex;
+        flex-direction: column;
     }
-  }
-  .scrolling-buttons {
-    display: flex;
-    flex-direction: column;
-  }
 `;
 
 export default class Header extends Component {
+<<<<<<< HEAD
   render() {
     return (
       <NavbarStyled>
@@ -71,4 +91,51 @@ export default class Header extends Component {
       </NavbarStyled>
     );
   }
+=======
+    render() {
+        return (
+            <NavbarStyled>
+                <ul
+                    className="header"
+                    style={{
+                        display: "flex",
+                        listStyle: "none",
+                        justifyContent: "space-around",
+                    }}
+                >
+                    <li>
+                        <Link
+                            activeClass="active"
+                            to="home"
+                            spy={true}
+                            smooth={true}
+                        >
+                            Welcome
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="patientInfo" spy={true} smooth={true}>
+                            Patient Information
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="diagnosis" spy={true} smooth={true}>
+                            Diagnosis
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="medication" spy={true} smooth={true}>
+                            Medication
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="prescription" spy={true} smooth={true}>
+                            Prescription
+                        </Link>
+                    </li>
+                </ul>
+            </NavbarStyled>
+        );
+    }
+>>>>>>> 6d9dd91de9a6cb1b9af0d09c40ab734a9ef86397
 }

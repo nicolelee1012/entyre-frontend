@@ -10,7 +10,13 @@ import Collapsible from "react-collapsible";
 import "./Diagnosis.css";
 
 const DiagnosisStyled = styled.div`
+<<<<<<< HEAD
   background-color: white;
+=======
+    background-color: white;
+    margin-left: 200px;
+    padding: 20px;
+>>>>>>> 6d9dd91de9a6cb1b9af0d09c40ab734a9ef86397
 `;
 /**
 const MyTextInput = ({ label, ...props }) => {

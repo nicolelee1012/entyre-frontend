@@ -7,16 +7,16 @@ import Medication from "./components/Medication/Medication";
 import Prescription from "./components/Prescription/Prescription";
 
 function App() {
-    return (
-        <div className="App">
-            <Header />
-            <Home />
-            <PatientInfo />
-            <Diagnosis />
-            <Medication />
-            <Prescription />
-        </div>
-    );
+  return (
+    <div className="App">
+      <Header />
+      <Home />
+      <PatientInfo />
+      <Diagnosis />
+      <Medication />
+      <Prescription />
+    </div>
+  );
 }
 
 export default App;

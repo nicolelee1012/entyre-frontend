@@ -199,7 +199,7 @@ export default class Diagnosis extends Component {
                           </Col>
                           <Col>
                             <div class="form-group" controlId="formDosage">
-                              <label for="units">Units:</label>
+                              <label for="units">units:</label>
                               <Field
                                 name="units"
                                 type="input"

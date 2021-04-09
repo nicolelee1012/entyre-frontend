@@ -4,7 +4,6 @@ import Wrapper from "../Wrapper/Wrapper";
 import styled from "styled-components";
 
 const PrescriptionStyled = styled.div`
-<<<<<<< HEAD
   background-color: white;
 `;
 
@@ -24,27 +23,4 @@ export default class Prescription extends Component {
       </PrescriptionStyled>
     );
   }
-=======
-    background-color: white;
-    margin-left: 200px;
-    padding: 20px;
-`;
-
-export default class Prescription extends Component {
-    render() {
-        return (
-            <PrescriptionStyled id="prescription">
-                <Wrapper>
-                    <div className="container">
-                        <h1>This is Prescription section</h1>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Id, repellendus. Totam nihil similique a repellat minus
-                        dolor amet quasi. Corporis nulla quaerat iste, sed quasi
-                        ab dolorem maxime minima animi.
-                    </div>
-                </Wrapper>
-            </PrescriptionStyled>
-        );
-    }
->>>>>>> 6d9dd91de9a6cb1b9af0d09c40ab734a9ef86397
 }

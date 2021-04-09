@@ -80,10 +80,6 @@ const RadioOptions = ({ name, label, id, form, ...props }) => {
   );
 };
 
-function handleClick() {
-    console.log('hehe');
-  }
-
 export default class Diagnosis extends Component {
   render() {
     return (
@@ -92,406 +88,386 @@ export default class Diagnosis extends Component {
           <div class="container">
             <h1>Diagnosis and Medication</h1>
             <Formik
+              validateOnChange={true}
               initialValues={{
-                diagnosis: "",
-                medication: "",
-                amount: "",
-                units: "",
-                frequency: "",
-                //mode:''
+                //diagnosis 1
+                diagnosis1: "",
+                medication1: "",
+                amount1: "",
+                units1: "",
+                frequency1: "",
+                mode1:"",
+                note1:"",
+                //diagnosis 2
+                diagnosis2: "",
+                medication2: "",
+                amount2: "",
+                units2: "",
+                frequency2: "",
+                mode2:'',
+                //diagnosis 3
+                diagnosis3: "",
+                medication3: "",
+                amount3: "",
+                units3: "",
+                frequency3: "",
+                mode3:"",
               }}
               validationSchema={Yup.object({
-                diagnosis: Yup.string()
-                  .max(15, "Must be 15 characters or less")
-                  .required("Required"),
-                medication: Yup.string()
-                  .max(20, "Must be 20 characters or less")
-                  .required("Required"),
-                email: Yup.string()
-                  .email("Invalid email address")
-                  .required("Required"),
-                acceptedTerms: Yup.boolean()
-                  .required("Required")
-                  .oneOf([true], "You must accept the terms and conditions."),
-                jobType: Yup.string()
-                  .oneOf(
-                    ["designer", "development", "product", "other"],
-                    "Invalid Job Type"
-                  )
-                  .required("Required"),
+                diagnosis1: Yup.string().required("Required"),
+                medication1: Yup.string().required("Required"),
+                amount1: Yup.string().required("Required"),
+                units1: Yup.string().required("Required"),
+                frequency1: Yup.string().required("Required"),
+                mode1: Yup.string().required("Required"),
               })}
               onSubmit={(values, { setSubmitting }) => {
+
+                setSubmitting(true);
+
+                console.log(values);
+
                 setTimeout(() => {
                   alert(JSON.stringify(values, null, 2));
                   setSubmitting(false);
                 }, 400);
               }}
             >
-              <div>
-                <Collapsible trigger="Diagnosis 1">
-                  <Form>
-                    <Row>
-                      <Col>
-                        <div class="form-group" controlId="formDiagnosis">
-                          <label for="diagnosis">Diagnosis</label>
-                          <Field
-                            name="diagnosis"
-                            type="input"
-                            as={FormControl}
-                          />
-                        </div>
-                      </Col>
-                      <Col>
-                        <div class="form-group" controlId="formMedication">
-                          <label for="medication">Medication</label>
-                          <Field
-                            name="medication"
-                            type="input"
-                            as={FormControl}
-                          />
-                        </div>
-                      </Col>
-                      <Col>
-                        Dosage
-                        <Row>
-                          <label class="radio control-label" for="modeRadio">
-                            Mode:
-                          </label>
-                          <Col>
-                            <div class="form-group">
-                              <RadioOptions
-                                name="modeRadio"
-                                value="pill"
-                                label="Pill"
-                                id="modeRadioPill"
-                              />
-                              <RadioOptions
-                                name="modeRadio"
-                                value="syrup"
-                                label="Syrup"
-                                id="modeRadioSyrup"
-                              />
-                              <RadioOptions
-                                name="modeRadio"
-                                value="injection"
-                                label="Injection"
-                                id="modeRadioInjection"
-                              />
-                              <RadioOptions
-                                name="modeRadio"
-                                value="topical"
-                                label="Topical"
-                                id="modeRadioTopical"
-                              />
-                            </div>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>
-                            <div class="form-group" controlId="formDosage">
-                              <label for="Amount">Amount:</label>
-                              <Field
-                                name="amount"
-                                type="input"
-                                as={FormControl}
-                              />
-                            </div>
-                          </Col>
-                          <Col>
-                            <div class="form-group" controlId="formDosage">
-                              <label for="units">units:</label>
-                              <Field
-                                name="units"
-                                type="input"
-                                as={FormControl}
-                              />
-                            </div>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <div class="form-group" controlId="formDosage">
-                            <label for="frequency">Frequency:</label>
+              {({
+                handleSubmit,
+                handleChange,
+                handleBlur,
+                isSubmitting,
+                values,
+                isInvalid,
+                errors,
+              }) => (
+                <div>
+                  <Form noValidate onSubmit={handleSubmit}>
+                    <Collapsible trigger="Diagnosis 1">
+                      <Row>
+                        <Col>
+                          <div class="form-group" controlId="formDiagnosis">
+                            <label for="diagnosis">Diagnosis</label>
                             <Field
-                              name="frequency"
+                              name="diagnosis1"
+                              type="input"
+                              as={FormControl}
+                              onChange={handleChange}
+                              isInvalid={!!errors.diagnosis1}
+                            />
+                          </div>
+                        </Col>
+                        <Col>
+                          <div class="form-group" controlId="formMedication">
+                            <label for="medication">Medication</label>
+                            <Field
+                              name="medication1"
+                              type="input"
+                              as={FormControl}
+                              onChange={handleChange}
+                              isInvalid={!!errors.medication1}
+                            />
+                          </div>
+                        </Col>
+                        <Col>
+                          <h4>Dosage</h4>
+                          <Row>
+                            <label class="radio control-label" for="modeRadio">
+                             <h6>Mode:</h6> 
+                            </label>
+                            <Col>
+                              <div class="form-group">
+                                <RadioOptions
+                                  name="modeRadio"
+                                  value="pill"
+                                  label="Pill"
+                                  id="modeRadioPill"
+                                />
+                                <RadioOptions
+                                  name="modeRadio"
+                                  value="syrup"
+                                  label="Syrup"
+                                  id="modeRadioSyrup"
+                                />
+                                <RadioOptions
+                                  name="modeRadio"
+                                  value="injection"
+                                  label="Injection"
+                                  id="modeRadioInjection"
+                                />
+                                <RadioOptions
+                                  name="modeRadio"
+                                  value="topical"
+                                  label="Topical"
+                                  id="modeRadioTopical"
+                                />
+                                <RadioOptions
+                                  name="modeRadio"
+                                  value="other"
+                                  label="Other"
+                                  id="modeRadioTopical"
+                                  inline
+                              as={Form.Check}
+                              isInvalid={!!errors.mode1}
+                              feedback={errors.mode1}
+                                />
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col>
+                              <div class="form-group" controlId="formDosage">
+                                <label for="Amount">Amount:</label>
+                                <Field
+                                  name="amount1"
+                                  type="input"
+                                  as={FormControl}
+                                  onChange={handleChange}
+                              isInvalid={!!errors.amount1}
+                                />
+                              </div>
+                            </Col>
+                            <Col>
+                              <div class="form-group" controlId="formDosage">
+                                <label for="units">units:</label>
+                                <Field
+                                  name="units1"
+                                  type="input"
+                                  as={FormControl}
+                                  onChange={handleChange}
+                              isInvalid={!!errors.units1}
+                                />
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <div class="form-group" controlId="formDosage">
+                              <label for="frequency">Frequency:</label>
+                              <Field
+                                name="frequency1"
+                                type="input"
+                                as={FormControl}
+                                onChange={handleChange}
+                              isInvalid={!!errors.frequency1}
+                              />
+                            </div>
+                          </Row>
+                        </Col>
+                      </Row>
+                    </Collapsible>
+                    <Collapsible trigger="Diagnosis 2">
+                      <Row>
+                        <Col>
+                          <div class="form-group" controlId="formDiagnosis">
+                            <label for="diagnosis">Diagnosis</label>
+                            <Field
+                              name="diagnosis2"
+                              type="input"
+                              as={FormControl}
+                              onChange={handleChange}
+                              isInvalid={!!errors.diagnosis1}
+                            />
+                            
+                          </div>
+                        </Col>
+                        <Col>
+                          <div class="form-group" controlId="formMedication">
+                            <label for="medication">Medication</label>
+                            <Field
+                              name="medication2"
+                              type="input"
+                              as={FormControl}
+                              onChange={handleChange}
+                              isInvalid={!!errors.medication1}
+                            />
+                          </div>
+                          
+                        </Col>
+                        <Col>
+                          <h4>Dosage</h4>
+                          <Row>
+                            <label class="radio control-label" for="modeRadio">
+                             <h6>Mode:</h6> 
+                            </label>
+                            <Col>
+                              <div class="form-group">
+                                <RadioOptions
+                                  name="modeRadio"
+                                  value="pill"
+                                  label="Pill"
+                                  id="modeRadioPill"
+                                />
+                                <RadioOptions
+                                  name="modeRadio"
+                                  value="syrup"
+                                  label="Syrup"
+                                  id="modeRadioSyrup"
+                                />
+                                <RadioOptions
+                                  name="modeRadio"
+                                  value="injection"
+                                  label="Injection"
+                                  id="modeRadioInjection"
+                                />
+                                <RadioOptions
+                                  name="modeRadio"
+                                  value="topical"
+                                  label="Topical"
+                                  id="modeRadioTopical"
+                                />
+                                <RadioOptions
+                                  name="modeRadio"
+                                  value="other"
+                                  label="Other"
+                                  id="modeRadioTopical"
+                                  inline
+                              as={Form.Check}
+                              isInvalid={!!errors.mode1}
+                              feedback={errors.mode1}
+                                />
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col>
+                              <div class="form-group" controlId="formDosage">
+                                <label for="Amount">Amount:</label>
+                                <Field
+                                  name="amount2"
+                                  type="input"
+                                  as={FormControl}
+                                  onChange={handleChange}
+                              isInvalid={!!errors.amount1}
+                                />
+                              </div>
+                            </Col>
+                            <Col>
+                              <div class="form-group" controlId="formDosage">
+                                <label for="units">units:</label>
+                                <Field
+                                  name="units2"
+                                  type="input"
+                                  as={FormControl}
+                                  onChange={handleChange}
+                              isInvalid={!!errors.units1}
+                                />
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <div class="form-group" controlId="formDosage">
+                              <label for="frequency">Frequency:</label>
+                              <Field
+                                name="frequency2"
+                                type="input"
+                                as={FormControl}
+                                onChange={handleChange}
+                              isInvalid={!!errors.frequency1}
+                              />
+                            </div>
+                          </Row>
+                        </Col>
+                      </Row>
+                    </Collapsible>
+                    <Collapsible trigger="Diagnosis 3">
+                      <Row>
+                        <Col>
+                          <div class="form-group" controlId="formDiagnosis">
+                            <label for="diagnosis">Diagnosis</label>
+                            <Field
+                              name="diagnosis3"
                               type="input"
                               as={FormControl}
                             />
                           </div>
-                        </Row>
-                      </Col>
-                    </Row>
-                    <button type="submit" onClick={console.log("hello")}>Submit</button>
-                  </Form>
-                </Collapsible>
-              </div>
-            </Formik>
-            <Formik
-              initialValues={{
-                diagnosis: "",
-                medication: "",
-                amount: "",
-                units: "",
-                Frequency: "",
-                //mode:''
-              }}
-              validationSchema={Yup.object({
-                diagnosis: Yup.string()
-                  .max(15, "Must be 15 characters or less")
-                  .required("Required"),
-                medication: Yup.string()
-                  .max(20, "Must be 20 characters or less")
-                  .required("Required"),
-                email: Yup.string()
-                  .email("Invalid email address")
-                  .required("Required"),
-                acceptedTerms: Yup.boolean()
-                  .required("Required")
-                  .oneOf([true], "You must accept the terms and conditions."),
-                jobType: Yup.string()
-                  .oneOf(
-                    ["designer", "development", "product", "other"],
-                    "Invalid Job Type"
-                  )
-                  .required("Required"),
-              })}
-              onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                  alert(JSON.stringify(values, null, 2));
-                  setSubmitting(false);
-                }, 400);
-              }}
-            >
-              <div>
-                <Collapsible trigger="Diagnosis 2">
-                  <Form>
-                    <Row>
-                      <Col>
-                        <div class="form-group" controlId="formDiagnosis">
-                          <label for="diagnosis">Diagnosis</label>
-                          <Field
-                            name="diagnosis"
-                            type="input"
-                            as={FormControl}
-                          />
-                        </div>
-                      </Col>
-                      <Col>
-                        <div class="form-group" controlId="formMedication">
-                          <label for="medication">Medication</label>
-                          <Field
-                            name="medication"
-                            type="input"
-                            as={FormControl}
-                          />
-                        </div>
-                      </Col>
-                      <Col>
-                        Dosage
-                        <Row>
-                          <label class="radio control-label" for="modeRadio">
-                            Mode:
-                          </label>
-                          <Col>
-                            <div class="form-group">
-                              <RadioOptions
-                                name="modeRadio"
-                                value="pill"
-                                label="Pill"
-                                id="modeRadioPill"
-                              />
-                              <RadioOptions
-                                name="modeRadio"
-                                value="syrup"
-                                label="Syrup"
-                                id="modeRadioSyrup"
-                              />
-                              <RadioOptions
-                                name="modeRadio"
-                                value="injection"
-                                label="Injection"
-                                id="modeRadioInjection"
-                              />
-                              <RadioOptions
-                                name="modeRadio"
-                                value="topical"
-                                label="Topical"
-                                id="modeRadioTopical"
-                              />
-                            </div>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>
-                            <div class="form-group" controlId="formDosage">
-                              <label for="Amount">Amount:</label>
-                              <Field
-                                name="amount"
-                                type="input"
-                                as={FormControl}
-                              />
-                            </div>
-                          </Col>
-                          <Col>
-                            <div class="form-group" controlId="formDosage">
-                              <label for="units">Units:</label>
-                              <Field
-                                name="dosage"
-                                type="input"
-                                as={FormControl}
-                              />
-                            </div>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <div class="form-group" controlId="formDosage">
-                            <label for="dosage">Frequency:</label>
+                        </Col>
+                        <Col>
+                          <div class="form-group" controlId="formMedication">
+                            <label for="medication">Medication</label>
                             <Field
-                              name="dosage"
+                              name="medication3"
                               type="input"
                               as={FormControl}
                             />
                           </div>
-                        </Row>
-                      </Col>
-                    </Row>
-                    <button type="submit">Submit</button>
-                  </Form>
-                </Collapsible>
-              </div>
-            </Formik>
-            <Formik
-              initialValues={{
-                diagnosis: "",
-                medication: "",
-                amount: "",
-                units: "",
-                Frequency: "",
-                //mode:''
-              }}
-              validationSchema={Yup.object({
-                diagnosis: Yup.string()
-                  .max(15, "Must be 15 characters or less")
-                  .required("Required"),
-                medication: Yup.string()
-                  .max(20, "Must be 20 characters or less")
-                  .required("Required"),
-                email: Yup.string()
-                  .email("Invalid email address")
-                  .required("Required"),
-                acceptedTerms: Yup.boolean()
-                  .required("Required")
-                  .oneOf([true], "You must accept the terms and conditions."),
-                jobType: Yup.string()
-                  .oneOf(
-                    ["designer", "development", "product", "other"],
-                    "Invalid Job Type"
-                  )
-                  .required("Required"),
-              })}
-              onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                  alert(JSON.stringify(values, null, 2));
-                  setSubmitting(false);
-                }, 400);
-              }}
-            >
-              <div>
-                <Collapsible trigger="Diagnosis 3">
-                  <Form>
-                    <Row>
-                      <Col>
-                        <div class="form-group" controlId="formDiagnosis">
-                          <label for="diagnosis">Diagnosis</label>
-                          <Field
-                            name="diagnosis"
-                            type="input"
-                            as={FormControl}
-                          />
-                        </div>
-                      </Col>
-                      <Col>
-                        <div class="form-group" controlId="formMedication">
-                          <label for="medication">Medication</label>
-                          <Field
-                            name="medication"
-                            type="input"
-                            as={FormControl}
-                          />
-                        </div>
-                      </Col>
-                      <Col>
-                        Dosage
-                        <Row>
-                          <label class="radio control-label" for="modeRadio">
-                            Mode:
-                          </label>
-                          <Col>
-                            <div class="form-group">
-                              <RadioOptions
-                                name="modeRadio"
-                                value="pill"
-                                label="Pill"
-                                id="modeRadioPill"
-                              />
-                              <RadioOptions
-                                name="modeRadio"
-                                value="syrup"
-                                label="Syrup"
-                                id="modeRadioSyrup"
-                              />
-                              <RadioOptions
-                                name="modeRadio"
-                                value="injection"
-                                label="Injection"
-                                id="modeRadioInjection"
-                              />
-                              <RadioOptions
-                                name="modeRadio"
-                                value="topical"
-                                label="Topical"
-                                id="modeRadioTopical"
-                              />
-                            </div>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>
+                        </Col>
+                        <Col>
+                          Dosage
+                          <Row>
+                            <label class="radio control-label" for="modeRadio">
+                              Mode:
+                            </label>
+                            <Col>
+                              <div class="form-group">
+                                <RadioOptions
+                                  name="modeRadio"
+                                  value="pill"
+                                  label="Pill"
+                                  id="modeRadioPill"
+                                />
+                                <RadioOptions
+                                  name="modeRadio"
+                                  value="syrup"
+                                  label="Syrup"
+                                  id="modeRadioSyrup"
+                                />
+                                <RadioOptions
+                                  name="modeRadio"
+                                  value="injection"
+                                  label="Injection"
+                                  id="modeRadioInjection"
+                                />
+                                <RadioOptions
+                                  name="modeRadio"
+                                  value="topical"
+                                  label="Topical"
+                                  id="modeRadioTopical"
+                                />
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col>
+                              <div class="form-group" controlId="formDosage">
+                                <label for="Amount">Amount:</label>
+                                <Field
+                                  name="amount3"
+                                  type="input"
+                                  as={FormControl}
+                                />
+                              </div>
+                            </Col>
+                            <Col>
+                              <div class="form-group" controlId="formDosage">
+                                <label for="units">Units:</label>
+                                <Field
+                                  name="dosage3"
+                                  type="input"
+                                  as={FormControl}
+                                />
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row>
                             <div class="form-group" controlId="formDosage">
-                              <label for="Amount">Amount:</label>
+                              <label for="dosage">Frequency:</label>
                               <Field
-                                name="amount"
+                                name="frequency3"
                                 type="input"
                                 as={FormControl}
                               />
                             </div>
-                          </Col>
-                          <Col>
-                            <div class="form-group" controlId="formDosage">
-                              <label for="units">Units:</label>
-                              <Field
-                                name="dosage"
-                                type="input"
-                                as={FormControl}
-                              />
-                            </div>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <div class="form-group" controlId="formDosage">
-                            <label for="dosage">Frequency:</label>
-                            <Field
-                              name="dosage"
-                              type="input"
-                              as={FormControl}
-                            />
-                          </div>
-                        </Row>
-                      </Col>
-                    </Row>
-                    <button type="submit">Submit</button>
+                          </Row>
+                        </Col>
+                      </Row>
+                    </Collapsible>
+                    <button type="submit" onClick={console.log("hello")}>
+                        Submit
+                      </button>
                   </Form>
-                </Collapsible>
-              </div>
+                </div>
+              )}
             </Formik>
           </div>
         </Wrapper>

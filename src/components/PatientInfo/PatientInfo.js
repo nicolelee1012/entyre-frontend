@@ -66,9 +66,14 @@ export default class PatientInfo extends Component {
 
                 // Resets form after submission is complete
                 resetForm();
-
+                
                 // make async call
-                console.log(values);
+                const requestOptions = {
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify(values)
+                };
+                fetch('http://localhost:8080/patient-information', requestOptions);
 
                 // Sets setSubmitting to false after form is reset
                 setSubmitting(false);

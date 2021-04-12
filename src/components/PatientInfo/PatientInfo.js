@@ -5,8 +5,8 @@ import Wrapper from "../Wrapper/Wrapper";
 import styled from "styled-components";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
-import InputField from "../FormFields/InputField";
-import RadioField from "../FormFields/RadioField";
+import PatientInfoInputField from "../FormFields/InputField";
+import PatientInfoRadioField from "../FormFields/RadioField";
 
 const PatientInfoStyled = styled.div`
     background-color: white;
@@ -70,16 +70,21 @@ export default class PatientInfo extends Component {
                                 // When button submits form and form is in the process of submitting, submit button is disabled
                                 setSubmitting(true);
 
-                // Resets form after submission is complete
-                resetForm();
-                
-                // make async call
-                const requestOptions = {
-                    method: 'POST', 
-                    headers: {'Content-Type': 'application/json'}, 
-                    body: JSON.stringify(values)
-                };
-                fetch('http://localhost:8080/patient-information', requestOptions);
+                                // Resets form after submission is complete
+                                resetForm();
+
+                                // make async call
+                                const requestOptions = {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify(values),
+                                };
+                                fetch(
+                                    "http://localhost:8080/patient-information",
+                                    requestOptions
+                                );
 
                                 // Sets setSubmitting to false after form is reset
                                 setSubmitting(false);
@@ -95,13 +100,13 @@ export default class PatientInfo extends Component {
                             }) => (
                                 <Form noValidate onSubmit={handleSubmit}>
                                     <Form.Row>
-                                        <InputField
+                                        <PatientInfoInputField
                                             name="firstName"
                                             label="First Name"
                                             handleChange={handleChange}
                                             errors={errors.firstName}
                                         />
-                                        <InputField
+                                        <PatientInfoInputField
                                             name="lastName"
                                             label="Last Name"
                                             handleChange={handleChange}
@@ -109,13 +114,13 @@ export default class PatientInfo extends Component {
                                         />
                                     </Form.Row>
                                     <Form.Row>
-                                        <InputField
+                                        <PatientInfoInputField
                                             name="age"
                                             label="Age"
                                             handleChange={handleChange}
                                             errors={errors.age}
                                         />
-                                        <InputField
+                                        <PatientInfoInputField
                                             name="weight"
                                             label="Weight"
                                             handleChange={handleChange}
@@ -123,7 +128,7 @@ export default class PatientInfo extends Component {
                                         />
                                     </Form.Row>
                                     <Form.Row>
-                                        <RadioField
+                                        <PatientInfoRadioField
                                             name="gender"
                                             label="Gender"
                                             errors={errors.gender}
@@ -131,7 +136,7 @@ export default class PatientInfo extends Component {
                                         />
                                     </Form.Row>
                                     <Form.Row>
-                                        <InputField
+                                        <PatientInfoInputField
                                             name="companyName"
                                             label="Insurance Company Name"
                                             handleChange={handleChange}
@@ -139,13 +144,13 @@ export default class PatientInfo extends Component {
                                         />
                                     </Form.Row>
                                     <Form.Row>
-                                        <InputField
+                                        <PatientInfoInputField
                                             name="subscriberName"
                                             label="Subscriber Name"
                                             handleChange={handleChange}
                                             errors={errors.subscriberName}
                                         />
-                                        <InputField
+                                        <PatientInfoInputField
                                             name="memberId"
                                             label="Member ID"
                                             handleChange={handleChange}
@@ -153,7 +158,7 @@ export default class PatientInfo extends Component {
                                         />
                                     </Form.Row>
                                     <Form.Row>
-                                        <RadioField
+                                        <PatientInfoRadioField
                                             name="subscriberRelationship"
                                             label="Relationship to Subscriber"
                                             errors={

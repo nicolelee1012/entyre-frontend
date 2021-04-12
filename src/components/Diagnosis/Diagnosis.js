@@ -13,23 +13,7 @@ const DiagnosisStyled = styled.div`
   background-color: white;
 `;
 
-const RadioOptions = ({ name, label, id, form, ...props }) => {
-  const [field] = useField(props);
-  return (
-    <div class="form-check form-check-inline">
-      <input
-        class="form-check-input"
-        type="radio"
-        name={name}
-        id={id}
-        value={field}
-      />
-      <label class="form-check-label" for={id}>
-        {label}
-      </label>
-    </div>
-  );
-};
+const ModeRadioOptions = ["Pill", "Syrup", "Injection", "Topical", "other"];
 
 const validationSchema = yup.object({
   diagnosis1: yup.string().required("This is Required"),
@@ -78,12 +62,15 @@ export default class Diagnosis extends Component {
 
                 setSubmitting(true);
 
-                console.log(values);
+                const requestOptions = {
+                  method: 'POST', 
+                  headers: {'Content-Type': 'application/json'}, 
+                  body: JSON.stringify(values)
+              };
+              fetch('http://localhost:8080/diagnosis', requestOptions);
 
-                setTimeout(() => {
-                  alert(JSON.stringify(values, null, 2));
-                  setSubmitting(false);
-                }, 400);
+              setSubmitting(false);
+              
               }}
             >
               {({

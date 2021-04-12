@@ -9,7 +9,7 @@ import InputField from "../FormFields/InputField";
 import RadioField from "../FormFields/RadioField";
 
 const PatientInfoStyled = styled.div`
-    background-color: white;
+  background-color: white;
 `;
 
 const GenderRadioOptions = ["male", "female", "non-binary", "other"];
@@ -19,22 +19,22 @@ const validationSchema = yup.object({
   firstName: yup.string().required(REQUIRED_MESSAGE),
   lastName: yup.string().required(REQUIRED_MESSAGE),
   age: yup
-      .number()
-      .integer("Age must be an integer")
-      .required(REQUIRED_MESSAGE)
-      .test(
-          "maxDigits",
-          "Age field must have less than 3 digits",
-          (age) => String(age).length <= 3
-      ),
+    .number()
+    .integer("Age must be an integer")
+    .required(REQUIRED_MESSAGE)
+    .test(
+      "maxDigits",
+      "Age field must have less than 3 digits",
+      (age) => String(age).length <= 3
+    ),
   weight: yup
-      .number()
-      .required(REQUIRED_MESSAGE)
-      .test(
-          "maxDigitsAfterDecimal",
-          "Weight field must have 1 digit after decimal",
-          (weight) => /^\d+(\.\d{1})?$/.test(weight)
-      ),
+    .number()
+    .required(REQUIRED_MESSAGE)
+    .test(
+      "maxDigitsAfterDecimal",
+      "Weight field must have 1 digit after decimal",
+      (weight) => /^\d+(\.\d{1})?$/.test(weight)
+    ),
   gender: yup.string().required(REQUIRED_MESSAGE),
   companyName: yup.string().required(REQUIRED_MESSAGE),
   subscriberName: yup.string().required(REQUIRED_MESSAGE),
@@ -63,45 +63,51 @@ export default class PatientInfo extends Component {
                 subscriberRelationship: "",
               }}
               validationSchema={validationSchema}
-              onSubmit={(
-                  values,
-                  { setSubmitting, resetForm }
-              ) => {
-                //When button submits form and form is in the process of submitting, submit button is disabled
+              onSubmit={(values, { setSubmitting, resetForm }) => {
+                // When button submits form and form is in the process of submitting, submit button is disabled
                 setSubmitting(true);
-                resetForm(); //Resets form after submission is complete
-                const requestOptions = { //make async call
-                    credentials: "include", 
-                    method: 'POST', 
-                    headers: {'Content-Type': 'application/json'}, 
-                    body: JSON.stringify(values)
+
+                // Resets form after submission is complete
+                resetForm();
+
+                // make async call
+                const requestOptions = {
+                  credentials: 'include', 
+                  method: 'POST',
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(values),
                 };
-                fetch('http://localhost:8080/patient-information', requestOptions);
-                setSubmitting(false); //Sets setSubmitting to false after form is reset
+                fetch(
+                  "http://localhost:8080/patient-information",
+                  requestOptions
+                );
+
+                // Sets setSubmitting to false after form is reset
+                setSubmitting(false);
               }}
             >
               {({
-                  handleSubmit,
-                  handleChange,
-                  isSubmitting,
-                  values,
-                  isInvalid,
-                  errors,
+                handleSubmit,
+                handleChange,
+                isSubmitting,
+                values,
+                isInvalid,
+                errors,
               }) => (
                 <Form noValidate onSubmit={handleSubmit}>
-                <Form.Row>
-                  <InputField
-                    name="firstName"
-                    label="First Name"
-                    handleChange={handleChange}
-                    errors={errors.firstName}
-                  />
-                  <InputField
-                    name="lastName"
-                    label="Last Name"
-                    handleChange={handleChange}
-                    errors={errors.lastName}
-                  />
+                  <Form.Row>
+                    <InputField
+                      name="firstName"
+                      label="First Name"
+                      handleChange={handleChange}
+                      errors={errors.firstName}
+                    />
+                    <InputField
+                      name="lastName"
+                      label="Last Name"
+                      handleChange={handleChange}
+                      errors={errors.lastName}
+                    />
                   </Form.Row>
                   <Form.Row>
                     <InputField
@@ -151,16 +157,12 @@ export default class PatientInfo extends Component {
                     <RadioField
                       name="subscriberRelationship"
                       label="Relationship to Subscriber"
-                      errors={
-                          errors.subscriberRelationship
-                      }
+                      errors={errors.subscriberRelationship}
                       options={SubRelRadioOptions}
                     />
                     <InputGroup className="mb-4">
                       <InputGroup.Prepend>
-                        <InputGroup.Text>
-                          Other
-                        </InputGroup.Text>
+                        <InputGroup.Text>Other</InputGroup.Text>
                       </InputGroup.Prepend>
                       <Field
                         name="subscriberRelationship"
@@ -168,9 +170,7 @@ export default class PatientInfo extends Component {
                         inline
                         as={Form.Control}
                         onChange={handleChange}
-                        isInvalid={
-                            !!errors.subscriberRelationship
-                        }
+                        isInvalid={!!errors.subscriberRelationship}
                       />
                       <Form.Control.Feedback type="invalid">
                         {errors.subscriberRelationship}
@@ -182,7 +182,8 @@ export default class PatientInfo extends Component {
                       <Button
                         variant="secondary"
                         type="submit"
-                        disabled={isSubmitting}>
+                        disabled={isSubmitting}
+                      >
                         Next
                       </Button>
                     </Form.Group>

@@ -462,9 +462,13 @@ export default class Diagnosis extends Component {
                         </Col>
                       </Row>
                     </Collapsible>
-                    <button type="submit" onClick={console.log("hello")}>
+                    <Button variant="secondary"
+                        type="submit"
+                        disabled={isSubmitting}>
                         Submit
-                      </button>
+                      </Button>
+                      <pre>{JSON.stringify(values, null, 2)}</pre>
+
                   </Form>
                 </div>
               )}

@@ -59,18 +59,15 @@ export default class Diagnosis extends Component {
               }}
               validationSchema={validationSchema}
               onSubmit={(values, { setSubmitting }) => {
-
                 setSubmitting(true);
-
                 const requestOptions = {
+                  credentials: "include", 
                   method: 'POST', 
                   headers: {'Content-Type': 'application/json'}, 
                   body: JSON.stringify(values)
-              };
-              fetch('http://localhost:8080/diagnosis-details', requestOptions);
-
-              setSubmitting(false);
-              
+                };
+                fetch('http://localhost:8080/diagnosis-details', requestOptions);
+                setSubmitting(false);
               }}
             >
               {({
@@ -293,7 +290,6 @@ export default class Diagnosis extends Component {
                               as={Form.Check}
                               isInvalid={!!errors.mode2}
                               feedback={errors.mode2}
-
                             />
                           </Col>
                         </Form.Row>

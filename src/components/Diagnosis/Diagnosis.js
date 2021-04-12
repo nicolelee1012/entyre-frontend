@@ -67,7 +67,7 @@ export default class Diagnosis extends Component {
                   headers: {'Content-Type': 'application/json'}, 
                   body: JSON.stringify(values)
               };
-              fetch('http://localhost:8080/diagnosis', requestOptions);
+              fetch('http://localhost:8080/diagnosis-details', requestOptions);
 
               setSubmitting(false);
               

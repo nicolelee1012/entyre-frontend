@@ -70,25 +70,16 @@ export default class PatientInfo extends Component {
                                 // When button submits form and form is in the process of submitting, submit button is disabled
                                 setSubmitting(true);
 
-                                // Resets form after submission is complete
-                                resetForm();
-
-                                // make async call
-                                const requestOptions = {
-                                    method: "POST",
-                                    headers: {
-                                        "Content-Type": "application/json",
-                                    },
-                                    body: JSON.stringify(values),
-                                };
-                                fetch(
-                                    "http://localhost:8080/patient-information",
-                                    requestOptions
-                                )
-                                    .then((response) => response.json())
-                                    .then((data) =>
-                                        this.setState({ postId: data.id })
-                                    );
+                // Resets form after submission is complete
+                resetForm();
+                
+                // make async call
+                const requestOptions = {
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify(values)
+                };
+                fetch('http://localhost:8080/patient-information', requestOptions);
 
                                 // Sets setSubmitting to false after form is reset
                                 setSubmitting(false);

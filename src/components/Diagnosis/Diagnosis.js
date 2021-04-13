@@ -76,15 +76,12 @@ function onChangeDiagnosis(e, field, values, setValues) {
               onSubmit={(values, { setSubmitting }) => {
                 setSubmitting(true);
                 const requestOptions = {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify(values),
+                  credentials: "include", 
+                  method: 'POST', 
+                  headers: {'Content-Type': 'application/json'}, 
+                  body: JSON.stringify(values)
                 };
-                fetch(
-                  "http://localhost:8080/diagnosis-details",
-                  requestOptions
-                );
-
+                fetch('http://localhost:8080/diagnosis-details', requestOptions);
                 setSubmitting(false);
               }}
             >

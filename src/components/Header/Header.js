@@ -27,44 +27,49 @@ const NavbarStyled = styled.div`
 `;
 
 export default class Header extends Component {
-  render() {
-    return (
-      <NavbarStyled>
-        <ul
-          class="header"
-          style={{
-            display: "flex",
-            listStyle: "none",
-            justifyContent: "space-around",
-          }}
-        >
-          <li>
-            <Link activeClass="active" to="home" spy={true} smooth={true}>
-              Welcome
-            </Link>
-          </li>
-          <li>
-            <Link to="patientInfo" spy={true} smooth={true}>
-              Patient Information
-            </Link>
-          </li>
-          <li>
-            <Link to="diagnosis" spy={true} smooth={true}>
-              Diagnosis
-            </Link>
-          </li>
-          <li>
-            <Link to="medication" spy={true} smooth={true}>
-              Medication
-            </Link>
-          </li>
-          <li>
-            <Link to="prescription" spy={true} smooth={true}>
-              Prescription
-            </Link>
-          </li>
-        </ul>
-      </NavbarStyled>
-    );
-  }
+    render() {
+        return (
+            <NavbarStyled>
+                <ul
+                    class="header"
+                    style={{
+                        display: "flex",
+                        listStyle: "none",
+                        justifyContent: "space-around",
+                    }}
+                >
+                    <li>
+                        <Link
+                            activeClass="active"
+                            to="home"
+                            spy={true}
+                            smooth={true}
+                        >
+                            Welcome
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="patientInfo" spy={true} smooth={true}>
+                            Patient Information
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="diagnosis" spy={true} smooth={true}>
+                            Diagnosis
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="medication" spy={true} smooth={true}>
+                            Medication
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="optimization" spy={true} smooth={true}>
+                            Optimization
+                        </Link>
+                    </li>
+                </ul>
+            </NavbarStyled>
+        );
+    }
 }

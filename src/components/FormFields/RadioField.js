@@ -21,7 +21,7 @@ const PatientInfoRadioField = ({
 }) => {
     const { options } = props;
     return (
-        <Form.Group as={Col} controlId={name}>
+        <Form.Group as={Col}>
             <Form.Label>{label}</Form.Label>
             <Container>
                 <Form.Row>
@@ -34,6 +34,7 @@ const PatientInfoRadioField = ({
                             inline
                             as={Form.Check}
                             isInvalid={!!errors}
+                            controlId={option}
                         />
                     ))}
                 </Form.Row>

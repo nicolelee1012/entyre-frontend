@@ -5,11 +5,12 @@ import {
   Row,
   Col,
   Button,
-  Form,
   Container,
   InputGroup,
+  Form,
+
 } from "react-bootstrap";
-import { Formik, Field, useField } from "formik";
+import { Formik, Field, FieldArray, ErrorMessage} from "formik";
 import Wrapper from "../Wrapper/Wrapper";
 import styled from "styled-components";
 import * as yup from "yup";
@@ -18,6 +19,7 @@ import "./Diagnosis.css";
 import InputField from "../FormFields/InputField";
 import RadioField from "../FormFields/RadioField";
 
+function Diagnosis() {
 const DiagnosisStyled = styled.div`
   background-color: white;
 `;
@@ -25,16 +27,43 @@ const DiagnosisStyled = styled.div`
 const ModeRadioOptions = ["Pill", "Syrup", "Injection", "Topical", "other"];
 const REQUIRED_MESSAGE = "Required";
 const validationSchema = yup.object({
-  diagnosis1: yup.string().required(REQUIRED_MESSAGE),
-  medication1: yup.string().required(REQUIRED_MESSAGE),
-  amount1: yup.string().required(REQUIRED_MESSAGE),
-  units1: yup.string().required(REQUIRED_MESSAGE),
-  frequency1: yup.string().required(REQUIRED_MESSAGE),
-  mode1: yup.string().required(REQUIRED_MESSAGE),
+  numberOfDiagnosis: yup.string()
+            .required('Number of diagnosis is required'),
+  diagnosis: yup.string().required(REQUIRED_MESSAGE),
+  medication: yup.string().required(REQUIRED_MESSAGE),
+  amount: yup.string().required(REQUIRED_MESSAGE),
+  units: yup.string().required(REQUIRED_MESSAGE),
+  frequency: yup.string().required(REQUIRED_MESSAGE),
+  mode: yup.string().required(REQUIRED_MESSAGE),
 });
 
-export default class Diagnosis extends Component {
-  render() {
+const initialValues={
+  numberOfDiagnosis: '',
+        symptoms: [],
+ 
+};
+
+function onChangeDiagnosis(e, field, values, setValues) {
+  // update dynamic form
+  const symptoms = [...values.symptoms];
+  const numberOfDiagnosis = e.target.value || 0;
+  const previousNumber = parseInt(field.value || '0');
+  if (previousNumber < numberOfDiagnosis) {
+      for (let i = previousNumber; i < numberOfDiagnosis; i++) {
+          symptoms.push({ diagnosis:'', medication: '', amount: '', units: '', frequency: '', mode: '', note: ''});
+      }
+  } else {
+      for (let i = previousNumber; i >= numberOfDiagnosis; i--) {
+        symptoms.splice(i, 1);
+      }
+  }
+  setValues({ ...values, symptoms });
+
+  // call formik onChange method
+  field.onChange(e);
+}
+
+ 
     return (
       <DiagnosisStyled id="diagnosis">
         <Wrapper>
@@ -42,30 +71,7 @@ export default class Diagnosis extends Component {
             <h1>Diagnosis and Medication</h1>
             <Formik
               validateOnChange={true}
-              initialValues={{
-                //diagnosis 1
-                diagnosis1: "",
-                medication1: "",
-                amount1: "",
-                units1: "",
-                frequency1: "",
-                mode1: "",
-                note1: "",
-                //diagnosis 2
-                diagnosis2: "",
-                medication2: "",
-                amount2: "",
-                units2: "",
-                frequency2: "",
-                mode2: "",
-                //diagnosis 3
-                diagnosis3: "",
-                medication3: "",
-                amount3: "",
-                units3: "",
-                frequency3: "",
-                mode3: "",
-              }}
+              initialValues = {initialValues}
               validationSchema={validationSchema}
               onSubmit={(values, { setSubmitting }) => {
                 setSubmitting(true);
@@ -82,34 +88,64 @@ export default class Diagnosis extends Component {
               {({
                 handleSubmit,
                 handleChange,
-                handleBlur,
                 isSubmitting,
                 values,
                 isInvalid,
+                handleBlur,
                 errors,
+                touched,
+                setValues
               }) => (
                 <div>
                   <Form noValidate onSubmit={handleSubmit}>
-                    <Collapsible trigger="Diagnosis 1">
-                      <Form.Row>
+                    <Form.Row>
+                      <Form.Group>
+                        <label>Number of Diagnosis</label>
+                        <Field name="numberOfDiagnosis">
+                          {({ field }) => (
+                            <select {...field}  
+                            name= "numberOfDiagnosis"
+                            isInvalid={!!errors}
+                            as={Form.Control}
+                            onChange={e => onChangeDiagnosis(e, field, values, setValues)}
+                           >
+                              <option value=""></option>
+                                            {[1,2,3,4,5,6,7,8,9,10].map(i => 
+                                                <option key={i} value={i}>{i}</option>
+                                            )}
+                            </select>
+                          )}
+                        </Field>
+                      </Form.Group>
+                    </Form.Row>
+                    <FieldArray name="symptoms">
+                        {() => (values.symptoms.map((symptom, i) => {
+                            const ticketErrors = errors.symptoms?.length && errors.symptoms[i] || {};
+                            const ticketTouched = touched.tickets?.length && touched.tickets[i] || {};
+                            return (
+                                <div key={i} className="list-group list-group-flush">
+                                    <div className="list-group-item">
+                                      <Collapsible trigger={`Diagnosis ${i+1}`}>
+
+                                        <Form.Row>
                         <InputField
-                          name="diagnosis1"
+                          name={`symptoms.${i}.diagnosis`}
                           label="Diagnosis"
                           handleChange={handleChange}
-                          errors={errors.diagnosis1}
+                          errors={errors.diagnosis}
                         />
                         <InputField
-                          name="medication1"
+                          name={`symptoms.${i}.medication`}
                           label="Medication"
                           handleChange={handleChange}
-                          errors={errors.medication1}
+                          errors={errors.medication}
                         />
                       </Form.Row>
                       <Form.Row>
                         <RadioField
-                          name="mode1"
+                          name={`symptoms.${i}.mode`}
                           label="Mode"
-                          errors={errors.mode1}
+                          errors={errors.mode}
                           options={ModeRadioOptions}
                         />
                         <InputGroup className="mb-4">
@@ -117,36 +153,36 @@ export default class Diagnosis extends Component {
                             <InputGroup.Text>Other</InputGroup.Text>
                           </InputGroup.Prepend>
                           <Field
-                            name="mode1"
+                            name="mode"
                             type="input"
                             inline
                             as={Form.Control}
                             onChange={handleChange}
-                            isInvalid={!!errors.mode1}
+                            isInvalid={!!errors.mode}
                           />
                           <Form.Control.Feedback type="invalid">
-                            {errors.mode1}
+                            {errors.mode}
                           </Form.Control.Feedback>
                         </InputGroup>
                       </Form.Row>
                       <Form.Row>
                         <InputField
-                          name="amount1"
+                          name={`symptoms.${i}.amount`}
                           label="Amount"
                           handleChange={handleChange}
-                          errors={errors.amount1}
+                          errors={errors.amount}
                         />
                         <InputField
-                          name="units1"
+                          name={`symptoms.${i}.units`}
                           label="Units"
                           handleChange={handleChange}
-                          errors={errors.units1}
+                          errors={errors.units}
                         />
                         <InputField
-                          name="frequency1"
+                          name={`symptoms.${i}.frequency`}
                           label="Frequency"
                           handleChange={handleChange}
-                          errors={errors.frequency1}
+                          errors={errors.frequency}
                         />
                       </Form.Row>
                       <Form.Row>
@@ -155,7 +191,7 @@ export default class Diagnosis extends Component {
                             <InputGroup.Text>Special Notes</InputGroup.Text>
                           </InputGroup.Prepend>
                           <Field
-                            name="note1"
+                            name={`symptoms.${i}.note`}
                             type="input"
                             inline
                             as={Form.Control}
@@ -163,263 +199,13 @@ export default class Diagnosis extends Component {
                           />
                         </InputGroup>
                       </Form.Row>
-                    </Collapsible>
-                    <Collapsible trigger="Diagnosis 2">
-                      <Form.Row>
-                        <Form.Group as={Col} md="4" controlId="formDiagnosis2">
-                          <Form.Label>Diagnosis</Form.Label>
-                          <Field
-                            name="diagnosis2"
-                            type="input"
-                            as={Form.Control}
-                            onChange={handleChange}
-                            isInvalid={!!errors.diagnosis2}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            {errors.diagnosis2}
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group as={Col} md="4" controlId="formMedication2">
-                          <Form.Label>Medication</Form.Label>
-                          <Field
-                            name="medication2"
-                            type="input"
-                            as={FormControl}
-                            onChange={handleChange}
-                            isInvalid={!!errors.medication2}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            {errors.medication2}
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                      </Form.Row>
-                      <Form.Row>
-                        <Form.Group as={Col} controlId="formMode2">
-                          <Form.Label>Mode</Form.Label>
-                          <Container>
-                            <Form.Row>
-                              <Col>
-                                <Field
-                                  name="mode2"
-                                  value="pill"
-                                  label="Pill"
-                                  type="radio"
-                                  inline
-                                  as={Form.Check}
-                                  isInvalid={!!errors.mode2}
-                                />
-                                <Field
-                                  name="mode2"
-                                  value="syrup"
-                                  label="Syrup"
-                                  type="radio"
-                                  inline
-                                  as={Form.Check}
-                                  isInvalid={!!errors.mode2}
-                                />
-                                <Field
-                                  name="mode2"
-                                  value="injection"
-                                  label="Injection"
-                                  type="radio"
-                                  inline
-                                  as={Form.Check}
-                                  isInvalid={!!errors.mode2}
-                                />
-                                <Field
-                                  name="mode2"
-                                  value="topical"
-                                  label="Topical"
-                                  type="radio"
-                                  inline
-                                  as={Form.Check}
-                                  isInvalid={!!errors.mode2}
-                                />
-                                <Field
-                                  name="mode2"
-                                  value="other"
-                                  label="Other"
-                                  type="radio"
-                                  inline
-                                  as={Form.Check}
-                                  isInvalid={!!errors.mode2}
-                                  feedback={errors.mode2}
-                                />
-                              </Col>
-                            </Form.Row>
-                          </Container>
-                        </Form.Group>
-                      </Form.Row>
-                      <Form.Row>
-                        <Form.Group as={Col} md="4" controlId="formAmount">
-                          <Form.Label>Amount</Form.Label>
-                          <Field
-                            name="amount2"
-                            type="input"
-                            as={Form.Control}
-                            onChange={handleChange}
-                            isInvalid={!!errors.amount2}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            {errors.amount2}
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group as={Col} md="4" controlId="formUnits2">
-                          <Form.Label>Units</Form.Label>
-                          <Field
-                            name="units2"
-                            type="input"
-                            as={FormControl}
-                            onChange={handleChange}
-                            isInvalid={!!errors.units2}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            {errors.units2}
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group as={Col} md="4" controlId="formFrequency2">
-                          <Form.Label>Frequency</Form.Label>
-                          <Field
-                            name="frequency2"
-                            type="input"
-                            as={FormControl}
-                            onChange={handleChange}
-                            isInvalid={!!errors.frequency2}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            {errors.frequency2}
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                      </Form.Row>
-                    </Collapsible>
-                    <Collapsible trigger="Diagnosis 3">
-                      <Form.Row>
-                        <Form.Group as={Col} md="4" controlId="formDiagnosis3">
-                          <Form.Label>Diagnosis</Form.Label>
-                          <Field
-                            name="diagnosis3"
-                            type="input"
-                            as={Form.Control}
-                            onChange={handleChange}
-                            isInvalid={!!errors.diagnosis3}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            {errors.diagnosis3}
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group as={Col} md="4" controlId="formMedication3">
-                          <Form.Label>Medication</Form.Label>
-                          <Field
-                            name="medication3"
-                            type="input"
-                            as={FormControl}
-                            onChange={handleChange}
-                            isInvalid={!!errors.medication3}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            {errors.medication3}
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                      </Form.Row>
-                      <Form.Row>
-                        <Form.Group as={Col} controlId="formMode3">
-                          <Form.Label>Mode</Form.Label>
-                          <Container>
-                            <Form.Row>
-                              <Col>
-                                <Field
-                                  name="mode3"
-                                  value="pill"
-                                  label="Pill"
-                                  type="radio"
-                                  inline
-                                  as={Form.Check}
-                                  isInvalid={!!errors.mode3}
-                                />
-                                <Field
-                                  name="mode3"
-                                  value="syrup"
-                                  label="Syrup"
-                                  type="radio"
-                                  inline
-                                  as={Form.Check}
-                                  isInvalid={!!errors.mode3}
-                                />
-                                <Field
-                                  name="mode3"
-                                  value="injection"
-                                  label="Injection"
-                                  type="radio"
-                                  inline
-                                  as={Form.Check}
-                                  isInvalid={!!errors.mode3}
-                                />
-                                <Field
-                                  name="mode3"
-                                  value="topical"
-                                  label="Topical"
-                                  type="radio"
-                                  inline
-                                  as={Form.Check}
-                                  isInvalid={!!errors.mode3}
-                                />
-                                <Field
-                                  name="mode3"
-                                  value="other"
-                                  label="Other"
-                                  type="radio"
-                                  inline
-                                  as={Form.Check}
-                                  isInvalid={!!errors.mode3}
-                                  feedback={errors.mode3}
-                                />
-                              </Col>
-                            </Form.Row>
-                          </Container>
-                        </Form.Group>
-                      </Form.Row>
-                      <Form.Row>
-                        <Form.Group as={Col} md="4" controlId="formAmount">
-                          <Form.Label>Amount</Form.Label>
-                          <Field
-                            name="amount3"
-                            type="input"
-                            as={Form.Control}
-                            onChange={handleChange}
-                            isInvalid={!!errors.amount3}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            {errors.amount3}
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group as={Col} md="4" controlId="formUnits3">
-                          <Form.Label>Units</Form.Label>
-                          <Field
-                            name="units3"
-                            type="input"
-                            as={FormControl}
-                            onChange={handleChange}
-                            isInvalid={!!errors.units3}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            {errors.units3}
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group as={Col} md="4" controlId="formFrequency3">
-                          <Form.Label>Frequency</Form.Label>
-                          <Field
-                            name="frequency3"
-                            type="input"
-                            as={FormControl}
-                            onChange={handleChange}
-                            isInvalid={!!errors.frequency3}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            {errors.frequency3}
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                      </Form.Row>
-                    </Collapsible>
+                      </Collapsible>
+
+                                    </div>
+                                </div>
+                            );
+                        }))}
+                        </FieldArray>
                     <Button
                       variant="secondary"
                       type="submit"
@@ -436,5 +222,7 @@ export default class Diagnosis extends Component {
         </Wrapper>
       </DiagnosisStyled>
     );
-  }
+  
 }
+
+export default Diagnosis;

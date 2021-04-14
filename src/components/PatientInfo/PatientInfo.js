@@ -5,13 +5,13 @@ import Wrapper from "../Wrapper/Wrapper";
 import styled from "styled-components";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
-import PatientInfoInputField from "../FormFields/InputField";
-import PatientInfoRadioField from "../FormFields/RadioField";
+import InputField from "../FormFields/InputField";
+import RadioField from "../FormFields/RadioField";
 
 const PatientInfoStyled = styled.div`
     background-color: white;
 `;
-
+const col = 4;
 const GenderRadioOptions = ["male", "female", "non-binary", "other"];
 const SubRelRadioOptions = ["self", "spouse", "dependent"];
 const REQUIRED_MESSAGE = "Required";
@@ -100,35 +100,39 @@ export default class PatientInfo extends Component {
                             }) => (
                                 <Form noValidate onSubmit={handleSubmit}>
                                     <Form.Row>
-                                        <PatientInfoInputField
+                                        <InputField
                                             name="firstName"
                                             label="First Name"
                                             handleChange={handleChange}
                                             errors={errors.firstName}
+                                            col={col}
                                         />
-                                        <PatientInfoInputField
+                                        <InputField
                                             name="lastName"
                                             label="Last Name"
                                             handleChange={handleChange}
                                             errors={errors.lastName}
+                                            col={col}
                                         />
                                     </Form.Row>
                                     <Form.Row>
-                                        <PatientInfoInputField
+                                        <InputField
                                             name="age"
                                             label="Age"
                                             handleChange={handleChange}
                                             errors={errors.age}
+                                            col={col}
                                         />
-                                        <PatientInfoInputField
+                                        <InputField
                                             name="weight"
                                             label="Weight"
                                             handleChange={handleChange}
                                             errors={errors.weight}
+                                            col={col}
                                         />
                                     </Form.Row>
                                     <Form.Row>
-                                        <PatientInfoRadioField
+                                        <RadioField
                                             name="gender"
                                             label="Gender"
                                             errors={errors.gender}
@@ -136,29 +140,32 @@ export default class PatientInfo extends Component {
                                         />
                                     </Form.Row>
                                     <Form.Row>
-                                        <PatientInfoInputField
+                                        <InputField
                                             name="companyName"
                                             label="Insurance Company Name"
                                             handleChange={handleChange}
                                             errors={errors.companyName}
+                                            col={col}
                                         />
                                     </Form.Row>
                                     <Form.Row>
-                                        <PatientInfoInputField
+                                        <InputField
                                             name="subscriberName"
                                             label="Subscriber Name"
                                             handleChange={handleChange}
                                             errors={errors.subscriberName}
+                                            col={col}
                                         />
-                                        <PatientInfoInputField
+                                        <InputField
                                             name="memberId"
                                             label="Member ID"
                                             handleChange={handleChange}
                                             errors={errors.memberId}
+                                            col={col}
                                         />
                                     </Form.Row>
                                     <Form.Row>
-                                        <PatientInfoRadioField
+                                        <RadioField
                                             name="subscriberRelationship"
                                             label="Relationship to Subscriber"
                                             errors={
@@ -199,6 +206,7 @@ export default class PatientInfo extends Component {
                                         </Form.Group>
                                     </Form.Row>
                                     <pre>{JSON.stringify(values, null, 2)}</pre>
+                                    {console.log("patient" + errors)}
                                 </Form>
                             )}
                         </Formik>

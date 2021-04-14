@@ -6,10 +6,10 @@ import styled from "styled-components";
 import Wrapper from "../Wrapper/Wrapper";
 
 const Section1Styled = styled.div`
-    background-color: white;
-    .active {
-        border-bottom: 1px solid white;
-    }
+  background-color: white;
+  .active {
+    border-bottom: 1px solid white;
+  }
 `;
 
 export default class Home extends Component {

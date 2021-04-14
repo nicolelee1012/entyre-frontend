@@ -18,5 +18,5 @@ const WrapperStyled = styled.div`
 `;
 
 export default function Wrapper({ children }) {
-  return <WrapperStyled>{children}</WrapperStyled>;
+    return <WrapperStyled>{children}</WrapperStyled>;
 }

@@ -1,0 +1,21 @@
+.table {
+    border-bottom: 1px solid #bdbdbd;
+    table-layout: fixed !important;
+    height: 350px;
+}
+
+.table thead th {
+    border-top: 1px solid #bdbdbd !important;
+    border-left: 1px solid #bdbdbd !important;
+    border-right: 1px solid #bdbdbd !important;
+}
+
+.table td {
+    border-left: 1px solid #bdbdbd;
+    border-right: 1px solid #bdbdbd;
+    border-top: none !important;
+}
+
+.creatableselect {
+    width: 200px;
+}

@@ -3,16 +3,17 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Col, Form } from "react-bootstrap";
 import { Field } from "formik";
 
-const PatientInfoInputField = ({
+const InputField = ({
     name,
     label,
     handleChange,
     isInvalid,
     errors,
+    col,
     ...props
 }) => {
     return (
-        <Form.Group as={Col} md="4" controlId={name}>
+        <Form.Group as={Col} md={col} controlId={name}>
             <Form.Label>{label}</Form.Label>
             <Field
                 name={name}
@@ -28,4 +29,4 @@ const PatientInfoInputField = ({
     );
 };
 
-export default PatientInfoInputField;
+export default InputField;

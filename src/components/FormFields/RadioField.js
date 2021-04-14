@@ -12,13 +12,7 @@ function titleCase(str) {
     return splitStr.join("-");
 }
 
-const PatientInfoRadioField = ({
-    name,
-    label,
-    isInvalid,
-    errors,
-    ...props
-}) => {
+const RadioField = ({ name, label, isInvalid, errors, ...props }) => {
     const { options } = props;
     return (
         <Form.Group as={Col}>
@@ -43,4 +37,4 @@ const PatientInfoRadioField = ({
     );
 };
 
-export default PatientInfoRadioField;
+export default RadioField;

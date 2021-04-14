@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Col, Form, Container } from "react-bootstrap";
-import { Field } from "formik";
+import { Field, useField, getIn } from "formik";
 
 function titleCase(str) {
     var splitStr = str.toLowerCase().split("-");
@@ -28,6 +28,40 @@ const RadioField = ({ name, label, isInvalid, errors, ...props }) => {
                             inline
                             as={Form.Check}
                             isInvalid={!!errors}
+                            controlId={option}
+                        />
+                    ))}
+                </Form.Row>
+            </Container>
+        </Form.Group>
+    );
+};
+
+export const DiagnosisRadioField = ({
+    name,
+    label,
+    isInvalid,
+    errors,
+    ...props
+}) => {
+    const { options } = props;
+    const [meta] = useField(props);
+    const getError = getIn(meta.error, name);
+    const invalid = !!getError;
+    return (
+        <Form.Group as={Col}>
+            <Form.Label>{label}</Form.Label>
+            <Container>
+                <Form.Row>
+                    {options.map((option) => (
+                        <Field
+                            name={name}
+                            value={option}
+                            label={titleCase(option)}
+                            type="radio"
+                            inline
+                            as={Form.Check}
+                            isInvalid={invalid}
                             controlId={option}
                         />
                     ))}

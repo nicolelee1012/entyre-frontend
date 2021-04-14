@@ -206,6 +206,7 @@ export default class PatientInfo extends Component {
                                         </Form.Group>
                                     </Form.Row>
                                     <pre>{JSON.stringify(values, null, 2)}</pre>
+                                    {console.log("patient" + errors)}
                                 </Form>
                             )}
                         </Formik>

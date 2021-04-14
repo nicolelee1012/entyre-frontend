@@ -1,14 +1,14 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, InputGroup, Container, Form } from "react-bootstrap";
-import { Formik, Field, FieldArray } from "formik";
+import { Formik, Field, FieldArray, getIn } from "formik";
 import Wrapper from "../Wrapper/Wrapper";
 import styled from "styled-components";
 import * as yup from "yup";
 import Collapsible from "react-collapsible";
 import "./Diagnosis.css";
-import InputField from "../FormFields/InputField";
-import RadioField from "../FormFields/RadioField";
+import { DiagnosisInputField } from "../FormFields/InputField";
+import { DiagnosisRadioField } from "../FormFields/RadioField";
 
 function Diagnosis() {
     const DiagnosisStyled = styled.div`
@@ -17,20 +17,23 @@ function Diagnosis() {
 
     const ModeRadioOptions = ["Pill", "Syrup", "Injection", "Topical"];
     const REQUIRED_MESSAGE = "Required";
-    const validationSchema = yup.object({
+    const validationSchema = yup.object().shape({
         // numberOfDiagnosis: yup
         //     .string()
         //     .required("Number of diagnosis is required"),
-        symptoms: yup.array().of(
-            yup.object({
-                diagnosis: yup.string().required(REQUIRED_MESSAGE),
-                medication: yup.string().required(REQUIRED_MESSAGE),
-                amount: yup.number().required(REQUIRED_MESSAGE),
-                units: yup.number().required(REQUIRED_MESSAGE),
-                frequency: yup.string().required(REQUIRED_MESSAGE),
-                mode: yup.string().required(REQUIRED_MESSAGE),
-            })
-        ),
+        symptoms: yup
+            .array()
+            .of(
+                yup.object().shape({
+                    diagnosis: yup.string().required(REQUIRED_MESSAGE),
+                    medication: yup.string().required(REQUIRED_MESSAGE),
+                    amount: yup.number().required(REQUIRED_MESSAGE),
+                    units: yup.number().required(REQUIRED_MESSAGE),
+                    frequency: yup.string().required(REQUIRED_MESSAGE),
+                    mode: yup.string().required(REQUIRED_MESSAGE),
+                })
+            )
+            .required(REQUIRED_MESSAGE),
     });
 
     const initialValues = {
@@ -99,7 +102,7 @@ function Diagnosis() {
                             isInvalid,
                             handleBlur,
                             errors,
-                            // touched,
+                            touched,
                             setValues,
                         }) => (
                             <div>
@@ -148,163 +151,165 @@ function Diagnosis() {
                                             </Field>
                                         </Form.Group>
                                     </Form.Row>
-                                    <FieldArray name="symptoms">
-                                        {() =>
-                                            values.symptoms.map(
-                                                (symptom, i) => {
-                                                    // const ticketErrors =
-                                                    //     (errors.symptoms
-                                                    //         ?.length &&
-                                                    //         errors.symptoms[
-                                                    //             i
-                                                    //         ]) ||
-                                                    //     {};
-                                                    // const ticketTouched =
-                                                    //     (touched.symptoms
-                                                    //         ?.length &&
-                                                    //         touched.symptoms[
-                                                    //             i
-                                                    //         ]) ||
-                                                    //     {};
-                                                    return (
-                                                        <div
-                                                            key={i}
-                                                            className="list-group list-group-flush"
-                                                        >
-                                                            <div className="list-group-item">
-                                                                <Collapsible
-                                                                    trigger={`Diagnosis ${
-                                                                        i + 1
-                                                                    }`}
-                                                                >
-                                                                    <Form.Row>
-                                                                        <InputField
-                                                                            name={`symptoms.${i}.diagnosis`}
-                                                                            type="text"
-                                                                            label="Diagnosis"
-                                                                            handleChange={
-                                                                                handleChange
-                                                                            }
-                                                                            errors={
-                                                                                errors.diagnosis
-                                                                            }
-                                                                            col={
-                                                                                3
-                                                                            }
-                                                                        />
-                                                                        <InputField
-                                                                            name={`symptoms.${i}.medication`}
-                                                                            label="Medication"
-                                                                            handleChange={
-                                                                                handleChange
-                                                                            }
-                                                                            errors={
-                                                                                errors.medication
-                                                                            }
-                                                                            col={
-                                                                                3
-                                                                            }
-                                                                        />
-                                                                    </Form.Row>
-                                                                    <Form.Row>
-                                                                        <RadioField
-                                                                            name={`symptoms.${i}.mode`}
-                                                                            label="Mode"
-                                                                            errors={
-                                                                                errors.mode
-                                                                            }
-                                                                            options={
-                                                                                ModeRadioOptions
-                                                                            }
-                                                                        />
-                                                                        <InputGroup className="mb-4">
-                                                                            <InputGroup.Prepend>
-                                                                                <InputGroup.Text>
-                                                                                    Other
-                                                                                </InputGroup.Text>
-                                                                            </InputGroup.Prepend>
-                                                                            <Field
-                                                                                name={`symptoms.${i}.mode`}
-                                                                                type="input"
-                                                                                inline
-                                                                                as={
-                                                                                    Form.Control
-                                                                                }
-                                                                                onChange={
+                                    <Form.Group>
+                                        <FieldArray name="symptoms">
+                                            {() =>
+                                                values.symptoms.map(
+                                                    (symptom, i) => {
+                                                        // const ticketErrors =
+                                                        //     (errors.symptoms
+                                                        //         ?.length &&
+                                                        //         errors.symptoms[
+                                                        //             i
+                                                        //         ]) ||
+                                                        //     {};
+                                                        // const ticketTouched =
+                                                        //     (touched.symptoms
+                                                        //         ?.length &&
+                                                        //         touched.symptoms[
+                                                        //             i
+                                                        //         ]) ||
+                                                        //     {};
+
+                                                        return (
+                                                            <div
+                                                                key={i}
+                                                                className="list-group list-group-flush"
+                                                            >
+                                                                <div className="list-group-item">
+                                                                    <Collapsible
+                                                                        trigger={`Diagnosis ${
+                                                                            i +
+                                                                            1
+                                                                        }`}
+                                                                    >
+                                                                        <Form.Row>
+                                                                            <DiagnosisInputField
+                                                                                name={`symptoms.${i}.diagnosis`}
+                                                                                label="Diagnosis"
+                                                                                handleChange={
                                                                                     handleChange
                                                                                 }
-                                                                                isInvalid={
-                                                                                    !!errors.mode
+                                                                                col={
+                                                                                    3
                                                                                 }
                                                                             />
-                                                                            <Form.Control.Feedback type="invalid">
-                                                                                {
+                                                                            {console.log(
+                                                                                "diagnosis " +
+                                                                                    errors.symptoms
+                                                                            )}
+                                                                            <DiagnosisInputField
+                                                                                name={`symptoms.${i}.medication`}
+                                                                                label="Medication"
+                                                                                handleChange={
+                                                                                    handleChange
+                                                                                }
+                                                                                col={
+                                                                                    3
+                                                                                }
+                                                                            />
+                                                                        </Form.Row>
+                                                                        <Form.Row>
+                                                                            <DiagnosisRadioField
+                                                                                name={`symptoms.${i}.mode`}
+                                                                                label="Mode"
+                                                                                errors={
                                                                                     errors.mode
                                                                                 }
-                                                                            </Form.Control.Feedback>
-                                                                        </InputGroup>
-                                                                    </Form.Row>
-                                                                    <Form.Row>
-                                                                        <InputField
-                                                                            name={`symptoms.${i}.amount`}
-                                                                            label="Amount"
-                                                                            handleChange={
-                                                                                handleChange
-                                                                            }
-                                                                            errors={
-                                                                                errors.amount
-                                                                            }
-                                                                        />
-                                                                        <InputField
-                                                                            name={`symptoms.${i}.units`}
-                                                                            label="Units"
-                                                                            handleChange={
-                                                                                handleChange
-                                                                            }
-                                                                            errors={
-                                                                                errors.units
-                                                                            }
-                                                                        />
-                                                                        <InputField
-                                                                            name={`symptoms.${i}.frequency`}
-                                                                            label="Frequency"
-                                                                            handleChange={
-                                                                                handleChange
-                                                                            }
-                                                                            errors={
-                                                                                errors.frequency
-                                                                            }
-                                                                        />
-                                                                    </Form.Row>
-                                                                    <Form.Row>
-                                                                        <InputGroup className="mb-4">
-                                                                            <InputGroup.Prepend>
-                                                                                <InputGroup.Text>
-                                                                                    Special
-                                                                                    Notes
-                                                                                </InputGroup.Text>
-                                                                            </InputGroup.Prepend>
-                                                                            <Field
-                                                                                name={`symptoms.${i}.note`}
-                                                                                type="input"
-                                                                                inline
-                                                                                as={
-                                                                                    Form.Control
-                                                                                }
-                                                                                onChange={
-                                                                                    handleChange
+                                                                                options={
+                                                                                    ModeRadioOptions
                                                                                 }
                                                                             />
-                                                                        </InputGroup>
-                                                                    </Form.Row>
-                                                                </Collapsible>
+                                                                            <InputGroup className="mb-4">
+                                                                                <InputGroup.Prepend>
+                                                                                    <InputGroup.Text>
+                                                                                        Other
+                                                                                    </InputGroup.Text>
+                                                                                </InputGroup.Prepend>
+                                                                                <Field
+                                                                                    name={`symptoms.${i}.mode`}
+                                                                                    type="input"
+                                                                                    inline
+                                                                                    as={
+                                                                                        Form.Control
+                                                                                    }
+                                                                                    onChange={
+                                                                                        handleChange
+                                                                                    }
+                                                                                    isInvalid={getIn(
+                                                                                        errors,
+                                                                                        `symptoms.${i}.mode`
+                                                                                    )}
+                                                                                />
+                                                                                <Form.Control.Feedback type="invalid">
+                                                                                    {
+                                                                                        errors.mode
+                                                                                    }
+                                                                                </Form.Control.Feedback>
+                                                                            </InputGroup>
+                                                                        </Form.Row>
+                                                                        <Form.Row>
+                                                                            <DiagnosisInputField
+                                                                                name={`symptoms.${i}.amount`}
+                                                                                label="Amount"
+                                                                                handleChange={
+                                                                                    handleChange
+                                                                                }
+                                                                                col={
+                                                                                    3
+                                                                                }
+                                                                            />
+                                                                            <DiagnosisInputField
+                                                                                name={`symptoms.${i}.units`}
+                                                                                label="Units"
+                                                                                handleChange={
+                                                                                    handleChange
+                                                                                }
+                                                                                col={
+                                                                                    3
+                                                                                }
+                                                                            />
+                                                                            <DiagnosisInputField
+                                                                                name={`symptoms.${i}.frequency`}
+                                                                                label="Frequency"
+                                                                                handleChange={
+                                                                                    handleChange
+                                                                                }
+                                                                                col={
+                                                                                    3
+                                                                                }
+                                                                            />
+                                                                        </Form.Row>
+                                                                        <Form.Row>
+                                                                            <InputGroup className="mb-4">
+                                                                                <InputGroup.Prepend>
+                                                                                    <InputGroup.Text>
+                                                                                        Special
+                                                                                        Notes
+                                                                                    </InputGroup.Text>
+                                                                                </InputGroup.Prepend>
+                                                                                <Field
+                                                                                    name={`symptoms.${i}.note`}
+                                                                                    type="input"
+                                                                                    inline
+                                                                                    as={
+                                                                                        Form.Control
+                                                                                    }
+                                                                                    onChange={
+                                                                                        handleChange
+                                                                                    }
+                                                                                />
+                                                                            </InputGroup>
+                                                                        </Form.Row>
+                                                                    </Collapsible>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    );
-                                                }
-                                            )
-                                        }
-                                    </FieldArray>
+                                                        );
+                                                    }
+                                                )
+                                            }
+                                        </FieldArray>
+                                    </Form.Group>
                                     <Button
                                         variant="secondary"
                                         type="submit"
@@ -313,6 +318,7 @@ function Diagnosis() {
                                         Submit
                                     </Button>
                                     <pre>{JSON.stringify(values, null, 2)}</pre>
+                                    <pre>{JSON.stringify(errors, null, 2)}</pre>
                                 </Form>
                             </div>
                         )}

@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./Optimization.css";
-import { Container, Row, Form, Col, Table } from "react-bootstrap";
+import { Container, Form, Table } from "react-bootstrap";
 import Wrapper from "../Wrapper/Wrapper";
 import styled from "styled-components";
 import CreatableSelect from "react-select/creatable";
+import { Formik, FieldArray, useField } from "formik";
 
 const OptimizationStyled = styled.div`
     background-color: white;
@@ -39,6 +40,21 @@ const options3 = [
 //     );
 // }
 
+const SelectField = (props) => {
+    const [field] = useField(props);
+    return (
+        <CreatableSelect
+            {...field}
+            closeMenuOnSelect={false}
+            isMulti
+            options={options1}
+            isClearable
+            onChange={this.handleChange}
+            onInputChange={this.handleInputChange}
+        />
+    );
+};
+
 export default class Optimization extends Component {
     state = {
         newValue1: [options1[0].value],
@@ -62,88 +78,156 @@ export default class Optimization extends Component {
                 <Wrapper>
                     <Container fluid="md">
                         <h1>Symptoms and Side Effects</h1>
-                        <Container className="flex-row justify-content-center">
-                            <Row>
-                                <Col>
-                                    <Table responsive="sm">
-                                        <thead className="thead-light">
-                                            <tr>
-                                                <th>Symptoms & Side Effects</th>
-                                                <th>Frequency</th>
-                                                <th>Notable Patterns</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {/* {personArray.map(this.renderPerson)} */}
-                                            <tr>
-                                                <td>
-                                                    <div className="creatableselect">
-                                                        <CreatableSelect
-                                                            closeMenuOnSelect={
-                                                                false
-                                                            }
-                                                            isMulti
-                                                            options={options1}
-                                                            isClearable
-                                                            onChange={
-                                                                this
-                                                                    .handleChange
-                                                            }
-                                                            onInputChange={
-                                                                this
-                                                                    .handleInputChange
-                                                            }
-                                                        />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div className="creatableselect">
-                                                        <CreatableSelect
-                                                            closeMenuOnSelect={
-                                                                false
-                                                            }
-                                                            isMulti
-                                                            options={options2}
-                                                            isClearable
-                                                            onChange={
-                                                                this
-                                                                    .handleChange
-                                                            }
-                                                            onInputChange={
-                                                                this
-                                                                    .handleInputChange
-                                                            }
-                                                        />
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div className="creatableselect">
-                                                        <CreatableSelect
-                                                            closeMenuOnSelect={
-                                                                false
-                                                            }
-                                                            isMulti
-                                                            options={options3}
-                                                            isClearable
-                                                            onChange={
-                                                                this
-                                                                    .handleChange
-                                                            }
-                                                            onInputChange={
-                                                                this
-                                                                    .handleInputChange
-                                                            }
-                                                        />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </Table>
-                                </Col>
-                            </Row>
-                            <pre>{this.state.newValue1}</pre>
-                        </Container>
-                        <Form.Row></Form.Row>
+                        <Formik
+                            validateOnChange={true}
+                            initialValues={{
+                                sideEffects: [],
+                                frequency: [],
+                                patterns: [],
+                            }}
+                            // validationSchema={validationSchema}
+                            onSubmit={(
+                                values,
+                                { setSubmitting, resetForm }
+                            ) => {
+                                // When button submits form and form is in the process of submitting, submit button is disabled
+                                setSubmitting(true);
+
+                                // Resets form after submission is complete
+                                resetForm();
+
+                                // make async call
+
+                                // Sets setSubmitting to false after form is reset
+                                setSubmitting(false);
+                            }}
+                        >
+                            {({
+                                handleSubmit,
+                                handleChange,
+                                isSubmitting,
+                                values,
+                                isInvalid,
+                                errors,
+                            }) => (
+                                <Form noValidate onSubmit={handleSubmit}>
+                                    <Container className="flex-row justify-content-center">
+                                        <Form.Row>
+                                            <Table responsive="sm">
+                                                <thead className="thead-light">
+                                                    <tr>
+                                                        <th>
+                                                            Symptoms & Side
+                                                            Effects
+                                                        </th>
+                                                        <th>Frequency</th>
+                                                        <th>
+                                                            Notable Patterns
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {/* {personArray.map(this.renderPerson)} */}
+                                                    <tr>
+                                                        <td>
+                                                            <Form.Group>
+                                                                <FieldArray name="sideEffects">
+                                                                    {() =>
+                                                                        values.sideEffects.map(
+                                                                            (
+                                                                                sideffect,
+                                                                                i
+                                                                            ) => {
+                                                                                return (
+                                                                                    <div
+                                                                                        className="creatableselect"
+                                                                                        key={
+                                                                                            i
+                                                                                        }
+                                                                                    >
+                                                                                        <SelectField />
+                                                                                        {/* <CreatableSelect
+                                                                                            closeMenuOnSelect={
+                                                                                                false
+                                                                                            }
+                                                                                            isMulti
+                                                                                            options={
+                                                                                                options1
+                                                                                            }
+                                                                                            isClearable
+                                                                                            onChange={
+                                                                                                this
+                                                                                                    .handleChange
+                                                                                            }
+                                                                                            onInputChange={
+                                                                                                this
+                                                                                                    .handleInputChange
+                                                                                            }
+                                                                                        /> */}
+                                                                                    </div>
+                                                                                );
+                                                                            }
+                                                                        )
+                                                                    }
+                                                                </FieldArray>
+                                                            </Form.Group>
+                                                        </td>
+                                                        <td>
+                                                            <div className="creatableselect">
+                                                                <CreatableSelect
+                                                                    closeMenuOnSelect={
+                                                                        false
+                                                                    }
+                                                                    isMulti
+                                                                    options={
+                                                                        options2
+                                                                    }
+                                                                    isClearable
+                                                                    onChange={
+                                                                        this
+                                                                            .handleChange
+                                                                    }
+                                                                    onInputChange={
+                                                                        this
+                                                                            .handleInputChange
+                                                                    }
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div className="creatableselect">
+                                                                <CreatableSelect
+                                                                    closeMenuOnSelect={
+                                                                        false
+                                                                    }
+                                                                    isMulti
+                                                                    options={
+                                                                        options3
+                                                                    }
+                                                                    isClearable
+                                                                    onChange={
+                                                                        this
+                                                                            .handleChange
+                                                                    }
+                                                                    onInputChange={
+                                                                        this
+                                                                            .handleInputChange
+                                                                    }
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </Table>
+                                        </Form.Row>
+                                        <pre>{this.state.newValue1}</pre>
+                                        <pre>
+                                            {JSON.stringify(values, null, 2)}
+                                        </pre>
+                                    </Container>
+                                </Form>
+                            )}
+                        </Formik>
                     </Container>
                 </Wrapper>
             </OptimizationStyled>

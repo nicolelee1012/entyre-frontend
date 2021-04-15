@@ -19,7 +19,7 @@ const validationSchema = yup.object({
     firstName: yup.string().required(REQUIRED_MESSAGE),
     lastName: yup.string().required(REQUIRED_MESSAGE),
     age: yup
-        .number()
+        .number("Age must be a whole number")
         .integer("Age must be an integer")
         .required(REQUIRED_MESSAGE)
         .test(
@@ -28,7 +28,7 @@ const validationSchema = yup.object({
             (age) => String(age).length <= 3
         ),
     weight: yup
-        .number()
+        .number("Weight must be a number with 1 decimal place")
         .required(REQUIRED_MESSAGE)
         .test(
             "maxDigitsAfterDecimal",
@@ -54,8 +54,8 @@ export default class PatientInfo extends Component {
                             initialValues={{
                                 firstName: "",
                                 lastName: "",
-                                age: 0,
-                                weight: 0,
+                                age: "",
+                                weight: "",
                                 gender: "",
                                 companyName: "",
                                 subscriberName: "",
@@ -103,15 +103,11 @@ export default class PatientInfo extends Component {
                                         <InputField
                                             name="firstName"
                                             label="First Name"
-                                            handleChange={handleChange}
-                                            errors={errors.firstName}
                                             col={col}
                                         />
                                         <InputField
                                             name="lastName"
                                             label="Last Name"
-                                            handleChange={handleChange}
-                                            errors={errors.lastName}
                                             col={col}
                                         />
                                     </Form.Row>
@@ -119,15 +115,11 @@ export default class PatientInfo extends Component {
                                         <InputField
                                             name="age"
                                             label="Age"
-                                            handleChange={handleChange}
-                                            errors={errors.age}
                                             col={col}
                                         />
                                         <InputField
                                             name="weight"
                                             label="Weight"
-                                            handleChange={handleChange}
-                                            errors={errors.weight}
                                             col={col}
                                         />
                                     </Form.Row>
@@ -143,8 +135,6 @@ export default class PatientInfo extends Component {
                                         <InputField
                                             name="companyName"
                                             label="Insurance Company Name"
-                                            handleChange={handleChange}
-                                            errors={errors.companyName}
                                             col={col}
                                         />
                                     </Form.Row>
@@ -152,15 +142,11 @@ export default class PatientInfo extends Component {
                                         <InputField
                                             name="subscriberName"
                                             label="Subscriber Name"
-                                            handleChange={handleChange}
-                                            errors={errors.subscriberName}
                                             col={col}
                                         />
                                         <InputField
                                             name="memberId"
                                             label="Member ID"
-                                            handleChange={handleChange}
-                                            errors={errors.memberId}
                                             col={col}
                                         />
                                     </Form.Row>

@@ -81,12 +81,12 @@ function Diagnosis() {
                         onSubmit={(values, { setSubmitting }) => {
                             setSubmitting(true);
 
-                            // const requestOptions = {
-                            //     credentials: "include",
-                            //     method: "POST",
-                            //     headers: { "Content-Type": "application/json" },
-                            //     body: JSON.stringify(values),
-                            // };
+                            const requestOptions = {
+                                 credentials: "include",
+                                 method: "POST",
+                                 headers: { "Content-Type": "application/json" },
+                                 body: JSON.stringify(values),
+                            };
 
                             alert("submit: " + JSON.stringify(values, null, 2));
                             console.log(
@@ -94,7 +94,7 @@ function Diagnosis() {
                                 getIn(values, "symptoms[0]")
                             );
 
-                            //fetch("http://localhost:8080/diagnosis-details", requestOptions);
+                            fetch("http://localhost:8080/diagnosis-details", requestOptions);
                             setSubmitting(false);
                         }}
                     >

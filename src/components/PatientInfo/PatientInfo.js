@@ -75,6 +75,7 @@ export default class PatientInfo extends Component {
 
                                 // make async call
                                 const requestOptions = {
+                                    credentials: "include", 
                                     method: "POST",
                                     headers: {
                                         "Content-Type": "application/json",

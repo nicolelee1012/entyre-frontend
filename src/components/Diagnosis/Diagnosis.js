@@ -7,7 +7,7 @@ import styled from "styled-components";
 import * as yup from "yup";
 import Collapsible from "react-collapsible";
 import "./Diagnosis.css";
-import { DiagnosisInputField } from "../FormFields/InputField";
+import InputField from "../FormFields/InputField";
 import { DiagnosisRadioField } from "../FormFields/RadioField";
 
 function Diagnosis() {
@@ -18,9 +18,9 @@ function Diagnosis() {
     const ModeRadioOptions = ["Pill", "Syrup", "Injection", "Topical"];
     const REQUIRED_MESSAGE = "Required";
     const validationSchema = yup.object().shape({
-        // numberOfDiagnosis: yup
-        //     .string()
-        //     .required("Number of diagnosis is required"),
+        numberOfDiagnosis: yup
+            .string()
+            .required("Number of diagnosis is required"),
         symptoms: yup
             .array()
             .of(
@@ -88,7 +88,11 @@ function Diagnosis() {
                             //     body: JSON.stringify(values),
                             // };
 
-                            console.log("submit: ", values);
+                            alert("submit: " + JSON.stringify(values, null, 2));
+                            console.log(
+                                "submit: ",
+                                getIn(values, "symptoms[0]")
+                            );
 
                             //fetch("http://localhost:8080/diagnosis-details", requestOptions);
                             setSubmitting(false);
@@ -184,12 +188,9 @@ function Diagnosis() {
                                                                         }`}
                                                                     >
                                                                         <Form.Row>
-                                                                            <DiagnosisInputField
+                                                                            <InputField
                                                                                 name={`symptoms.${i}.diagnosis`}
                                                                                 label="Diagnosis"
-                                                                                handleChange={
-                                                                                    handleChange
-                                                                                }
                                                                                 col={
                                                                                     3
                                                                                 }
@@ -198,12 +199,9 @@ function Diagnosis() {
                                                                                 "diagnosis " +
                                                                                     errors.symptoms
                                                                             )}
-                                                                            <DiagnosisInputField
+                                                                            <InputField
                                                                                 name={`symptoms.${i}.medication`}
                                                                                 label="Medication"
-                                                                                handleChange={
-                                                                                    handleChange
-                                                                                }
                                                                                 col={
                                                                                     3
                                                                                 }
@@ -249,32 +247,23 @@ function Diagnosis() {
                                                                             </InputGroup>
                                                                         </Form.Row>
                                                                         <Form.Row>
-                                                                            <DiagnosisInputField
+                                                                            <InputField
                                                                                 name={`symptoms.${i}.amount`}
                                                                                 label="Amount"
-                                                                                handleChange={
-                                                                                    handleChange
-                                                                                }
                                                                                 col={
                                                                                     3
                                                                                 }
                                                                             />
-                                                                            <DiagnosisInputField
+                                                                            <InputField
                                                                                 name={`symptoms.${i}.units`}
                                                                                 label="Units"
-                                                                                handleChange={
-                                                                                    handleChange
-                                                                                }
                                                                                 col={
                                                                                     3
                                                                                 }
                                                                             />
-                                                                            <DiagnosisInputField
+                                                                            <InputField
                                                                                 name={`symptoms.${i}.frequency`}
                                                                                 label="Frequency"
-                                                                                handleChange={
-                                                                                    handleChange
-                                                                                }
                                                                                 col={
                                                                                     3
                                                                                 }

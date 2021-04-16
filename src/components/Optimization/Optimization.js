@@ -4,8 +4,9 @@ import "./Optimization.css";
 import { Container, Form, Table } from "react-bootstrap";
 import Wrapper from "../Wrapper/Wrapper";
 import styled from "styled-components";
-import CreatableSelect from "react-select/creatable";
-import { Formik, FieldArray, useField } from "formik";
+// import * as yup from "yup";
+import { Formik } from "formik";
+import { SelectField } from "../FormFields/InputField";
 
 const OptimizationStyled = styled.div`
     background-color: white;
@@ -13,65 +14,44 @@ const OptimizationStyled = styled.div`
 
 // temporary values
 const options1 = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
+    { value: "headache", label: "Headache" },
+    { value: "nausea", label: "Nausea" },
+    { value: "soreness", label: "Soreness" },
 ];
 
-const options2 = [
-    { value: "red", label: "Red" },
-    { value: "yellow", label: "Yellow" },
-    { value: "blue", label: "Blue" },
-];
-
-const options3 = [
-    { value: "sunny", label: "Sunny" },
-    { value: "rainy", label: "Rainy" },
-    { value: "cloudy", label: "Cloudy" },
-];
-
-// function renderPerson(person, index) {
-//     return (
-//         <tr key={index}>
-//             <td>{person.name}</td>
-//             <td>{person.address}</td>
-//             <td>{person.age}</td>
-//         </tr>
-//     );
-// }
-
-const SelectField = (props) => {
-    const [field] = useField(props);
-    return (
-        <CreatableSelect
-            {...field}
-            closeMenuOnSelect={false}
-            isMulti
-            options={options1}
-            isClearable
-            onChange={this.handleChange}
-            onInputChange={this.handleInputChange}
-        />
+const filterOptions = (inputValue) => {
+    return options1.filter((i) =>
+        i.label.toLowerCase().includes(inputValue.toLowerCase())
     );
 };
 
+const promiseOptions = (inputValue) =>
+    new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(filterOptions(inputValue));
+        }, 1000);
+    });
+
+// const REQUIRED_MESSAGE = "Required";
+// const validationSchema = yup.object().shape({
+//     sideEffects: yup.array().of(
+//         yup.object().shape({
+//             value: yup.string().required(REQUIRED_MESSAGE),
+//         })
+//     ),
+//     frequency: yup.array().of(
+//         yup.object().shape({
+//             value: yup.string().required(REQUIRED_MESSAGE),
+//         })
+//     ),
+//     patterns: yup.array().of(
+//         yup.object().shape({
+//             value: yup.string().required(REQUIRED_MESSAGE),
+//         })
+//     ),
+// });
+
 export default class Optimization extends Component {
-    state = {
-        newValue1: [options1[0].value],
-    };
-    handleChange = (newValue, actionMeta) => {
-        console.group("Value Changed");
-        console.log(newValue);
-        this.setState({ newValue1: newValue.value });
-        console.log(`action: ${actionMeta.action}`);
-        console.groupEnd();
-    };
-    handleInputChange = (inputValue, actionMeta) => {
-        console.group("Input Changed");
-        console.log(inputValue);
-        console.log(`action: ${actionMeta.action}`);
-        console.groupEnd();
-    };
     render() {
         return (
             <OptimizationStyled id="optimization">
@@ -81,9 +61,9 @@ export default class Optimization extends Component {
                         <Formik
                             validateOnChange={true}
                             initialValues={{
-                                sideEffects: [],
-                                frequency: [],
-                                patterns: [],
+                                sideEffects: [{ value: "", label: "" }],
+                                frequency: [{ value: "", label: "" }],
+                                patterns: [{ value: "", label: "" }],
                             }}
                             // validationSchema={validationSchema}
                             onSubmit={(
@@ -107,8 +87,9 @@ export default class Optimization extends Component {
                                 handleChange,
                                 isSubmitting,
                                 values,
-                                isInvalid,
                                 errors,
+                                touched,
+                                setFieldValue,
                             }) => (
                                 <Form noValidate onSubmit={handleSubmit}>
                                     <Container className="flex-row justify-content-center">
@@ -127,100 +108,61 @@ export default class Optimization extends Component {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {/* {personArray.map(this.renderPerson)} */}
                                                     <tr>
                                                         <td>
                                                             <Form.Group>
-                                                                <FieldArray name="sideEffects">
-                                                                    {() =>
-                                                                        values.sideEffects.map(
-                                                                            (
-                                                                                sideffect,
-                                                                                i
-                                                                            ) => {
-                                                                                return (
-                                                                                    <div
-                                                                                        className="creatableselect"
-                                                                                        key={
-                                                                                            i
-                                                                                        }
-                                                                                    >
-                                                                                        <SelectField />
-                                                                                        {/* <CreatableSelect
-                                                                                            closeMenuOnSelect={
-                                                                                                false
-                                                                                            }
-                                                                                            isMulti
-                                                                                            options={
-                                                                                                options1
-                                                                                            }
-                                                                                            isClearable
-                                                                                            onChange={
-                                                                                                this
-                                                                                                    .handleChange
-                                                                                            }
-                                                                                            onInputChange={
-                                                                                                this
-                                                                                                    .handleInputChange
-                                                                                            }
-                                                                                        /> */}
-                                                                                    </div>
-                                                                                );
-                                                                            }
-                                                                        )
+                                                                <SelectField
+                                                                    name="sideEffects"
+                                                                    value={
+                                                                        values.sideEffects
                                                                     }
-                                                                </FieldArray>
+                                                                    onChange={
+                                                                        setFieldValue
+                                                                    }
+                                                                    promiseOptions={
+                                                                        promiseOptions
+                                                                    }
+                                                                    // error={
+                                                                    //     errors.sideEffects
+                                                                    // }
+                                                                    // touched={
+                                                                    //     touched.sideEffects
+                                                                    // }
+                                                                />
                                                             </Form.Group>
                                                         </td>
                                                         <td>
-                                                            <div className="creatableselect">
-                                                                <CreatableSelect
-                                                                    closeMenuOnSelect={
-                                                                        false
-                                                                    }
-                                                                    isMulti
-                                                                    options={
-                                                                        options2
-                                                                    }
-                                                                    isClearable
-                                                                    onChange={
-                                                                        this
-                                                                            .handleChange
-                                                                    }
-                                                                    onInputChange={
-                                                                        this
-                                                                            .handleInputChange
-                                                                    }
-                                                                />
-                                                            </div>
+                                                            <SelectField
+                                                                name="frequency"
+                                                                value={
+                                                                    values.frequency
+                                                                }
+                                                                onChange={
+                                                                    setFieldValue
+                                                                }
+                                                                promiseOptions={
+                                                                    promiseOptions
+                                                                }
+                                                            />
                                                         </td>
                                                         <td>
-                                                            <div className="creatableselect">
-                                                                <CreatableSelect
-                                                                    closeMenuOnSelect={
-                                                                        false
-                                                                    }
-                                                                    isMulti
-                                                                    options={
-                                                                        options3
-                                                                    }
-                                                                    isClearable
-                                                                    onChange={
-                                                                        this
-                                                                            .handleChange
-                                                                    }
-                                                                    onInputChange={
-                                                                        this
-                                                                            .handleInputChange
-                                                                    }
-                                                                />
-                                                            </div>
+                                                            <SelectField
+                                                                name="patterns"
+                                                                value={
+                                                                    values.patterns
+                                                                }
+                                                                onChange={
+                                                                    setFieldValue
+                                                                }
+                                                                promiseOptions={
+                                                                    promiseOptions
+                                                                }
+                                                            />
                                                         </td>
                                                     </tr>
                                                 </tbody>
                                             </Table>
                                         </Form.Row>
-                                        <pre>{this.state.newValue1}</pre>
                                         <pre>
                                             {JSON.stringify(values, null, 2)}
                                         </pre>

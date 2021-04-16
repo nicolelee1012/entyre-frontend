@@ -9,6 +9,7 @@ import Collapsible from "react-collapsible";
 import "./Diagnosis.css";
 import InputField from "../FormFields/InputField";
 import { DiagnosisRadioField } from "../FormFields/RadioField";
+import Search from "../Search/Search"
 
 function Diagnosis() {
     const DiagnosisStyled = styled.div`
@@ -188,13 +189,7 @@ function Diagnosis() {
                                                                         }`}
                                                                     >
                                                                         <Form.Row>
-                                                                            <InputField
-                                                                                name={`symptoms.${i}.diagnosis`}
-                                                                                label="Diagnosis"
-                                                                                col={
-                                                                                    3
-                                                                                }
-                                                                            />
+                                                                            <Search/>
                                                                             {console.log(
                                                                                 "diagnosis " +
                                                                                     errors.symptoms

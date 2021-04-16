@@ -4,6 +4,7 @@ import "./Optimization.css";
 import { Container, Form, Table } from "react-bootstrap";
 import Wrapper from "../Wrapper/Wrapper";
 import styled from "styled-components";
+// import * as yup from "yup";
 import { Formik } from "formik";
 import { SelectField } from "../FormFields/InputField";
 
@@ -13,9 +14,9 @@ const OptimizationStyled = styled.div`
 
 // temporary values
 const options1 = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
+    { value: "headache", label: "Headache" },
+    { value: "nausea", label: "Nausea" },
+    { value: "soreness", label: "Soreness" },
 ];
 
 const filterOptions = (inputValue) => {
@@ -30,6 +31,25 @@ const promiseOptions = (inputValue) =>
             resolve(filterOptions(inputValue));
         }, 1000);
     });
+
+// const REQUIRED_MESSAGE = "Required";
+// const validationSchema = yup.object().shape({
+//     sideEffects: yup.array().of(
+//         yup.object().shape({
+//             value: yup.string().required(REQUIRED_MESSAGE),
+//         })
+//     ),
+//     frequency: yup.array().of(
+//         yup.object().shape({
+//             value: yup.string().required(REQUIRED_MESSAGE),
+//         })
+//     ),
+//     patterns: yup.array().of(
+//         yup.object().shape({
+//             value: yup.string().required(REQUIRED_MESSAGE),
+//         })
+//     ),
+// });
 
 export default class Optimization extends Component {
     render() {
@@ -67,8 +87,8 @@ export default class Optimization extends Component {
                                 handleChange,
                                 isSubmitting,
                                 values,
-                                isInvalid,
                                 errors,
+                                touched,
                                 setFieldValue,
                             }) => (
                                 <Form noValidate onSubmit={handleSubmit}>
@@ -102,6 +122,12 @@ export default class Optimization extends Component {
                                                                     promiseOptions={
                                                                         promiseOptions
                                                                     }
+                                                                    // error={
+                                                                    //     errors.sideEffects
+                                                                    // }
+                                                                    // touched={
+                                                                    //     touched.sideEffects
+                                                                    // }
                                                                 />
                                                             </Form.Group>
                                                         </td>

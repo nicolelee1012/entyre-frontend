@@ -27,20 +27,21 @@ export class SelectField extends Component {
     handleChange = (value) => {
         this.props.onChange(this.props.name, value);
     };
-    // const getError = getIn(meta.error, name);
 
     render() {
         return (
-            <AsyncCreatableSelect
-                onChange={this.handleChange}
-                isMulti
-                cacheOptions
-                defaultOptions
-                loadOptions={this.props.promiseOptions}
-            />
-            // <Form.Control.Feedback type="invalid">
-            //     {getError}
-            // </Form.Control.Feedback>
+            <Form.Group>
+                <AsyncCreatableSelect
+                    onChange={this.handleChange}
+                    isMulti
+                    cacheOptions
+                    defaultOptions
+                    loadOptions={this.props.promiseOptions}
+                />
+                {/* {!!this.props.error && this.props.touched && (
+                    <div style={{ color: "red" }}>{this.props.error}</div>
+                )} */}
+            </Form.Group>
         );
     }
 }

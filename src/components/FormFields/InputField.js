@@ -13,6 +13,7 @@ const InputField = ({ name, label, handleChange, col, ...props }) => {
             <Field
                 {...field}
                 value={handleChange}
+                placeholder={"Type here..."}
                 isInvalid={getError && meta.touched}
                 as={Form.Control}
             />

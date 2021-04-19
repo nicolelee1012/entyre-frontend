@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Link } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Form, Container, InputGroup } from "react-bootstrap";
 import Wrapper from "../Wrapper/Wrapper";
@@ -8,9 +8,7 @@ import * as yup from "yup";
 import InputField from "../FormFields/InputField";
 import RadioField from "../FormFields/RadioField";
 
-const PatientInfoStyled = styled.div`
-    background-color: white;
-`;
+const PatientInfoStyled = styled.div``;
 const col = 4;
 const GenderRadioOptions = ["male", "female", "non-binary", "other"];
 const SubRelRadioOptions = ["self", "spouse", "dependent"];

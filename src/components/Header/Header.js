@@ -7,11 +7,11 @@ const NavbarStyled = styled.div`
   position: fixed;
   width: 200px;
   .header {
-    background: black;
+    background: #25683E;
     padding: 40px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     margin: 0;
     color: white;
     height: 100vh;

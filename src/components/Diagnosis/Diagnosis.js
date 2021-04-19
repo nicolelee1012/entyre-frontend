@@ -9,12 +9,10 @@ import Collapsible from "react-collapsible";
 import "./Diagnosis.css";
 import InputField from "../FormFields/InputField";
 import { DiagnosisRadioField } from "../FormFields/RadioField";
-import Search from "../Search/Search"
+import Search from "../Search/Search";
 
 function Diagnosis() {
-    const DiagnosisStyled = styled.div`
-        background-color: white;
-    `;
+    const DiagnosisStyled = styled.div``;
 
     const ModeRadioOptions = ["Pill", "Syrup", "Injection", "Topical"];
     const REQUIRED_MESSAGE = "Required";
@@ -83,10 +81,10 @@ function Diagnosis() {
                             setSubmitting(true);
 
                             const requestOptions = {
-                                 credentials: "include",
-                                 method: "POST",
-                                 headers: { "Content-Type": "application/json" },
-                                 body: JSON.stringify(values),
+                                credentials: "include",
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify(values),
                             };
 
                             alert("submit: " + JSON.stringify(values, null, 2));
@@ -95,7 +93,10 @@ function Diagnosis() {
                                 getIn(values, "symptoms[0]")
                             );
 
-                            fetch("http://localhost:8080/diagnosis-details", requestOptions);
+                            fetch(
+                                "http://localhost:8080/diagnosis-details",
+                                requestOptions
+                            );
                             setSubmitting(false);
                         }}
                     >
@@ -189,7 +190,7 @@ function Diagnosis() {
                                                                         }`}
                                                                     >
                                                                         <Form.Row>
-                                                                            <Search/>
+                                                                            <Search />
                                                                             {console.log(
                                                                                 "diagnosis " +
                                                                                     errors.symptoms

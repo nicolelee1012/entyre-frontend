@@ -8,9 +8,7 @@ import styled from "styled-components";
 import { Formik } from "formik";
 import { SelectField } from "../FormFields/InputField";
 
-const OptimizationStyled = styled.div`
-    background-color: white;
-`;
+const OptimizationStyled = styled.div``;
 
 // temporary values
 const options1 = [
@@ -61,9 +59,14 @@ export default class Optimization extends Component {
                         <Formik
                             validateOnChange={true}
                             initialValues={{
-                                sideEffects: [{ value: "", label: "" }],
-                                frequency: [{ value: "", label: "" }],
-                                patterns: [{ value: "", label: "" }],
+                                sideEffects: [
+                                    {
+                                        value: "",
+                                        label: "",
+                                        frequency: { value: "", label: "" },
+                                        patterns: { value: "", label: "" },
+                                    },
+                                ],
                             }}
                             // validationSchema={validationSchema}
                             onSubmit={(
@@ -135,7 +138,9 @@ export default class Optimization extends Component {
                                                             <SelectField
                                                                 name="frequency"
                                                                 value={
-                                                                    values.frequency
+                                                                    values
+                                                                        .sideEffects[0]
+                                                                        .frequency
                                                                 }
                                                                 onChange={
                                                                     setFieldValue

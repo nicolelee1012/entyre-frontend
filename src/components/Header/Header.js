@@ -7,7 +7,7 @@ const NavbarStyled = styled.div`
   position: fixed;
   width: 200px;
   .header {
-    background: #25683E;
+    background: #1e5733;
     padding: 40px;
     display: flex;
     flex-direction: column;
@@ -59,13 +59,14 @@ export default class Header extends Component {
                         </Link>
                     </li>
                     <li>
-                        <Link to="medication" spy={true} smooth={true}>
-                            Medication
-                        </Link>
-                    </li>
-                    <li>
                         <Link to="optimization" spy={true} smooth={true}>
                             Optimization
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link to="patientReport" spy={true} smooth={true}>
+                            Patient Report
                         </Link>
                     </li>
                 </ul>

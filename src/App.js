@@ -3,7 +3,7 @@ import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import PatientInfo from "./components/PatientInfo/PatientInfo";
 import Diagnosis from "./components/Diagnosis/Diagnosis";
-import Medication from "./components/Medication/Medication";
+import PatientReport from "./components/PatientReport/PatientReport";
 import Optimization from "./components/Optimization/Optimization";
 
 function App() {
@@ -13,8 +13,9 @@ function App() {
             <Home />
             <PatientInfo />
             <Diagnosis />
-            <Medication />
+
             <Optimization />
+            <PatientReport />
         </div>
     );
 }

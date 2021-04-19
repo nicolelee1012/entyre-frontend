@@ -2,6 +2,7 @@
     border-bottom: 1px solid #bdbdbd;
     table-layout: fixed !important;
     height: 350px;
+    background-color: white;
 }
 
 .table thead th {

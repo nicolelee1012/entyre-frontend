@@ -8,9 +8,7 @@ import * as yup from "yup";
 import InputField from "../FormFields/InputField";
 import RadioField from "../FormFields/RadioField";
 
-const PatientInfoStyled = styled.div`
-    background-color: white;
-`;
+const PatientInfoStyled = styled.div``;
 const col = 4;
 const GenderRadioOptions = ["male", "female", "non-binary", "other"];
 const SubRelRadioOptions = ["self", "spouse", "dependent"];
@@ -36,6 +34,10 @@ const validationSchema = yup.object({
             (weight) => /^\d+(\.\d{1})?$/.test(weight)
         ),
     gender: yup.string().required(REQUIRED_MESSAGE),
+    emailAddress: yup
+        .string()
+        .email("Invalid email")
+        .required(REQUIRED_MESSAGE),
     companyName: yup.string().required(REQUIRED_MESSAGE),
     subscriberName: yup.string().required(REQUIRED_MESSAGE),
     memberId: yup.string().required(REQUIRED_MESSAGE),
@@ -57,6 +59,7 @@ export default class PatientInfo extends Component {
                                 age: "",
                                 weight: "",
                                 gender: "",
+                                emailAddress: "",
                                 companyName: "",
                                 subscriberName: "",
                                 memberId: "",
@@ -75,7 +78,7 @@ export default class PatientInfo extends Component {
 
                                 // make async call
                                 const requestOptions = {
-                                    credentials: "include", 
+                                    credentials: "include",
                                     method: "POST",
                                     headers: {
                                         "Content-Type": "application/json",
@@ -133,6 +136,11 @@ export default class PatientInfo extends Component {
                                         />
                                     </Form.Row>
                                     <Form.Row>
+                                        <InputField
+                                            name="emailAddress"
+                                            label="Email Address"
+                                            col={col}
+                                        />
                                         <InputField
                                             name="companyName"
                                             label="Insurance Company Name"

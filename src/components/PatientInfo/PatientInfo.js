@@ -1,4 +1,4 @@
-import React, { Component, Link } from "react";
+import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Form, Container, InputGroup } from "react-bootstrap";
 import Wrapper from "../Wrapper/Wrapper";

@@ -50,7 +50,7 @@ export default class PatientInfo extends Component {
             <PatientInfoStyled id="patientInfo">
                 <Wrapper>
                     <Container>
-                        <h1>Patient Information</h1>
+                        <h2>Patient Information 👤</h2>
                         <Formik
                             validateOnChange={true}
                             initialValues={{
@@ -192,7 +192,7 @@ export default class PatientInfo extends Component {
                                     <Form.Row>
                                         <Form.Group>
                                             <Button
-                                                variant="secondary"
+                                                variant="primary"
                                                 type="submit"
                                                 disabled={isSubmitting}
                                             >

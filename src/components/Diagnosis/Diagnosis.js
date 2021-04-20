@@ -72,7 +72,7 @@ function Diagnosis() {
         <DiagnosisStyled id="diagnosis">
             <Wrapper>
                 <Container>
-                    <h1>Diagnosis and Medication</h1>
+                    <h2>Add Diagnosis 📄</h2>
                     <Formik
                         validateOnChange={true}
                         initialValues={initialValues}
@@ -296,11 +296,11 @@ function Diagnosis() {
                                         </FieldArray>
                                     </Form.Group>
                                     <Button
-                                        variant="secondary"
+                                        variant="primary"
                                         type="submit"
                                         disabled={isSubmitting}
                                     >
-                                        Submit
+                                        Next
                                     </Button>
                                     <pre>{JSON.stringify(values, null, 2)}</pre>
                                     <pre>{JSON.stringify(errors, null, 2)}</pre>

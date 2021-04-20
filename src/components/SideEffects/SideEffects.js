@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import "./Optimization.css";
-import { Container, Form, Table } from "react-bootstrap";
+import "./SideEffects.css";
+import { Container, Form, Table, Button } from "react-bootstrap";
 import Wrapper from "../Wrapper/Wrapper";
 import styled from "styled-components";
 // import * as yup from "yup";
 import { Formik } from "formik";
 import { SelectField } from "../FormFields/InputField";
 
-const OptimizationStyled = styled.div``;
+const SideEffectsStyled = styled.div``;
 
 // temporary values
 const options1 = [
@@ -49,13 +49,13 @@ const promiseOptions = (inputValue) =>
 //     ),
 // });
 
-export default class Optimization extends Component {
+export default class SideEffects extends Component {
     render() {
         return (
-            <OptimizationStyled id="optimization">
+            <SideEffectsStyled id="sideEffects">
                 <Wrapper>
                     <Container fluid="md">
-                        <h1>Symptoms and Side Effects</h1>
+                        <h2>Symptoms and Side Effects 💊</h2>
                         <Formik
                             validateOnChange={true}
                             initialValues={{
@@ -167,6 +167,13 @@ export default class Optimization extends Component {
                                                     </tr>
                                                 </tbody>
                                             </Table>
+                                            <Button
+                                                variant="primary"
+                                                type="submit"
+                                                disabled={isSubmitting}
+                                            >
+                                                Next
+                                            </Button>
                                         </Form.Row>
                                         <pre>
                                             {JSON.stringify(values, null, 2)}
@@ -177,7 +184,7 @@ export default class Optimization extends Component {
                         </Formik>
                     </Container>
                 </Wrapper>
-            </OptimizationStyled>
+            </SideEffectsStyled>
         );
     }
 }

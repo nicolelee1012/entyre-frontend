@@ -4,7 +4,7 @@ import Home from "./components/Home/Home";
 import PatientInfo from "./components/PatientInfo/PatientInfo";
 import Diagnosis from "./components/Diagnosis/Diagnosis";
 import PatientReport from "./components/PatientReport/PatientReport";
-import Optimization from "./components/Optimization/Optimization";
+import SideEffects from "./components/SideEffects/SideEffects";
 
 function App() {
     return (
@@ -14,7 +14,7 @@ function App() {
             <PatientInfo />
             <Diagnosis />
 
-            <Optimization />
+            <SideEffects />
             <PatientReport />
         </div>
     );

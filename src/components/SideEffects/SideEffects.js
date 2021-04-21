@@ -5,8 +5,8 @@ import { Container, Form, Table, Button } from "react-bootstrap";
 import Wrapper from "../Wrapper/Wrapper";
 import styled from "styled-components";
 // import * as yup from "yup";
-import { Formik } from "formik";
-import { SelectField } from "../FormFields/InputField";
+import { Formik, FieldArray } from "formik";
+import SelectField from "../FormFields/SelectField";
 
 const SideEffectsStyled = styled.div``;
 
@@ -61,8 +61,18 @@ export default class SideEffects extends Component {
                             initialValues={{
                                 sideEffects: [
                                     {
-                                        value: "",
-                                        label: "",
+                                        sideEffect: {
+                                            value: "",
+                                            label: "",
+                                        },
+                                        frequency: { value: "", label: "" },
+                                        patterns: { value: "", label: "" },
+                                    },
+                                    {
+                                        sideEffect: {
+                                            value: "",
+                                            label: "",
+                                        },
                                         frequency: { value: "", label: "" },
                                         patterns: { value: "", label: "" },
                                     },
@@ -84,8 +94,7 @@ export default class SideEffects extends Component {
                                 // Sets setSubmitting to false after form is reset
                                 setSubmitting(false);
                             }}
-                        >
-                            {({
+                            render={({
                                 handleSubmit,
                                 handleChange,
                                 isSubmitting,
@@ -96,92 +105,158 @@ export default class SideEffects extends Component {
                             }) => (
                                 <Form noValidate onSubmit={handleSubmit}>
                                     <Container className="flex-row justify-content-center">
-                                        <Form.Row>
-                                            <Table responsive="sm">
-                                                <thead className="thead-light">
-                                                    <tr>
-                                                        <th>
-                                                            Symptoms & Side
-                                                            Effects
-                                                        </th>
-                                                        <th>Frequency</th>
-                                                        <th>
-                                                            Notable Patterns
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <Form.Group>
-                                                                <SelectField
-                                                                    name="sideEffects"
-                                                                    value={
-                                                                        values.sideEffects
-                                                                    }
-                                                                    onChange={
-                                                                        setFieldValue
-                                                                    }
-                                                                    promiseOptions={
-                                                                        promiseOptions
-                                                                    }
-                                                                    // error={
-                                                                    //     errors.sideEffects
-                                                                    // }
-                                                                    // touched={
-                                                                    //     touched.sideEffects
-                                                                    // }
-                                                                />
-                                                            </Form.Group>
-                                                        </td>
-                                                        <td>
-                                                            <SelectField
-                                                                name="frequency"
-                                                                value={
-                                                                    values
-                                                                        .sideEffects[0]
-                                                                        .frequency
+                                        <FieldArray name="sideEffects">
+                                            {(arrayHelpers) => (
+                                                <div>
+                                                    <Table responsive="sm">
+                                                        <thead className="thead-light">
+                                                            <tr>
+                                                                <th>
+                                                                    Symptoms &
+                                                                    Side Effects
+                                                                </th>
+                                                                <th>
+                                                                    Frequency
+                                                                </th>
+                                                                <th>
+                                                                    Notable
+                                                                    Patterns
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {values.sideEffects.map(
+                                                                (
+                                                                    sideEffect,
+                                                                    i
+                                                                ) => {
+                                                                    return (
+                                                                        <tr
+                                                                            key={
+                                                                                i
+                                                                            }
+                                                                        >
+                                                                            <td>
+                                                                                <SelectField
+                                                                                    name={`sideEffects.${i}.sideEffect`}
+                                                                                    value={
+                                                                                        values
+                                                                                            .sideEffects[
+                                                                                            i
+                                                                                        ]
+                                                                                            .sideEffect
+                                                                                    }
+                                                                                    onChange={
+                                                                                        setFieldValue
+                                                                                    }
+                                                                                    promiseOptions={
+                                                                                        promiseOptions
+                                                                                    }
+                                                                                    // error={
+                                                                                    //     errors.sideEffects
+                                                                                    // }
+                                                                                    // touched={
+                                                                                    //     touched.sideEffects
+                                                                                    // }
+                                                                                />
+                                                                            </td>
+
+                                                                            <td>
+                                                                                <SelectField
+                                                                                    name={`sideEffects.${i}.frequency`}
+                                                                                    value={
+                                                                                        values
+                                                                                            .sideEffects[
+                                                                                            i
+                                                                                        ]
+                                                                                            .frequency
+                                                                                    }
+                                                                                    onChange={
+                                                                                        setFieldValue
+                                                                                    }
+                                                                                    promiseOptions={
+                                                                                        promiseOptions
+                                                                                    }
+                                                                                />
+                                                                            </td>
+                                                                            <td>
+                                                                                <SelectField
+                                                                                    name={`sideEffects.${i}.patterns`}
+                                                                                    value={
+                                                                                        values
+                                                                                            .sideEffects[
+                                                                                            i
+                                                                                        ]
+                                                                                            .patterns
+                                                                                    }
+                                                                                    onChange={
+                                                                                        setFieldValue
+                                                                                    }
+                                                                                    promiseOptions={
+                                                                                        promiseOptions
+                                                                                    }
+                                                                                />
+                                                                            </td>
+                                                                        </tr>
+                                                                    );
                                                                 }
-                                                                onChange={
-                                                                    setFieldValue
-                                                                }
-                                                                promiseOptions={
-                                                                    promiseOptions
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            <SelectField
-                                                                name="patterns"
-                                                                value={
-                                                                    values.patterns
-                                                                }
-                                                                onChange={
-                                                                    setFieldValue
-                                                                }
-                                                                promiseOptions={
-                                                                    promiseOptions
-                                                                }
-                                                            />
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </Table>
-                                            <Button
-                                                variant="primary"
-                                                type="submit"
-                                                disabled={isSubmitting}
-                                            >
-                                                Next
-                                            </Button>
-                                        </Form.Row>
+                                                            )}
+                                                        </tbody>
+                                                    </Table>
+                                                    <Button
+                                                        variant="primary"
+                                                        OnClick={() => {
+                                                            arrayHelpers.push({
+                                                                sideEffect: [
+                                                                    {
+                                                                        value:
+                                                                            "",
+                                                                        label:
+                                                                            "",
+                                                                    },
+                                                                ],
+
+                                                                frequency: [
+                                                                    {
+                                                                        value:
+                                                                            "",
+                                                                        label:
+                                                                            "",
+                                                                    },
+                                                                ],
+
+                                                                patterns: [
+                                                                    {
+                                                                        value:
+                                                                            "",
+                                                                        label:
+                                                                            "",
+                                                                    },
+                                                                ],
+                                                            });
+                                                        }}
+                                                    >
+                                                        Add
+                                                    </Button>
+                                                </div>
+                                            )}
+                                        </FieldArray>
+
+                                        <Button
+                                            variant="primary"
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                        >
+                                            Next
+                                        </Button>
+
                                         <pre>
                                             {JSON.stringify(values, null, 2)}
                                         </pre>
                                     </Container>
                                 </Form>
                             )}
-                        </Formik>
+                        />
                     </Container>
                 </Wrapper>
             </SideEffectsStyled>

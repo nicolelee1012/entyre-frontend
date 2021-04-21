@@ -115,7 +115,9 @@ function Diagnosis() {
                                 <Form noValidate onSubmit={handleSubmit}>
                                     <Form.Row>
                                         <Form.Group>
-                                            <label>Number of Diagnosis</label>
+                                            <Form.Label>
+                                                Number of Diagnosis
+                                            </Form.Label>
                                             <Field name="numberOfDiagnosis">
                                                 {({ field }) => (
                                                     <select

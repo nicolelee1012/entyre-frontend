@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
+import { Link } from "react-scroll";
 import { Button, Form, Container, InputGroup } from "react-bootstrap";
 import Wrapper from "../Wrapper/Wrapper";
 import styled from "styled-components";
@@ -196,7 +197,13 @@ export default class PatientInfo extends Component {
                                                 type="submit"
                                                 disabled={isSubmitting}
                                             >
-                                                Next
+                                                <Link
+                                                    to="diagnosis"
+                                                    spy={true}
+                                                    smooth={true}
+                                                >
+                                                    Next
+                                                </Link>
                                             </Button>
                                         </Form.Group>
                                     </Form.Row>

@@ -1,5 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
+import { Link } from "react-scroll";
 import { Button, InputGroup, Container, Form } from "react-bootstrap";
 import { Formik, Field, FieldArray, getIn } from "formik";
 import Wrapper from "../Wrapper/Wrapper";
@@ -302,10 +303,14 @@ function Diagnosis() {
                                         type="submit"
                                         disabled={isSubmitting}
                                     >
-                                        Next
+                                        <Link
+                                            to="sideEffects"
+                                            spy={true}
+                                            smooth={true}
+                                        >
+                                            Next
+                                        </Link>
                                     </Button>
-                                    <pre>{JSON.stringify(values, null, 2)}</pre>
-                                    <pre>{JSON.stringify(errors, null, 2)}</pre>
                                 </Form>
                             </div>
                         )}

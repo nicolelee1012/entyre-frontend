@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap.css";
 import { Link } from "react-scroll";
 import "./Home.css";
 import styled from "styled-components";

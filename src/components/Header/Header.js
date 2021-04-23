@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+// import "./Header.css";
 import {
     HouseDoor,
     PersonCircle,
     FileEarmark,
     JournalMedical,
+    Toggles2,
     Folder,
 } from "react-bootstrap-icons";
 import { Link } from "react-scroll";
@@ -81,7 +83,12 @@ export default class Header extends Component {
                             Symptoms
                         </Link>
                     </li>
-
+                    <li>
+                        <Toggles2 />
+                        <Link to="optimization" spy={true} smooth={true}>
+                            Optimization
+                        </Link>
+                    </li>
                     <li>
                         <Folder />
                         <Link to="patientReport" spy={true} smooth={true}>

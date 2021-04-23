@@ -63,7 +63,7 @@ export default class SideEffects extends Component {
                                     {
                                         sideEffect: {
                                             value: "",
-                                            label: "",
+                                            // label: "",
                                         },
                                         frequency: { value: "", label: "" },
                                         patterns: { value: "", label: "" },
@@ -206,7 +206,10 @@ export default class SideEffects extends Component {
                                                     <Button
                                                         variant="primary"
                                                         OnClick={() => {
-                                                            arrayHelpers.push({
+                                                            const sideEffects = {
+                                                                ...values.sideEffects,
+                                                            };
+                                                            sideEffects.push({
                                                                 sideEffect: [
                                                                     {
                                                                         value:

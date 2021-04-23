@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
+import { Link } from "react-scroll";
 import { Button, Form, Container, InputGroup } from "react-bootstrap";
 import Wrapper from "../Wrapper/Wrapper";
 import styled from "styled-components";
@@ -50,7 +51,7 @@ export default class PatientInfo extends Component {
             <PatientInfoStyled id="patientInfo">
                 <Wrapper>
                     <Container>
-                        <h1>Patient Information</h1>
+                        <h2>Patient Information 👤</h2>
                         <Formik
                             validateOnChange={true}
                             initialValues={{
@@ -123,7 +124,7 @@ export default class PatientInfo extends Component {
                                         />
                                         <InputField
                                             name="weight"
-                                            label="Weight"
+                                            label="Weight (kg)"
                                             col={col}
                                         />
                                     </Form.Row>
@@ -192,11 +193,17 @@ export default class PatientInfo extends Component {
                                     <Form.Row>
                                         <Form.Group>
                                             <Button
-                                                variant="secondary"
+                                                variant="primary"
                                                 type="submit"
                                                 disabled={isSubmitting}
                                             >
-                                                Next
+                                                <Link
+                                                    to="diagnosis"
+                                                    spy={true}
+                                                    smooth={true}
+                                                >
+                                                    Next
+                                                </Link>
                                             </Button>
                                         </Form.Group>
                                     </Form.Row>

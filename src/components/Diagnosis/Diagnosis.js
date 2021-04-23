@@ -1,5 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
+import { Link } from "react-scroll";
 import { Button, InputGroup, Container, Form } from "react-bootstrap";
 import { Formik, Field, FieldArray, getIn } from "formik";
 import Wrapper from "../Wrapper/Wrapper";
@@ -13,7 +14,6 @@ import Search from "../Search/Search";
 
 function Diagnosis() {
     const DiagnosisStyled = styled.div``;
-
     const ModeRadioOptions = ["Pill", "Syrup", "Injection", "Topical"];
     const REQUIRED_MESSAGE = "Required";
     const validationSchema = yup.object().shape({
@@ -72,7 +72,7 @@ function Diagnosis() {
         <DiagnosisStyled id="diagnosis">
             <Wrapper>
                 <Container>
-                    <h1>Diagnosis and Medication</h1>
+                    <h2>Add Diagnosis 📄</h2>
                     <Formik
                         validateOnChange={true}
                         initialValues={initialValues}
@@ -115,7 +115,9 @@ function Diagnosis() {
                                 <Form noValidate onSubmit={handleSubmit}>
                                     <Form.Row>
                                         <Form.Group>
-                                            <label>Number of Diagnosis</label>
+                                            <Form.Label>
+                                                Number of Diagnosis
+                                            </Form.Label>
                                             <Field name="numberOfDiagnosis">
                                                 {({ field }) => (
                                                     <select
@@ -296,14 +298,18 @@ function Diagnosis() {
                                         </FieldArray>
                                     </Form.Group>
                                     <Button
-                                        variant="secondary"
+                                        variant="primary"
                                         type="submit"
                                         disabled={isSubmitting}
                                     >
-                                        Submit
+                                        <Link
+                                            to="sideEffects"
+                                            spy={true}
+                                            smooth={true}
+                                        >
+                                            Next
+                                        </Link>
                                     </Button>
-                                    <pre>{JSON.stringify(values, null, 2)}</pre>
-                                    <pre>{JSON.stringify(errors, null, 2)}</pre>
                                 </Form>
                             </div>
                         )}

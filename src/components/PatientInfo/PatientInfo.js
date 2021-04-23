@@ -124,7 +124,7 @@ export default class PatientInfo extends Component {
                                         />
                                         <InputField
                                             name="weight"
-                                            label="Weight"
+                                            label="Weight (kg)"
                                             col={col}
                                         />
                                     </Form.Row>

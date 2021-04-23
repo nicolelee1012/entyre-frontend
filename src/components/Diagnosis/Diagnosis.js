@@ -14,7 +14,6 @@ import Search from "../Search/Search";
 
 function Diagnosis() {
     const DiagnosisStyled = styled.div``;
-
     const ModeRadioOptions = ["Pill", "Syrup", "Injection", "Topical"];
     const REQUIRED_MESSAGE = "Required";
     const validationSchema = yup.object().shape({

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./SideEffects.css";
+import { Link } from "react-scroll";
 import { Container, Form, Table, Button } from "react-bootstrap";
 import Wrapper from "../Wrapper/Wrapper";
 import styled from "styled-components";
@@ -48,6 +49,24 @@ const promiseOptions = (inputValue) =>
 //         })
 //     ),
 // });
+
+function onClickAdd(e, values, setValues, sideEffects) {
+    sideEffects.push({
+        sideEffect: {
+            value: "",
+            label: "",
+        },
+        frequency: {
+            value: "",
+            label: "",
+        },
+
+        patterns: {
+            value: "",
+            label: "",
+        },
+    });
+}
 
 export default class SideEffects extends Component {
     render() {
@@ -102,6 +121,7 @@ export default class SideEffects extends Component {
                                 errors,
                                 touched,
                                 setFieldValue,
+                                setValues,
                             }) => (
                                 <Form noValidate onSubmit={handleSubmit}>
                                     <Container className="flex-row justify-content-center">
@@ -205,57 +225,35 @@ export default class SideEffects extends Component {
                                                     </Table>
                                                     <Button
                                                         variant="primary"
-                                                        OnClick={() => {
-                                                            const sideEffects = {
-                                                                ...values.sideEffects,
-                                                            };
-                                                            sideEffects.push({
-                                                                sideEffect: [
-                                                                    {
-                                                                        value:
-                                                                            "",
-                                                                        label:
-                                                                            "",
-                                                                    },
-                                                                ],
-
-                                                                frequency: [
-                                                                    {
-                                                                        value:
-                                                                            "",
-                                                                        label:
-                                                                            "",
-                                                                    },
-                                                                ],
-
-                                                                patterns: [
-                                                                    {
-                                                                        value:
-                                                                            "",
-                                                                        label:
-                                                                            "",
-                                                                    },
-                                                                ],
-                                                            });
-                                                        }}
+                                                        OnClick={(e) =>
+                                                            onClickAdd(
+                                                                e,
+                                                                values,
+                                                                setValues,
+                                                                {
+                                                                    ...values.sideEffects,
+                                                                }
+                                                            )
+                                                        }
                                                     >
                                                         Add
                                                     </Button>
                                                 </div>
                                             )}
                                         </FieldArray>
-
                                         <Button
                                             variant="primary"
                                             type="submit"
                                             disabled={isSubmitting}
                                         >
-                                            Next
+                                            <Link
+                                                to="optimization"
+                                                spy={true}
+                                                smooth={true}
+                                            >
+                                                Next
+                                            </Link>
                                         </Button>
-
-                                        <pre>
-                                            {JSON.stringify(values, null, 2)}
-                                        </pre>
                                     </Container>
                                 </Form>
                             )}

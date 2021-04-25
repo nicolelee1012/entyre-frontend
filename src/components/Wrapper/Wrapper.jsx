@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { width } from "../Header/Header";
+import * as Scroll from "react-scroll";
 
 const WrapperStyled = styled.div`
     min-height: 100vh;
@@ -41,7 +42,21 @@ const WrapperStyled = styled.div`
         background: #ace2b8 !important;
         color: #25683e !important;
     }
+    .btn-secondary {
+        background: #e8f7ec;
+        color: #25683e;
+        border: 1.5px solid #25683e
+    }
 `;
+
+export const scrollTo = (nextElement) => {
+    var scroller = Scroll.scroller;
+    scroller.scrollTo(nextElement, {
+        duration: 1000,
+        delay: 100,
+        smooth: true,
+    });
+};
 
 export default function Wrapper({ children }) {
     return <WrapperStyled>{children}</WrapperStyled>;

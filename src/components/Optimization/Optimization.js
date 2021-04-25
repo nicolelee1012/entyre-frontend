@@ -4,6 +4,7 @@ import { Link } from "react-scroll";
 import Wrapper from "../Wrapper/Wrapper";
 import styled from "styled-components";
 import { Button, Container } from "react-bootstrap";
+import { Toggles2 } from "react-bootstrap-icons";
 
 const OptimizationStyled = styled.div``;
 
@@ -13,8 +14,7 @@ export default class Optimization extends Component {
             <OptimizationStyled id="optimization">
                 <Wrapper>
                     <Container>
-                        <h2>Optimization</h2>
-                        <div style={{ height: "200px" }}></div>
+                        <h2>Optimization {<Toggles2 />}</h2>
                         <Button variant="primary">
                             <Link to="patientReport" spy={true} smooth={true}>
                                 Generate Report

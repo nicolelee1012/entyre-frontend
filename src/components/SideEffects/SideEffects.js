@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./SideEffects.css";
-import { Link } from "react-scroll";
-import { Container, Table, Button, Col, Row } from "react-bootstrap";
-import Wrapper from "../Wrapper/Wrapper";
+import { Container, Table, Button } from "react-bootstrap";
+import Wrapper, { scrollTo } from "../Wrapper/Wrapper";
 import styled from "styled-components";
 // import * as yup from "yup";
-import { Formik, FieldArray, Form, Field } from "formik";
+import { Formik, FieldArray, Form } from "formik";
 import SelectField from "../FormFields/SelectField";
+import { JournalMedical } from "react-bootstrap-icons";
 
 const SideEffectsStyled = styled.div``;
 
@@ -94,7 +94,7 @@ export default class SideEffects extends Component {
             <SideEffectsStyled id="sideEffects">
                 <Wrapper>
                     <Container fluid="md">
-                        <h2>Symptoms and Side Effects 💊</h2>
+                        <h2>Symptoms and Side Effects {<JournalMedical />}</h2>
                         <Formik
                             // validateOnChange={true}
                             // validationSchema={validationSchema}
@@ -121,6 +121,8 @@ export default class SideEffects extends Component {
 
                                 // Sets setSubmitting to false after form is reset
                                 setSubmitting(false);
+
+                                scrollTo("optimization");
                             }}
                             render={({
                                 isSubmitting,
@@ -163,6 +165,7 @@ export default class SideEffects extends Component {
                                                                     <tr key={i}>
                                                                         <td colspan="1">
                                                                             <Button
+                                                                            variant="secondary"
                                                                                 onClick={() =>
                                                                                     arrayHelpers.remove(
                                                                                         i
@@ -232,7 +235,7 @@ export default class SideEffects extends Component {
                                                         </tbody>
                                                     </Table>
                                                     <Button
-                                                        variant="primary"
+                                                        variant="secondary"
                                                         onClick={() =>
                                                             arrayHelpers.push({
                                                                 sideEffect: "",
@@ -248,13 +251,7 @@ export default class SideEffects extends Component {
                                                         type="submit"
                                                         disabled={isSubmitting}
                                                     >
-                                                        <Link
-                                                            to="optimization"
-                                                            spy={true}
-                                                            smooth={true}
-                                                        >
-                                                            Next
-                                                        </Link>
+                                                        Next
                                                     </Button>
                                                     <pre>
                                                         {JSON.stringify(

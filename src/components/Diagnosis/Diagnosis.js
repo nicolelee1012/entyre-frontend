@@ -1,9 +1,8 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import { Link } from "react-scroll";
 import { Button, InputGroup, Container, Form } from "react-bootstrap";
 import { Formik, Field, FieldArray, getIn } from "formik";
-import Wrapper from "../Wrapper/Wrapper";
+import Wrapper, { scrollTo } from "../Wrapper/Wrapper";
 import styled from "styled-components";
 import * as yup from "yup";
 import Collapsible from "react-collapsible";
@@ -11,6 +10,7 @@ import "./Diagnosis.css";
 import InputField from "../FormFields/InputField";
 import { DiagnosisRadioField } from "../FormFields/RadioField";
 import Search from "../Search/Search";
+import { FileEarmark } from "react-bootstrap-icons";
 
 function Diagnosis() {
     const DiagnosisStyled = styled.div``;
@@ -72,7 +72,7 @@ function Diagnosis() {
         <DiagnosisStyled id="diagnosis">
             <Wrapper>
                 <Container>
-                    <h2>Add Diagnosis 📄</h2>
+                    <h2>Add Diagnosis {<FileEarmark />}</h2>
                     <Formik
                         validateOnChange={true}
                         initialValues={initialValues}
@@ -98,6 +98,8 @@ function Diagnosis() {
                                 requestOptions
                             );
                             setSubmitting(false);
+
+                            scrollTo("sideEffects");
                         }}
                     >
                         {({
@@ -302,13 +304,7 @@ function Diagnosis() {
                                         type="submit"
                                         disabled={isSubmitting}
                                     >
-                                        <Link
-                                            to="sideEffects"
-                                            spy={true}
-                                            smooth={true}
-                                        >
-                                            Next
-                                        </Link>
+                                        Next
                                     </Button>
                                 </Form>
                             </div>

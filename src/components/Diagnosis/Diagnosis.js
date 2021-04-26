@@ -11,9 +11,9 @@ import InputField from "../FormFields/InputField";
 import { DiagnosisRadioField } from "../FormFields/RadioField";
 import Search from "../Search/Search";
 
+
 function Diagnosis() {
     const DiagnosisStyled = styled.div``;
-
     const ModeRadioOptions = ["Pill", "Syrup", "Injection", "Topical"];
     const REQUIRED_MESSAGE = "Required";
     const validationSchema = yup.object().shape({
@@ -63,10 +63,13 @@ function Diagnosis() {
             }
         }
         setValues({ ...values, symptoms });
-
         // call formik onChange method
         field.onChange(e);
     }
+
+function callbackFunction(childData) {
+   console.log(childData)
+}  
 
     return (
         <DiagnosisStyled id="diagnosis">
@@ -110,6 +113,7 @@ function Diagnosis() {
                             errors,
                             touched,
                             setValues,
+                            setFieldValue,
                         }) => (
                             <div>
                                 <Form noValidate onSubmit={handleSubmit}>
@@ -162,21 +166,6 @@ function Diagnosis() {
                                             {() =>
                                                 values.symptoms.map(
                                                     (symptom, i) => {
-                                                        // const ticketErrors =
-                                                        //     (errors.symptoms
-                                                        //         ?.length &&
-                                                        //         errors.symptoms[
-                                                        //             i
-                                                        //         ]) ||
-                                                        //     {};
-                                                        // const ticketTouched =
-                                                        //     (touched.symptoms
-                                                        //         ?.length &&
-                                                        //         touched.symptoms[
-                                                        //             i
-                                                        //         ]) ||
-                                                        //     {};
-
                                                         return (
                                                             <div
                                                                 key={i}
@@ -190,18 +179,20 @@ function Diagnosis() {
                                                                         }`}
                                                                     >
                                                                         <Form.Row>
-                                                                            <Search />
-                                                                            {console.log(
-                                                                                "diagnosis " +
-                                                                                    errors.symptoms
-                                                                            )}
-                                                                            <InputField
-                                                                                name={`symptoms.${i}.medication`}
-                                                                                label="Medication"
+                                                                        <InputField
+                                                                                name={`symptoms.${i}.diagnosis`}
+                                                                                label="Diagnosis"
                                                                                 col={
                                                                                     3
                                                                                 }
                                                                             />
+                                                                            <Form name={`symptoms.${i}.medication`}
+                                                                        >
+                                                                            <Form.Label>Prescription</Form.Label>
+                                                                        <Search type="product"
+                                                                        parentCallback = {callbackFunction} 
+                                                                        /> 
+                                                                             </Form>
                                                                         </Form.Row>
                                                                         <Form.Row>
                                                                             <DiagnosisRadioField
@@ -295,6 +286,8 @@ function Diagnosis() {
                                             }
                                         </FieldArray>
                                     </Form.Group>
+                                   
+
                                     <Button
                                         variant="secondary"
                                         type="submit"

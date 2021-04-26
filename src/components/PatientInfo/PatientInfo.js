@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Form, Container, InputGroup } from "react-bootstrap";
-import Wrapper from "../Wrapper/Wrapper";
+import Wrapper, { scrollTo } from "../Wrapper/Wrapper";
 import styled from "styled-components";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
+import { PersonCircle } from "react-bootstrap-icons";
 import InputField from "../FormFields/InputField";
 import RadioField from "../FormFields/RadioField";
 
@@ -50,7 +51,7 @@ export default class PatientInfo extends Component {
             <PatientInfoStyled id="patientInfo">
                 <Wrapper>
                     <Container>
-                        <h1>Patient Information</h1>
+                        <h2>Patient Information {<PersonCircle />}</h2>
                         <Formik
                             validateOnChange={true}
                             initialValues={{
@@ -90,8 +91,12 @@ export default class PatientInfo extends Component {
                                     requestOptions
                                 );
 
+                                // alert(JSON.stringify(values, null, 2));
+
                                 // Sets setSubmitting to false after form is reset
                                 setSubmitting(false);
+
+                                scrollTo("diagnosis");
                             }}
                         >
                             {({
@@ -123,7 +128,7 @@ export default class PatientInfo extends Component {
                                         />
                                         <InputField
                                             name="weight"
-                                            label="Weight"
+                                            label="Weight (kg)"
                                             col={col}
                                         />
                                     </Form.Row>
@@ -190,15 +195,13 @@ export default class PatientInfo extends Component {
                                         </InputGroup>
                                     </Form.Row>
                                     <Form.Row>
-                                        <Form.Group>
-                                            <Button
-                                                variant="secondary"
-                                                type="submit"
-                                                disabled={isSubmitting}
-                                            >
-                                                Next
-                                            </Button>
-                                        </Form.Group>
+                                        <Button
+                                            variant="primary"
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                        >
+                                            Next
+                                        </Button>
                                     </Form.Row>
                                 </Form>
                             )}

@@ -3,10 +3,9 @@ import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import PatientInfo from "./components/PatientInfo/PatientInfo";
 import Diagnosis from "./components/Diagnosis/Diagnosis";
-import PatientReport from "./components/PatientReport/PatientReport";
+import SideEffects from "./components/SideEffects/SideEffects";
 import Optimization from "./components/Optimization/Optimization";
-import Logo from "./components/Logo/logo";
-
+import PatientReport from "./components/PatientReport/PatientReport";
 
 function App() {
     return (
@@ -16,7 +15,8 @@ function App() {
             <Home />
             <PatientInfo />
             <Diagnosis />
-            <Optimization />
+            <SideEffects />
+           <Optimization />
             <PatientReport />
         </div>
     );

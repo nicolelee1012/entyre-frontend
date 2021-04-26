@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, InputGroup, Container, Form } from "react-bootstrap";
 import { Formik, Field, FieldArray, getIn } from "formik";
-import Wrapper from "../Wrapper/Wrapper";
+import Wrapper, { scrollTo } from "../Wrapper/Wrapper";
 import styled from "styled-components";
 import * as yup from "yup";
 import Collapsible from "react-collapsible";
@@ -10,6 +10,7 @@ import "./Diagnosis.css";
 import InputField from "../FormFields/InputField";
 import { DiagnosisRadioField } from "../FormFields/RadioField";
 import Search from "../Search/Search";
+import { FileEarmark } from "react-bootstrap-icons";
 
 
 function Diagnosis() {
@@ -75,7 +76,7 @@ function callbackFunction(childData) {
         <DiagnosisStyled id="diagnosis">
             <Wrapper>
                 <Container>
-                    <h1>Diagnosis and Medication</h1>
+                    <h2>Add Diagnosis {<FileEarmark />}</h2>
                     <Formik
                         validateOnChange={true}
                         initialValues={initialValues}
@@ -101,6 +102,8 @@ function callbackFunction(childData) {
                                 requestOptions
                             );
                             setSubmitting(false);
+
+                            scrollTo("sideEffects");
                         }}
                     >
                         {({
@@ -119,7 +122,9 @@ function callbackFunction(childData) {
                                 <Form noValidate onSubmit={handleSubmit}>
                                     <Form.Row>
                                         <Form.Group>
-                                            <label>Number of Diagnosis</label>
+                                            <Form.Label>
+                                                Number of Diagnosis
+                                            </Form.Label>
                                             <Field name="numberOfDiagnosis">
                                                 {({ field }) => (
                                                     <select
@@ -289,14 +294,12 @@ function callbackFunction(childData) {
                                    
 
                                     <Button
-                                        variant="secondary"
+                                        variant="primary"
                                         type="submit"
                                         disabled={isSubmitting}
                                     >
-                                        Submit
+                                        Next
                                     </Button>
-                                    <pre>{JSON.stringify(values, null, 2)}</pre>
-                                    <pre>{JSON.stringify(errors, null, 2)}</pre>
                                 </Form>
                             </div>
                         )}

@@ -3,35 +3,43 @@ import {
     HouseDoor,
     PersonCircle,
     FileEarmark,
-    BarChartLine,
+    JournalMedical,
+    Toggles2,
     Folder,
 } from "react-bootstrap-icons";
 import { Link } from "react-scroll";
 import styled from "styled-components";
 
+export const width = 200;
 const NavbarStyled = styled.div`
-  font-size: 20px;
-  position: fixed;
-  width: 200px;
-  .header {
-    background: #1e5733;
-    padding: 40px;
-    padding-top: 75%;
-    padding-bottom: 75%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 0;
-    color: white;
-    height: 100vh;
-    top: 0;
-    left: -100%;
-    * {
-      cursor: pointer;
-    }
-    .scrolling-buttons {
+    font-size: 17px;
+    position: fixed;
+    width: ${width}px;
+    .header {
+        background: #1d5d36;
+        padding: 20px;
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        color: white;
+        min-height: 100vh;
+        top: 0;
+        * {
+            cursor: pointer;
+        }
+        .scrolling-buttons {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    .header li {
+        padding: 7px;
+        display: flex;
+        align-items: center;
+    }
+    .header li a {
+        padding-left: 12px;
     }
 `;
 
@@ -40,11 +48,9 @@ export default class Header extends Component {
         return (
             <NavbarStyled>
                 <ul
-                    class="header"
+                    className="header"
                     style={{
-                        display: "flex",
                         listStyle: "none",
-                        justifyContent: "space-around",
                     }}
                 >
                     <li>
@@ -71,12 +77,17 @@ export default class Header extends Component {
                         </Link>
                     </li>
                     <li>
-                        <BarChartLine />
+                        <JournalMedical />
+                        <Link to="sideEffects" spy={true} smooth={true}>
+                            Symptoms
+                        </Link>
+                    </li>
+                    <li>
+                        <Toggles2 />
                         <Link to="optimization" spy={true} smooth={true}>
                             Optimization
                         </Link>
                     </li>
-
                     <li>
                         <Folder />
                         <Link to="patientReport" spy={true} smooth={true}>

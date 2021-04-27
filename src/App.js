@@ -1,4 +1,5 @@
 import "./App.css";
+import Logo from "./components/Logo/Logo";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import PatientInfo from "./components/PatientInfo/PatientInfo";
@@ -16,7 +17,7 @@ function App() {
             <PatientInfo />
             <Diagnosis />
             <SideEffects />
-           <Optimization />
+            <Optimization />
             <PatientReport />
         </div>
     );

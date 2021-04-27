@@ -7,7 +7,7 @@ const InputField = ({ name, label, handleChange, col, ...props }) => {
     const [field, meta] = useField(props);
     const getError = getIn(meta.error, name);
     return (
-        <Form.Group as={Col} md={col} controlId={name}>
+        <Form.Group as={Col} md controlId={name}>
             <Form.Label>{label}</Form.Label>
             <Field
                 {...field}

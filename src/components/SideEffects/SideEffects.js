@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./SideEffects.css";
-import { Container, Table, Button } from "react-bootstrap";
+import { Container, Table, Button, Col } from "react-bootstrap";
 import Wrapper, { scrollTo } from "../Wrapper/Wrapper";
 import styled from "styled-components";
 // import * as yup from "yup";
@@ -136,7 +136,9 @@ export default class SideEffects extends Component {
                                         name="sideEffects"
                                         render={(arrayHelpers) => (
                                             <div>
-                                                <Container className="flex-row justify-content-center">
+                                                <Container
+                                                    style={{ padding: "0px" }}
+                                                >
                                                     <Table
                                                         responsive="sm"
                                                         hover
@@ -165,7 +167,7 @@ export default class SideEffects extends Component {
                                                                     <tr key={i}>
                                                                         <td colspan="1">
                                                                             <Button
-                                                                            variant="secondary"
+                                                                                variant="secondary"
                                                                                 onClick={() =>
                                                                                     arrayHelpers.remove(
                                                                                         i
@@ -234,32 +236,43 @@ export default class SideEffects extends Component {
                                                             )}
                                                         </tbody>
                                                     </Table>
-                                                    <Button
-                                                        variant="secondary"
-                                                        onClick={() =>
-                                                            arrayHelpers.push({
-                                                                sideEffect: "",
-                                                                frequency: "",
-                                                                patterns: "",
-                                                            })
-                                                        }
-                                                    >
-                                                        Add
-                                                    </Button>
-                                                    <Button
-                                                        variant="primary"
-                                                        type="submit"
-                                                        disabled={isSubmitting}
-                                                    >
-                                                        Next
-                                                    </Button>
-                                                    <pre>
-                                                        {JSON.stringify(
-                                                            values,
-                                                            null,
-                                                            2
-                                                        )}
-                                                    </pre>
+                                                    <div className="d-flex justify-content-start">
+                                                        <div
+                                                            style={{
+                                                                paddingRight:
+                                                                    "10px",
+                                                            }}
+                                                        >
+                                                            <Button
+                                                                variant="secondary"
+                                                                onClick={() =>
+                                                                    arrayHelpers.push(
+                                                                        {
+                                                                            sideEffect:
+                                                                                "",
+                                                                            frequency:
+                                                                                "",
+                                                                            patterns:
+                                                                                "",
+                                                                        }
+                                                                    )
+                                                                }
+                                                            >
+                                                                Add
+                                                            </Button>
+                                                        </div>
+                                                        <div>
+                                                            <Button
+                                                                variant="primary"
+                                                                type="submit"
+                                                                disabled={
+                                                                    isSubmitting
+                                                                }
+                                                            >
+                                                                Next
+                                                            </Button>
+                                                        </div>
+                                                    </div>
                                                 </Container>
                                             </div>
                                         )}

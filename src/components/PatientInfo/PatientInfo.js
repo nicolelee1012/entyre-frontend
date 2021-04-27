@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import { Button, Form, Container, InputGroup } from "react-bootstrap";
+import { Button, Form, Container, InputGroup, Col } from "react-bootstrap";
 import Wrapper, { scrollTo } from "../Wrapper/Wrapper";
 import styled from "styled-components";
 import { Formik, Field } from "formik";
@@ -10,7 +10,6 @@ import InputField from "../FormFields/InputField";
 import RadioField from "../FormFields/RadioField";
 
 const PatientInfoStyled = styled.div``;
-const col = 4;
 const GenderRadioOptions = ["male", "female", "non-binary", "other"];
 const SubRelRadioOptions = ["self", "spouse", "dependent"];
 const REQUIRED_MESSAGE = "Required";
@@ -18,7 +17,8 @@ const validationSchema = yup.object({
     firstName: yup.string().required(REQUIRED_MESSAGE),
     lastName: yup.string().required(REQUIRED_MESSAGE),
     age: yup
-        .number("Age must be a whole number")
+        .number()
+        .typeError("Age must be a whole number")
         .integer("Age must be an integer")
         .required(REQUIRED_MESSAGE)
         .test(
@@ -27,7 +27,8 @@ const validationSchema = yup.object({
             (age) => String(age).length <= 3
         ),
     weight: yup
-        .number("Weight must be a number with 1 decimal place")
+        .number()
+        .typeError("Weight must be a number with 1 decimal place")
         .required(REQUIRED_MESSAGE)
         .test(
             "maxDigitsAfterDecimal",
@@ -50,7 +51,7 @@ export default class PatientInfo extends Component {
         return (
             <PatientInfoStyled id="patientInfo">
                 <Wrapper>
-                    <Container>
+                    <Container fluid>
                         <h2>Patient Information {<PersonCircle />}</h2>
                         <Formik
                             validateOnChange={true}
@@ -91,8 +92,6 @@ export default class PatientInfo extends Component {
                                     requestOptions
                                 );
 
-                                // alert(JSON.stringify(values, null, 2));
-
                                 // Sets setSubmitting to false after form is reset
                                 setSubmitting(false);
 
@@ -112,24 +111,17 @@ export default class PatientInfo extends Component {
                                         <InputField
                                             name="firstName"
                                             label="First Name"
-                                            col={col}
                                         />
                                         <InputField
                                             name="lastName"
                                             label="Last Name"
-                                            col={col}
                                         />
                                     </Form.Row>
                                     <Form.Row>
-                                        <InputField
-                                            name="age"
-                                            label="Age"
-                                            col={col}
-                                        />
+                                        <InputField name="age" label="Age" />
                                         <InputField
                                             name="weight"
                                             label="Weight (kg)"
-                                            col={col}
                                         />
                                     </Form.Row>
                                     <Form.Row>
@@ -144,57 +136,57 @@ export default class PatientInfo extends Component {
                                         <InputField
                                             name="emailAddress"
                                             label="Email Address"
-                                            col={col}
                                         />
                                         <InputField
-                                            name="companyName"
-                                            label="Insurance Company Name"
-                                            col={col}
+                                            name="subscriberName"
+                                            label="Subscriber Name"
                                         />
                                     </Form.Row>
                                     <Form.Row>
                                         <InputField
-                                            name="subscriberName"
-                                            label="Subscriber Name"
-                                            col={col}
+                                            name="companyName"
+                                            label="Insurance Company Name"
                                         />
                                         <InputField
                                             name="memberId"
                                             label="Member ID"
-                                            col={col}
                                         />
                                     </Form.Row>
                                     <Form.Row>
-                                        <RadioField
-                                            name="subscriberRelationship"
-                                            label="Relationship to Subscriber"
-                                            errors={
-                                                errors.subscriberRelationship
-                                            }
-                                            options={SubRelRadioOptions}
-                                        />
-                                        <InputGroup className="mb-4">
-                                            <InputGroup.Prepend>
-                                                <InputGroup.Text>
-                                                    Other
-                                                </InputGroup.Text>
-                                            </InputGroup.Prepend>
-                                            <Field
+                                        <Col md="6">
+                                            <RadioField
                                                 name="subscriberRelationship"
-                                                type="input"
-                                                inline
-                                                as={Form.Control}
-                                                onChange={handleChange}
-                                                isInvalid={
-                                                    !!errors.subscriberRelationship
+                                                label="Relationship to Subscriber"
+                                                errors={
+                                                    errors.subscriberRelationship
                                                 }
+                                                options={SubRelRadioOptions}
                                             />
-                                            <Form.Control.Feedback type="invalid">
-                                                {errors.subscriberRelationship}
-                                            </Form.Control.Feedback>
-                                        </InputGroup>
+                                            <InputGroup>
+                                                <InputGroup.Prepend>
+                                                    <InputGroup.Text>
+                                                        Other
+                                                    </InputGroup.Text>
+                                                </InputGroup.Prepend>
+                                                <Field
+                                                    name="subscriberRelationship"
+                                                    type="input"
+                                                    inline
+                                                    as={Form.Control}
+                                                    onChange={handleChange}
+                                                    isInvalid={
+                                                        !!errors.subscriberRelationship
+                                                    }
+                                                />
+                                                <Form.Control.Feedback type="invalid">
+                                                    {
+                                                        errors.subscriberRelationship
+                                                    }
+                                                </Form.Control.Feedback>
+                                            </InputGroup>
+                                        </Col>
                                     </Form.Row>
-                                    <Form.Row>
+                                    <div style={{ paddingTop: "20px" }}>
                                         <Button
                                             variant="primary"
                                             type="submit"
@@ -202,7 +194,7 @@ export default class PatientInfo extends Component {
                                         >
                                             Next
                                         </Button>
-                                    </Form.Row>
+                                    </div>
                                 </Form>
                             )}
                         </Formik>

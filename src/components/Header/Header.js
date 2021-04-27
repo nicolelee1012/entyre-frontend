@@ -10,14 +10,14 @@ import {
 import { Link } from "react-scroll";
 import styled from "styled-components";
 
-export const width = 200;
+export const width = 250;
 const NavbarStyled = styled.div`
-    font-size: 17px;
+    font-size: 22px;
     position: fixed;
     width: ${width}px;
     .header {
         background: #1d5d36;
-        padding: 20px;
+        padding: 25px;
         display: flex;
         flex-direction: column;
         justify-content: center;

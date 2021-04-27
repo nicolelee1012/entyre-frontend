@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import { Button, InputGroup, Container, Form } from "react-bootstrap";
+import { Button, InputGroup, Container, Form, NavItem } from "react-bootstrap";
 import { Formik, Field, FieldArray, getIn } from "formik";
 import Wrapper, { scrollTo } from "../Wrapper/Wrapper";
 import styled from "styled-components";
@@ -11,6 +11,9 @@ import InputField from "../FormFields/InputField";
 import { DiagnosisRadioField } from "../FormFields/RadioField";
 import Search from "../Search/Search";
 import { FileEarmark } from "react-bootstrap-icons";
+import Autocomplete from "react-autocomplete";
+import axios from "axios";
+
 
 
 function Diagnosis() {
@@ -41,6 +44,8 @@ function Diagnosis() {
         symptoms: [],
     };
 
+    
+
     function onChangeDiagnosis(e, field, values, setValues) {
         // update dynamic form
         const symptoms = [...values.symptoms];
@@ -68,10 +73,17 @@ function Diagnosis() {
         field.onChange(e);
     }
 
-function callbackFunction(childData) {
-   console.log(childData)
-}  
+    var tempSuggestion = "";
+    var example = "";
 
+function callbackFunction(childData, fieldName) {
+    tempSuggestion=childData
+    example=fieldName
+    
+    console.log(tempSuggestion)
+    console.log(example)
+    
+} 
     return (
         <DiagnosisStyled id="diagnosis">
             <Wrapper>
@@ -194,9 +206,14 @@ function callbackFunction(childData) {
                                                                             <Form name={`symptoms.${i}.medication`}
                                                                         >
                                                                             <Form.Label>Prescription</Form.Label>
+                                                                            
                                                                         <Search type="product"
+                                                                        example={`symptoms.${i}.medication`}
                                                                         parentCallback = {callbackFunction} 
+                                                                        
                                                                         /> 
+                                                                        {console.log("hello")}
+                                                                        
                                                                              </Form>
                                                                         </Form.Row>
                                                                         <Form.Row>
@@ -300,6 +317,13 @@ function callbackFunction(childData) {
                                     >
                                         Next
                                     </Button>
+                                    <pre>
+                                                        {JSON.stringify(
+                                                            values,
+                                                            null,
+                                                            2
+                                                        )}
+                                                    </pre>
                                 </Form>
                             </div>
                         )}

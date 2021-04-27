@@ -9,20 +9,20 @@ import { Toggles2 } from "react-bootstrap-icons";
 const OptimizationStyled = styled.div``;
 
 export default class Optimization extends Component {
-    render() {
-        return (
-            <OptimizationStyled id="optimization">
-                <Wrapper>
-                    <Container>
-                        <h2>Optimization {<Toggles2 />}</h2>
-                        <Button variant="primary">
-                            <Link to="patientReport" spy={true} smooth={true}>
-                                Generate Report
-                            </Link>
-                        </Button>
-                    </Container>
-                </Wrapper>
-            </OptimizationStyled>
-        );
-    }
+  render() {
+    return (
+      <OptimizationStyled id="optimization">
+        <Wrapper>
+          <Container>
+            <h2>Optimization {<Toggles2 />}</h2>
+            <Button variant="primary">
+              <Link to="patientReport" spy={true} smooth={true}>
+                Generate Report
+              </Link>
+            </Button>
+          </Container>
+        </Wrapper>
+      </OptimizationStyled>
+    );
+  }
 }

@@ -10,12 +10,13 @@ import PatientReport from "./components/PatientReport/PatientReport";
 function App() {
     return (
         <div className="App">
+            <Logo />
             <Header />
             <Home />
             <PatientInfo />
             <Diagnosis />
             <SideEffects />
-            <Optimization />
+           <Optimization />
             <PatientReport />
         </div>
     );

@@ -11,8 +11,7 @@ import InputField from "../FormFields/InputField";
 import { DiagnosisRadioField } from "../FormFields/RadioField";
 import Search from "../Search/Search";
 import { FileEarmark } from "react-bootstrap-icons";
-import Autocomplete from "react-autocomplete";
-import axios from "axios";
+;
 
 
 

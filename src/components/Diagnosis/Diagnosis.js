@@ -12,7 +12,6 @@ import { DiagnosisRadioField } from "../FormFields/RadioField";
 import Search from "../Search/Search";
 import { FileEarmark } from "react-bootstrap-icons";
 
-
 function Diagnosis() {
     const DiagnosisStyled = styled.div``;
     const ModeRadioOptions = ["Pill", "Syrup", "Injection", "Topical"];
@@ -68,9 +67,9 @@ function Diagnosis() {
         field.onChange(e);
     }
 
-function callbackFunction(childData) {
-   console.log(childData)
-}  
+    // function callbackFunction(childData) {
+    //     console.log(childData);
+    // }
 
     return (
         <DiagnosisStyled id="diagnosis">
@@ -117,6 +116,7 @@ function callbackFunction(childData) {
                             touched,
                             setValues,
                             setFieldValue,
+                            onBlur,
                         }) => (
                             <div>
                                 <Form noValidate onSubmit={handleSubmit}>
@@ -184,20 +184,24 @@ function callbackFunction(childData) {
                                                                         }`}
                                                                     >
                                                                         <Form.Row>
-                                                                        <InputField
+                                                                            <InputField
                                                                                 name={`symptoms.${i}.diagnosis`}
                                                                                 label="Diagnosis"
-                                                                                col={
-                                                                                    3
-                                                                                }
                                                                             />
-                                                                            <Form name={`symptoms.${i}.medication`}
-                                                                        >
-                                                                            <Form.Label>Prescription</Form.Label>
-                                                                        <Search type="product"
-                                                                        parentCallback = {callbackFunction} 
-                                                                        /> 
-                                                                             </Form>
+                                                                            <Form
+                                                                                name={`symptoms.${i}.medication`}
+                                                                            >
+                                                                                <Form.Label>
+                                                                                    Prescription
+                                                                                </Form.Label>
+                                                                                <Search
+                                                                                    name={`symptoms.${i}.medication`}
+                                                                                    type="product"
+                                                                                    parentCallback={
+                                                                                        setFieldValue
+                                                                                    }
+                                                                                />
+                                                                            </Form>
                                                                         </Form.Row>
                                                                         <Form.Row>
                                                                             <DiagnosisRadioField
@@ -291,7 +295,6 @@ function callbackFunction(childData) {
                                             }
                                         </FieldArray>
                                     </Form.Group>
-                                   
 
                                     <Button
                                         variant="primary"

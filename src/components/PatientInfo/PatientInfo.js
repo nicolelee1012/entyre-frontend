@@ -265,7 +265,6 @@ export default class PatientInfo extends Component {
                                             Next
                                         </Button>
                                     </div>
-                                    <pre>{JSON.stringify(values, null, 2)}</pre>
                                 </Form>
                             )}
                         </Formik>

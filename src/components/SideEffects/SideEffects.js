@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./SideEffects.css";
-import { Container, Table, Button, Col } from "react-bootstrap";
+import { Container, Table, Button } from "react-bootstrap";
 import Wrapper, { scrollTo } from "../Wrapper/Wrapper";
 import styled from "styled-components";
 // import * as yup from "yup";

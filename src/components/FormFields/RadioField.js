@@ -18,14 +18,13 @@ const RadioField = ({ name, label, isInvalid, errors, ...props }) => {
         <Form.Group as={Col}>
             <Form.Label>{label}</Form.Label>
             <Container>
-                <Form.Row>
+                <Form.Row style={{ marginTop: "5px" }}>
                     {options.map((option) => (
                         <Field
                             name={name}
                             value={option}
                             label={titleCase(option)}
                             type="radio"
-                            inline
                             as={Form.Check}
                             isInvalid={!!errors}
                             controlId={option}
@@ -50,8 +49,8 @@ export const DiagnosisRadioField = ({
     const invalid = !!getError;
     return (
         <Form.Group as={Col}>
-            <Form.Label>{label}</Form.Label>
             <Container>
+                <Form.Label>{label}</Form.Label>
                 <Form.Row>
                     {options.map((option) => (
                         <Field

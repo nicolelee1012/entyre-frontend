@@ -8,14 +8,41 @@ import * as yup from "yup";
 import { PersonCircle } from "react-bootstrap-icons";
 import InputField from "../FormFields/InputField";
 import RadioField from "../FormFields/RadioField";
+import DatePicker from "../FormFields/DatePicker";
 
-const PatientInfoStyled = styled.div``;
+const PatientInfoStyled = styled.div`
+    .form-check-label {
+        padding-right: 10px;
+    }
+    .react-datepicker-wrapper {
+        display: flex;
+    }
+    .react-datepicker__input-container {
+        grid-column: 5/10;
+        grid-row: 2/4;
+
+        input {
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            color: #495057;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            display: block;
+            width: 100%;
+            transition: border-color 0.15s ease-in-out,
+                box-shadow 0.15s ease-in-out;
+        }
+    }
+`;
 const GenderRadioOptions = ["male", "female", "non-binary", "other"];
 const SubRelRadioOptions = ["self", "spouse", "dependent"];
 const REQUIRED_MESSAGE = "Required";
 const validationSchema = yup.object({
     firstName: yup.string().required(REQUIRED_MESSAGE),
     lastName: yup.string().required(REQUIRED_MESSAGE),
+    dateOfBirth: yup.string().required(REQUIRED_MESSAGE),
     age: yup
         .number()
         .typeError("Age must be a whole number")
@@ -58,6 +85,7 @@ export default class PatientInfo extends Component {
                             initialValues={{
                                 firstName: "",
                                 lastName: "",
+                                dateOfBirth: "",
                                 age: "",
                                 weight: "",
                                 gender: "",
@@ -105,6 +133,7 @@ export default class PatientInfo extends Component {
                                 values,
                                 isInvalid,
                                 errors,
+                                touched,
                             }) => (
                                 <Form noValidate onSubmit={handleSubmit}>
                                     <Form.Row>
@@ -118,13 +147,45 @@ export default class PatientInfo extends Component {
                                         />
                                     </Form.Row>
                                     <Form.Row>
+                                        <Form.Group
+                                            as={Col}
+                                            md
+                                            controlId={"dateOfBirth"}
+                                        >
+                                            <Form.Label>
+                                                Date of Birth
+                                            </Form.Label>
+                                            <Field
+                                                name="dateOfBirth"
+                                                value={values.dateOfBirth}
+                                                placeholder={"dd/mm/yyyy"}
+                                                as={DatePicker}
+                                                popperPlacement="bottom"
+                                                popperModifiers={{
+                                                    flip: {
+                                                        behavior: ["bottom"],
+                                                    },
+                                                }}
+                                            />
+                                            {!!errors.dateOfBirth ? (
+                                                <span
+                                                    style={{
+                                                        marginTop: "0.25rem",
+                                                        fontSize: "80%",
+                                                        color: "#dc3545",
+                                                    }}
+                                                >
+                                                    Required
+                                                </span>
+                                            ) : null}
+                                        </Form.Group>
                                         <InputField name="age" label="Age" />
+                                    </Form.Row>
+                                    <Form.Row>
                                         <InputField
                                             name="weight"
                                             label="Weight (kg)"
                                         />
-                                    </Form.Row>
-                                    <Form.Row>
                                         <RadioField
                                             name="gender"
                                             label="Gender"
@@ -136,10 +197,6 @@ export default class PatientInfo extends Component {
                                         <InputField
                                             name="emailAddress"
                                             label="Email Address"
-                                        />
-                                        <InputField
-                                            name="subscriberName"
-                                            label="Subscriber Name"
                                         />
                                     </Form.Row>
                                     <Form.Row>
@@ -153,7 +210,15 @@ export default class PatientInfo extends Component {
                                         />
                                     </Form.Row>
                                     <Form.Row>
-                                        <Col md="6">
+                                        <InputField
+                                            name="subscriberName"
+                                            label="Subscriber Name"
+                                            md="4"
+                                        />
+                                        <Col
+                                            md="4"
+                                            style={{ marginRight: "-30px" }}
+                                        >
                                             <RadioField
                                                 name="subscriberRelationship"
                                                 label="Relationship to Subscriber"
@@ -162,9 +227,14 @@ export default class PatientInfo extends Component {
                                                 }
                                                 options={SubRelRadioOptions}
                                             />
-                                            <InputGroup>
+                                        </Col>
+                                        <Col md style={{ marginTop: "2rem" }}>
+                                            <InputGroup
+                                                size="sm"
+                                                className="mb-3"
+                                            >
                                                 <InputGroup.Prepend>
-                                                    <InputGroup.Text>
+                                                    <InputGroup.Text id="inputGroup-sizing-sm">
                                                         Other
                                                     </InputGroup.Text>
                                                 </InputGroup.Prepend>
@@ -195,6 +265,7 @@ export default class PatientInfo extends Component {
                                             Next
                                         </Button>
                                     </div>
+                                    <pre>{JSON.stringify(values, null, 2)}</pre>
                                 </Form>
                             )}
                         </Formik>

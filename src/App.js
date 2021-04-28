@@ -10,7 +10,7 @@ import PatientReport from "./components/PatientReport/PatientReport";
 function App() {
     return (
         <div className="App">
-            <Logo />
+            <logo />
             <Header />
             <Home />
             <PatientInfo />

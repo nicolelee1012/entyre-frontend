@@ -57,7 +57,7 @@ export default class Header extends Component {
                         <HouseDoor />
                         <Link
                             activeClass="active"
-                            to="home"
+                            to="welcome"
                             spy={true}
                             smooth={true}
                         >

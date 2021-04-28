@@ -195,23 +195,25 @@ function callbackFunction(childData, fieldName) {
                                                                         }`}
                                                                     >
                                                                         <Form.Row>
-                                                                        <InputField
-                                                                                name={`symptoms.${i}.diagnosis`}
-                                                                                label="Diagnosis"
-                                                                                col={
-                                                                                    3
-                                                                                }
-                                                                            />
+                                                                        <Form name={`symptoms.${i}.diagnosis`}
+                                                                        >
+                                                                            <Form.Label>Diagnosis</Form.Label>
+                                                                        <Search type="condition"
+                                                                        name={`symptoms.${i}.diagnosis`}
+                                                                        parentCallback = {setFieldValue} 
+                                                                        
+                                                                        /> 
+                                                                        </Form>
                                                                             <Form name={`symptoms.${i}.medication`}
                                                                         >
                                                                             <Form.Label>Prescription</Form.Label>
                                                                             
                                                                         <Search type="product"
+                                                                        name={`symptoms.${i}.medication`}
                                                                         example={`symptoms.${i}.medication`}
-                                                                        parentCallback = {callbackFunction} 
+                                                                        parentCallback = {setFieldValue} 
                                                                         
                                                                         /> 
-                                                                        {console.log("hello")}
                                                                         
                                                                              </Form>
                                                                         </Form.Row>

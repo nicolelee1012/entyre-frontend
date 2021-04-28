@@ -15,10 +15,10 @@ class Search extends Component {
   }
 
   getSuggestionValue = (suggestion) => {
-    const { example } = this.props;
-    console.log(example)
+    const { name } = this.props;
+    console.log(name)
     //setFieldValue(example,suggestion)
-    this.props.parentCallback(example, suggestion);
+    this.props.parentCallback(name, suggestion);
     return suggestion;
   };
 
@@ -54,16 +54,12 @@ class Search extends Component {
     const { value, suggestions } = this.state;
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
-      placeholder: "Prescription",
+      placeholder: "Search",
       value,
       onChange: this.onChange,
     };
 
     return (
-      <Formik>
-         {({     
-                            setFieldValue,
-                        }) =>
       <Autosuggest
         suggestions={suggestions}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -74,8 +70,7 @@ class Search extends Component {
 
 
       />
-                      }
-      </Formik>
+
     );
   }
 }

@@ -8,6 +8,8 @@ import styled from "styled-components";
 import { Formik, FieldArray, Form } from "formik";
 import SelectField from "../FormFields/SelectField";
 import { JournalMedical } from "react-bootstrap-icons";
+import Search from "../Search/Search";
+
 
 const SideEffectsStyled = styled.div``;
 
@@ -154,12 +156,13 @@ export default class SideEffects extends Component {
                                     </Button>
                                   </td>
                                   <td colspan="3">
-                                    <SelectField
-                                      name={`sideEffects.${i}.sideEffect`}
-                                      value={values.sideEffects[i].sideEffect}
-                                      onChange={setFieldValue}
-                                      promiseOptions={promiseOptions1}
-                                    />
+                                   
+                                     <Form name={`sideEffects.${i}.sideEffect`}>
+                                        <Search type="side_effect"
+                                        name={`sideEffects.${i}.sideEffect`}
+                                        parentCallback = {setFieldValue} 
+                                        /> 
+                                     </Form>
                                   </td>
                                   <td>
                                     <SelectField

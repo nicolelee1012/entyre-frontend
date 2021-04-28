@@ -9,18 +9,18 @@ import PatientReport from "./components/PatientReport/PatientReport";
 import Logo from "./components/Logo/Logo";
 
 function App() {
-  return (
-    <div className="App">
-      <Header />
-      <Logo />
-      <Home />
-      <PatientInfo />
-      <Diagnosis />
-      <SideEffects />
-      <Optimization />
-      <PatientReport />
-    </div>
-  );
+    return (
+        <div className="App">
+            <logo />
+            <Header />
+            <Home />
+            <PatientInfo />
+            <Diagnosis />
+            <SideEffects />
+           <Optimization />
+            <PatientReport />
+        </div>
+    );
 }
 
 export default App;

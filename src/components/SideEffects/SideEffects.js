@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { Formik, FieldArray, Form } from "formik";
 import SelectField from "../FormFields/SelectField";
 import { JournalMedical } from "react-bootstrap-icons";
+import Search from "../Search/Search";
 
 const SideEffectsStyled = styled.div``;
 

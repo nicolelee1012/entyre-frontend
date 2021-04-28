@@ -33,6 +33,10 @@ const NavbarStyled = styled.div`
             flex-direction: column;
         }
     }
+    .scrolling-buttons {
+        display: flex;
+        flex-direction: column;
+    }
     .header li {
         padding: 7px;
         display: flex;

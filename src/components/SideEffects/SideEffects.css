@@ -1,34 +1,34 @@
 .table {
-    table-layout: fixed !important;
-    height: 350px;
-    background-color: white;
-    width: 100% !important;
+  table-layout: fixed !important;
+  height: 350px;
+  background-color: white;
+  width: 100% !important;
 }
 
 .table thead th {
-    border-right: 1px solid #bdbdbd !important;
-    text-align: center;
-    background-color: #e8f7ec !important;
-    color: black !important;
-    border-top: none;
-    width: 33%;
+  border-right: 1px solid #bdbdbd !important;
+  text-align: center;
+  background-color: #e8f7ec !important;
+  color: black !important;
+  border-top: none;
+  width: 33%;
 }
 
 .table thead th:last-child,
 .table tr td:last-child {
-    border-right: none !important;
+  border-right: none !important;
 }
 
 .table td {
-    border-right: 1px solid #bdbdbd;
-    border-top: none !important;
-    width: 30%;
+  border-right: 1px solid #bdbdbd;
+  border-top: none !important;
+  width: 30%;
 }
 
 .table td.remove-column {
-    width: 10%;
+  width: 10%;
 }
 
 table tr td:first-child {
-    border-right: none;
+  border-right: none;
 }

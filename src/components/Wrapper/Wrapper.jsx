@@ -51,14 +51,14 @@ const WrapperStyled = styled.div`
 `;
 
 export const scrollTo = (nextElement) => {
-    var scroller = Scroll.scroller;
-    scroller.scrollTo(nextElement, {
-        duration: 1000,
-        delay: 100,
-        smooth: true,
-    });
+  var scroller = Scroll.scroller;
+  scroller.scrollTo(nextElement, {
+    duration: 1000,
+    delay: 100,
+    smooth: true,
+  });
 };
 
 export default function Wrapper({ children }) {
-    return <WrapperStyled>{children}</WrapperStyled>;
+  return <WrapperStyled>{children}</WrapperStyled>;
 }

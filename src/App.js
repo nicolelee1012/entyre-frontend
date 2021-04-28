@@ -7,6 +7,7 @@ import Diagnosis from "./components/Diagnosis/Diagnosis";
 import SideEffects from "./components/SideEffects/SideEffects";
 import Optimization from "./components/Optimization/Optimization";
 import PatientReport from "./components/PatientReport/PatientReport";
+import Logo from "./components/Logo/logo";
 
 function App() {
     return (

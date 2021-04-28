@@ -1,12 +1,11 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import { Button, InputGroup, Container, Form } from "react-bootstrap";
+import { Button, InputGroup, Container, Form, NavItem } from "react-bootstrap";
 import { Formik, Field, FieldArray, getIn } from "formik";
 import Wrapper, { scrollTo } from "../Wrapper/Wrapper";
 import styled from "styled-components";
 import * as yup from "yup";
 import Collapsible from "react-collapsible";
-import "./Diagnosis.css";
 import InputField from "../FormFields/InputField";
 import { DiagnosisRadioField } from "../FormFields/RadioField";
 import Search from "../Search/Search";
@@ -67,10 +66,16 @@ function Diagnosis() {
         field.onChange(e);
     }
 
-    // function callbackFunction(childData) {
-    //     console.log(childData);
-    // }
+    var tempSuggestion = "";
+    var example = "";
 
+    function callbackFunction(childData, fieldName) {
+        tempSuggestion = childData;
+        example = fieldName;
+
+        console.log(tempSuggestion);
+        console.log(example);
+    }
     return (
         <DiagnosisStyled id="diagnosis">
             <Wrapper>
@@ -184,19 +189,31 @@ function Diagnosis() {
                                                                         }`}
                                                                     >
                                                                         <Form.Row>
-                                                                            <InputField
+                                                                            <Form
                                                                                 name={`symptoms.${i}.diagnosis`}
-                                                                                label="Diagnosis"
-                                                                            />
+                                                                            >
+                                                                                <Form.Label>
+                                                                                    Diagnosis
+                                                                                </Form.Label>
+                                                                                <Search
+                                                                                    type="condition"
+                                                                                    name={`symptoms.${i}.diagnosis`}
+                                                                                    parentCallback={
+                                                                                        setFieldValue
+                                                                                    }
+                                                                                />
+                                                                            </Form>
                                                                             <Form
                                                                                 name={`symptoms.${i}.medication`}
                                                                             >
                                                                                 <Form.Label>
                                                                                     Prescription
                                                                                 </Form.Label>
+
                                                                                 <Search
-                                                                                    name={`symptoms.${i}.medication`}
                                                                                     type="product"
+                                                                                    name={`symptoms.${i}.medication`}
+                                                                                    example={`symptoms.${i}.medication`}
                                                                                     parentCallback={
                                                                                         setFieldValue
                                                                                     }
@@ -303,6 +320,7 @@ function Diagnosis() {
                                     >
                                         Next
                                     </Button>
+                                    <pre>{JSON.stringify(values, null, 2)}</pre>
                                 </Form>
                             </div>
                         )}

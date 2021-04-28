@@ -6,12 +6,11 @@ import Wrapper, { scrollTo } from "../Wrapper/Wrapper";
 import styled from "styled-components";
 import * as yup from "yup";
 import Collapsible from "react-collapsible";
-import "./Diagnosis.css";
 import InputField from "../FormFields/InputField";
 import { DiagnosisRadioField } from "../FormFields/RadioField";
 import Search from "../Search/Search";
 import { FileEarmark } from "react-bootstrap-icons";
-;
+
 
 
 

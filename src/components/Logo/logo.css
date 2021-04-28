@@ -1,11 +1,5 @@
 .logo {
-  /* Vector */
-
   position: absolute;
-  left: 78.24%;
-  right: 4.39%;
-  top: 5.57%;
-  bottom: 88.77%;
-
-  background: url(../Vector.png);
+  float: right;
+  margin-left: 20px;
 }

@@ -188,22 +188,12 @@ export default class SideEffects extends Component {
                                                                             </Button>
                                                                         </td>
                                                                         <td colspan="3">
-                                                                            <SelectField
-                                                                                name={`sideEffects.${i}.sideEffect`}
-                                                                                value={
-                                                                                    values
-                                                                                        .sideEffects[
-                                                                                        i
-                                                                                    ]
-                                                                                        .sideEffect
-                                                                                }
-                                                                                onChange={
-                                                                                    setFieldValue
-                                                                                }
-                                                                                promiseOptions={
-                                                                                    promiseOptions1
-                                                                                }
-                                                                            />
+                                                                        <Search type="side_effect"
+                                                                        name={`sideEffects.${i}.sideEffect`}
+                                                                        parentCallback = {setFieldValue} 
+                                                                        
+                                                                        /> 
+                                                                            
                                                                         </td>
                                                                         <td>
                                                                             <SelectField

@@ -191,11 +191,12 @@ export default class SideEffects extends Component {
                                                                             </Button>
                                                                         </td>
                                                                         <td colspan="3">
+                                                                            <div stlye={{paddingRight: "30px"}}>
                                                                         <Search type="side_effect"
                                                                         name={`sideEffects.${i}.sideEffect`}
                                                                         parentCallback = {setFieldValue} 
                                                                         /> 
-                                                                            
+                                                                         </div>   
                                                                         </td>
                                                                         <td>
                                                                             <SelectField

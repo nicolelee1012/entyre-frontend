@@ -19,7 +19,7 @@ class Search extends Component {
     };
 
     getInfo = async (value, type) => {
-        const callEndpoint = `http://localhost:3000/search/${type}?q=${value}&limit=10`;
+        const callEndpoint = `http://localhost:8080/search/${type}?q=${value}&limit=10`;
         const response = await axios.get(callEndpoint);
         const responseData = response.data;
         this.setState({

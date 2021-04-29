@@ -10,13 +10,14 @@ const WrapperStyled = styled.div`
     justify-content: center;
     align-items: left;
     margin-left: ${width}px;
-    padding: 60px;
+    padding: 90px;
     h1 {
         font-size: 52px;
         font-weight: bold;
     }
     h2 {
         font-size: 42px;
+        margin-bottom: 40px;
     }
     h3 {
         font-size: 30px;

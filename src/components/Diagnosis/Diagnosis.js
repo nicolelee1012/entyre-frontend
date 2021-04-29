@@ -10,6 +10,7 @@ import InputField from "../FormFields/InputField";
 import { DiagnosisRadioField } from "../FormFields/RadioField";
 import Search from "../Search/Search";
 import { FileEarmark } from "react-bootstrap-icons";
+//import "./Diagnosis.css";
 
 function Diagnosis() {
     const DiagnosisStyled = styled.div``;
@@ -25,8 +26,8 @@ function Diagnosis() {
                 yup.object().shape({
                     diagnosis: yup.string().required(REQUIRED_MESSAGE),
                     medication: yup.string().required(REQUIRED_MESSAGE),
-                    amount: yup.number().required(REQUIRED_MESSAGE),
-                    units: yup.number().required(REQUIRED_MESSAGE),
+                    amount: yup.string().required(REQUIRED_MESSAGE),
+                    units: yup.string().required(REQUIRED_MESSAGE),
                     frequency: yup.string().required(REQUIRED_MESSAGE),
                     mode: yup.string().required(REQUIRED_MESSAGE),
                 })
@@ -66,16 +67,7 @@ function Diagnosis() {
         field.onChange(e);
     }
 
-    var tempSuggestion = "";
-    var example = "";
 
-    function callbackFunction(childData, fieldName) {
-        tempSuggestion = childData;
-        example = fieldName;
-
-        console.log(tempSuggestion);
-        console.log(example);
-    }
     return (
         <DiagnosisStyled id="diagnosis">
             <Wrapper>
@@ -192,9 +184,10 @@ function Diagnosis() {
                                                                             <Form
                                                                                 name={`symptoms.${i}.diagnosis`}
                                                                             >
-                                                                                <Form.Label>
+                                                                                <Form.Label style={{marginLeft: "10px"}}>
                                                                                     Diagnosis
                                                                                 </Form.Label>
+                                                                                <div style={{marginLeft: "10px"}}>
                                                                                 <Search
                                                                                     type="condition"
                                                                                     name={`symptoms.${i}.diagnosis`}
@@ -202,14 +195,15 @@ function Diagnosis() {
                                                                                         setFieldValue
                                                                                     }
                                                                                 />
+                                                                                </div>
                                                                             </Form>
                                                                             <Form
                                                                                 name={`symptoms.${i}.medication`}
                                                                             >
-                                                                                <Form.Label>
+                                                                                <Form.Label style={{marginLeft: "40px"}}>
                                                                                     Prescription
                                                                                 </Form.Label>
-
+                                                                                    <div style={{marginLeft: "40px"}}>
                                                                                 <Search
                                                                                     type="product"
                                                                                     name={`symptoms.${i}.medication`}
@@ -218,6 +212,7 @@ function Diagnosis() {
                                                                                         setFieldValue
                                                                                     }
                                                                                 />
+                                                                                </div>
                                                                             </Form>
                                                                         </Form.Row>
                                                                         <Form.Row>
@@ -231,6 +226,7 @@ function Diagnosis() {
                                                                                     ModeRadioOptions
                                                                                 }
                                                                             />
+                                                                            <div class='col-sm-8' style={{marginLeft: "-10px", paddingRight: "500px", paddingTop: "20px"}}> 
                                                                             <InputGroup className="mb-4">
                                                                                 <InputGroup.Prepend>
                                                                                     <InputGroup.Text>
@@ -258,6 +254,7 @@ function Diagnosis() {
                                                                                     }
                                                                                 </Form.Control.Feedback>
                                                                             </InputGroup>
+                                                                            </div>
                                                                         </Form.Row>
                                                                         <Form.Row>
                                                                             <InputField
@@ -283,6 +280,7 @@ function Diagnosis() {
                                                                             />
                                                                         </Form.Row>
                                                                         <Form.Row>
+                                                                        <div class='col-sm-12'> 
                                                                             <InputGroup className="mb-4">
                                                                                 <InputGroup.Prepend>
                                                                                     <InputGroup.Text>
@@ -302,6 +300,7 @@ function Diagnosis() {
                                                                                     }
                                                                                 />
                                                                             </InputGroup>
+                                                                            </div>
                                                                         </Form.Row>
                                                                     </Collapsible>
                                                                 </div>
@@ -320,7 +319,6 @@ function Diagnosis() {
                                     >
                                         Next
                                     </Button>
-                                    <pre>{JSON.stringify(values, null, 2)}</pre>
                                 </Form>
                             </div>
                         )}

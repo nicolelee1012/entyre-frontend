@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Autosuggest from "react-autosuggest";
+import "./Search.css";
+import "bootstrap/dist/css/bootstrap.css";
+
 
 const renderSuggestion = (suggestion) => <div>{suggestion}</div>;
 
@@ -25,6 +28,7 @@ class Search extends Component {
         this.setState({
             suggestions: responseData,
         });
+        console.log(callEndpoint);
     };
 
     onChange = (event, { newValue }) => {
@@ -52,11 +56,11 @@ class Search extends Component {
         const inputProps = {
             value,
             onChange: this.onChange,
-            type: "search",
-            placeholder: "Prescription",
+            placeholder: "Search",
         };
 
         return (
+          <div>
             <Autosuggest
                 suggestions={suggestions}
                 onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -65,6 +69,7 @@ class Search extends Component {
                 renderSuggestion={renderSuggestion}
                 inputProps={inputProps}
             />
+            </div>
         );
     }
 }

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Autosuggest from "react-autosuggest";
-import { Formik, Field, FieldArray, getIn } from "formik";
+import "./Search.css";
+
 
 const renderSuggestion = (suggestion) => <div>{suggestion}</div>;
 

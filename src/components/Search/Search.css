@@ -1,0 +1,11 @@
+.react-autosuggest__suggestion--highlighted {
+  background-color: green;
+}
+
+.input {
+  width: 10px;
+}
+
+.suggestionsContainerOpen {
+  background-color: darkmagenta;
+}

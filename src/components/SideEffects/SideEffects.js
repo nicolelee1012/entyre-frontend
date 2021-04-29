@@ -192,7 +192,6 @@ export default class SideEffects extends Component {
                                                                         <Search type="side_effect"
                                                                         name={`sideEffects.${i}.sideEffect`}
                                                                         parentCallback = {setFieldValue} 
-                                                                        
                                                                         /> 
                                                                             
                                                                         </td>

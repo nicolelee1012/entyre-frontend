@@ -15,10 +15,10 @@ function titleCase(str) {
 const RadioField = ({ name, label, isInvalid, errors, ...props }) => {
     const { options } = props;
     return (
-        <Form.Group as={Col}>
+        <Form.Group as={Col} md="4" style={{ marginRight: "-50px" }}>
             <Form.Label>{label}</Form.Label>
             <Container>
-                <Form.Row style={{ marginTop: "5px" }}>
+                <Form.Row style={{ marginTop: "5px", marginRight: "-50px" }}>
                     {options.map((option) => (
                         <Field
                             name={name}

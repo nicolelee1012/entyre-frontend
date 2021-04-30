@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import { Link } from "react-scroll";
 import styled from "styled-components";
-import Wrapper from "../Wrapper/Wrapper";
+import Wrapper, { scrollTo } from "../Wrapper/Wrapper";
 import { Container, Button, Form } from "react-bootstrap";
+import { Formik, Field } from "formik";
 
 const DoctorNameStyled = styled.div`
     .box {
@@ -32,26 +32,75 @@ export default class DoctorName extends Component {
         return (
             <DoctorNameStyled class="box" id="doctorName">
                 <Wrapper>
-                    <Container>
+                    <Container fluid>
                         <h3>Hi, what is your name?</h3>
-                        <DoctorNameSpacing>
-                            <Form.Group>
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Type Here..."
-                                    value={this.props.doctorName}
-                                    onChange={this.props.onChange}
-                                ></Form.Control>
-                            </Form.Group>
-                        </DoctorNameSpacing>
-                        <ButtonSpacing>
-                            <Button>
-                                <Link to="welcome" spy={true} smooth={true}>
-                                    Nice to meet you!
-                                </Link>
-                            </Button>
-                        </ButtonSpacing>
+                        <Formik
+                            initialValues={{
+                                doctorName: this.props.doctorName,
+                                doctorEmail: "",
+                            }}
+                            onSubmit={(
+                                values,
+                                { setSubmitting, resetForm }
+                            ) => {
+                                // When button submits form and form is in the process of submitting, submit button is disabled
+                                setSubmitting(true);
+
+                                // make async call
+
+                                // Sets setSubmitting to false after form is reset
+                                setSubmitting(false);
+
+                                scrollTo("welcome");
+                            }}
+                        >
+                            {({
+                                handleSubmit,
+                                handleChange,
+                                isSubmitting,
+                                values,
+                                isInvalid,
+                                errors,
+                                touched,
+                            }) => (
+                                <Form noValidate onSubmit={handleSubmit}>
+                                    <DoctorNameSpacing>
+                                        <Form.Group>
+                                            <Form.Label>Name</Form.Label>
+                                            <Field
+                                                name="doctorName"
+                                                type="text"
+                                                placeholder="Type Here..."
+                                                // value={this.props.doctorName}
+                                                onChange={handleChange}
+                                                as={Form.Control}
+                                            ></Field>
+                                        </Form.Group>
+                                        <Form.Group>
+                                            <Form.Label>
+                                                Email Address
+                                            </Form.Label>
+                                            <Field
+                                                type="email"
+                                                name="doctorEmail"
+                                                placeholder={"Type here..."}
+                                                onChange={handleChange}
+                                                as={Form.Control}
+                                            />
+                                        </Form.Group>
+                                    </DoctorNameSpacing>
+                                    <ButtonSpacing>
+                                        <Button
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                        >
+                                            Nice to meet you!
+                                        </Button>
+                                    </ButtonSpacing>
+                                    <pre>{JSON.stringify(values, null, 2)}</pre>
+                                </Form>
+                            )}
+                        </Formik>
                     </Container>
                 </Wrapper>
             </DoctorNameStyled>

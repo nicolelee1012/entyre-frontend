@@ -185,6 +185,7 @@ export default class PatientInfo extends Component {
                                         <InputField
                                             name="weight"
                                             label="Weight (kg)"
+                                            md="6"
                                         />
                                         <RadioField
                                             name="gender"
@@ -213,22 +214,17 @@ export default class PatientInfo extends Component {
                                         <InputField
                                             name="subscriberName"
                                             label="Subscriber Name"
-                                            md="4"
+                                            md="6"
                                         />
-                                        <Col
-                                            md="4"
-                                            style={{ marginRight: "-30px" }}
-                                        >
-                                            <RadioField
-                                                name="subscriberRelationship"
-                                                label="Relationship to Subscriber"
-                                                errors={
-                                                    errors.subscriberRelationship
-                                                }
-                                                options={SubRelRadioOptions}
-                                            />
-                                        </Col>
-                                        <Col md style={{ marginTop: "2rem" }}>
+                                        <RadioField
+                                            name="subscriberRelationship"
+                                            label="Relationship to Subscriber"
+                                            errors={
+                                                errors.subscriberRelationship
+                                            }
+                                            options={SubRelRadioOptions}
+                                        />
+                                        <Col style={{ marginTop: "2rem" }}>
                                             <InputGroup
                                                 size="sm"
                                                 className="mb-3"

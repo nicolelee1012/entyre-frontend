@@ -4,7 +4,6 @@ import "./SideEffects.css";
 import { Container, Table, Button } from "react-bootstrap";
 import Wrapper, { scrollTo } from "../Wrapper/Wrapper";
 import styled from "styled-components";
-// import * as yup from "yup";
 import { Formik, FieldArray, Form } from "formik";
 import SelectField from "../FormFields/SelectField";
 import { JournalMedical } from "react-bootstrap-icons";
@@ -70,25 +69,6 @@ const promiseOptions3 = (inputValue) =>
         }, 1000);
     });
 
-// const REQUIRED_MESSAGE = "Required";
-// const validationSchema = yup.object().shape({
-//     sideEffects: yup.array().of(
-//         yup.object().shape({
-//             value: yup.string().required(REQUIRED_MESSAGE),
-//         })
-//     ),
-//     frequency: yup.array().of(
-//         yup.object().shape({
-//             value: yup.string().required(REQUIRED_MESSAGE),
-//         })
-//     ),
-//     patterns: yup.array().of(
-//         yup.object().shape({
-//             value: yup.string().required(REQUIRED_MESSAGE),
-//         })
-//     ),
-// });
-
 export default class SideEffects extends Component {
     render() {
         return (
@@ -141,8 +121,6 @@ export default class SideEffects extends Component {
                                 isSubmitting,
                                 values,
                                 setFieldValue,
-                                // errors,
-                                // touched,
                             }) => (
                                 <Form>
                                     <FieldArray
@@ -191,12 +169,20 @@ export default class SideEffects extends Component {
                                                                             </Button>
                                                                         </td>
                                                                         <td colspan="3">
-                                                                            <div stlye={{paddingRight: "30px"}}>
-                                                                        <Search type="side_effect"
-                                                                        name={`sideEffects.${i}.sideEffect`}
-                                                                        parentCallback = {setFieldValue} 
-                                                                        /> 
-                                                                         </div>   
+                                                                            <div
+                                                                                stlye={{
+                                                                                    paddingRight:
+                                                                                        "30px",
+                                                                                }}
+                                                                            >
+                                                                                <Search
+                                                                                    type="side_effect"
+                                                                                    name={`sideEffects.${i}.sideEffect`}
+                                                                                    parentCallback={
+                                                                                        setFieldValue
+                                                                                    }
+                                                                                />
+                                                                            </div>
                                                                         </td>
                                                                         <td>
                                                                             <SelectField

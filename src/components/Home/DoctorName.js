@@ -27,6 +27,11 @@ const ButtonSpacing = styled.div`
     padding-top: 15px;
 `;
 
+function myHandleChange(e, setFieldValue, onChange) {
+    setFieldValue("doctorName", e.target.value);
+    onChange(e);
+}
+
 export default class DoctorName extends Component {
     render() {
         return (
@@ -62,6 +67,7 @@ export default class DoctorName extends Component {
                                 isInvalid,
                                 errors,
                                 touched,
+                                setFieldValue,
                             }) => (
                                 <Form noValidate onSubmit={handleSubmit}>
                                     <DoctorNameSpacing>
@@ -71,8 +77,13 @@ export default class DoctorName extends Component {
                                                 name="doctorName"
                                                 type="text"
                                                 placeholder="Type Here..."
-                                                // value={this.props.doctorName}
-                                                onChange={handleChange}
+                                                onChange={(e) =>
+                                                    myHandleChange(
+                                                        e,
+                                                        setFieldValue,
+                                                        this.props.onChange
+                                                    )
+                                                }
                                                 as={Form.Control}
                                             ></Field>
                                         </Form.Group>

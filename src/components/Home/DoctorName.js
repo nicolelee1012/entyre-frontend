@@ -47,7 +47,18 @@ export default class DoctorName extends Component {
                                 setSubmitting(true);
 
                                 // make async call
-
+                                const requestOptions = {
+                                    credentials: "include",
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify(values),
+                                };
+                                fetch(
+                                    "http://localhost:8080/doctor-contact",
+                                    requestOptions
+                                );
                                 // Sets setSubmitting to false after form is reset
                                 setSubmitting(false);
 

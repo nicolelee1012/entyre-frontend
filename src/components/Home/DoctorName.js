@@ -76,8 +76,6 @@ export default class DoctorName extends Component {
                                 isSubmitting,
                                 values,
                                 isInvalid,
-                                errors,
-                                touched,
                                 setFieldValue,
                             }) => (
                                 <Form noValidate onSubmit={handleSubmit}>
@@ -119,7 +117,6 @@ export default class DoctorName extends Component {
                                             Nice to meet you!
                                         </Button>
                                     </ButtonSpacing>
-                                    <pre>{JSON.stringify(values, null, 2)}</pre>
                                 </Form>
                             )}
                         </Formik>

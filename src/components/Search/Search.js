@@ -3,7 +3,7 @@ import axios from "axios";
 import Autosuggest from "react-autosuggest";
 import "./Search.css";
 import "bootstrap/dist/css/bootstrap.css";
-
+import { BASE_API_URL as base } from "../../constants";
 
 const renderSuggestion = (suggestion) => <div>{suggestion}</div>;
 
@@ -22,7 +22,7 @@ class Search extends Component {
     };
 
     getInfo = async (value, type) => {
-        const callEndpoint = `http://localhost:8080/search/${type}?q=${value}&limit=10`;
+        const callEndpoint = `${base}/search/${type}?q=${value}&limit=10`;
         const response = await axios.get(callEndpoint);
         const responseData = response.data;
         this.setState({

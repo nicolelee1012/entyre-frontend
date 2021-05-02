@@ -4,6 +4,7 @@ import Wrapper, { scrollTo } from "../Wrapper/Wrapper";
 import styled from "styled-components";
 import { Button, Container, Table } from "react-bootstrap";
 import { Toggles2 } from "react-bootstrap-icons";
+import { BASE_API_URL as base } from "../../constants";
 
 const OptimizationStyled = styled.div`
     .opt-table tbody td {
@@ -28,11 +29,10 @@ export default class Optimization extends Component {
             credentials: "include",
             method: "POST",
         };
-        fetch("http://localhost:8080/generate-report", requestOptions)
-        .then(response => response.json())
-        .then(data => console.log(data));
-
-
+        fetch(
+            `${base}/generate-report`,
+            requestOptions
+        );
         scrollTo("patientReport");
     }
    

@@ -8,6 +8,7 @@ import { Formik, FieldArray, Form } from "formik";
 import SelectField from "../FormFields/SelectField";
 import { JournalMedical } from "react-bootstrap-icons";
 import Search from "../Search/Search";
+import { BASE_API_URL as base } from "../../constants";
 
 const SideEffectsStyled = styled.div``;
 
@@ -108,8 +109,7 @@ export default class SideEffects extends Component {
                                     body: JSON.stringify(values),
                                 };
                                 fetch(
-                                    "http://localhost:8080/side-effects",
-                                    requestOptions
+                                    `${base}/side-effects`, requestOptions
                                 );
 
                                 // Sets setSubmitting to false after form is reset

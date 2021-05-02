@@ -9,6 +9,7 @@ import { PersonCircle } from "react-bootstrap-icons";
 import InputField from "../FormFields/InputField";
 import RadioField from "../FormFields/RadioField";
 import DatePicker from "../FormFields/DatePicker";
+import { BASE_API_URL as base } from "../../constants"
 
 const PatientInfoStyled = styled.div`
     .form-check-label {
@@ -116,7 +117,7 @@ export default class PatientInfo extends Component {
                                     body: JSON.stringify(values),
                                 };
                                 fetch(
-                                    "http://localhost:8080/patient-information",
+                                    `${base}/patient-information`,
                                     requestOptions
                                 );
 

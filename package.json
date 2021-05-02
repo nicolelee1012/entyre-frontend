@@ -24,14 +24,15 @@
     "react-select": "^4.3.0",
     "styled-components": "^5.2.3",
     "web-vitals": "^1.0.1",
+    "yarn": "^1.22.10",
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start-client": "react-scripts start",
-    "build": "react-scripts build && (cd server && yarn install)",
+    "start-client": "react-scripts start", 
+    "build": "react-scripts build && (cd ../nodeBackend && yarn install)",
     "test": "react-scripts test",
     "eject": "react-scripts eject", 
-    "start": "cd server && yarn start"
+    "start": "cd ../nodeBackend && yarn start"
   },
   "eslintConfig": {
     "extends": [

@@ -17,6 +17,7 @@ import Collapsible from "react-collapsible";
 import "./Diagnosis.css";
 import InputField from "../FormFields/InputField";
 import RadioField from "../FormFields/RadioField";
+import { BASE_API_URL as base } from "../../constants";
 
 function Diagnosis() {
   const DiagnosisStyled = styled.div`
@@ -87,7 +88,7 @@ function Diagnosis() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(values),
               };
-              fetch("http://localhost:8080/diagnosis-details", requestOptions);
+              fetch(`${base}/diagnosis-details`, requestOptions);
 
               setSubmitting(false);
             }}

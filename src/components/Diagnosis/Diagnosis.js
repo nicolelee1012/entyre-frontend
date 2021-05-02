@@ -11,6 +11,7 @@ import { DiagnosisRadioField } from "../FormFields/RadioField";
 import Search from "../Search/Search";
 import { FileEarmark } from "react-bootstrap-icons";
 //import "./Diagnosis.css";
+import { BASE_API_URL as base } from "../../constants";
 
 function Diagnosis() {
     const DiagnosisStyled = styled.div``;
@@ -94,7 +95,7 @@ function Diagnosis() {
                             );
 
                             fetch(
-                                "http://localhost:8080/diagnosis-details",
+                                `${base}/diagnosis-details`,
                                 requestOptions
                             );
                             setSubmitting(false);

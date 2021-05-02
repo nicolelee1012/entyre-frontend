@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useCallback, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import Wrapper, { scrollTo } from "../Wrapper/Wrapper";
 import styled from "styled-components";
@@ -12,11 +12,14 @@ const OptimizationStyled = styled.div`
     }
 `;
 
+
+
 export default class Optimization extends Component {
     constructor() {
         super();
         this.state = {
             username: "",
+            compilation:[],
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -30,8 +33,10 @@ export default class Optimization extends Component {
             `${base}/generate-report`,
             requestOptions
         );
+    
         scrollTo("patientReport");
     }
+   
 
     render() {
         return (

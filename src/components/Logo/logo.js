@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-import "../Vector.png";
+import "bootstrap/dist/css/bootstrap.css";
+
 
 export default class Logo extends Component {
     render() {
         return (
-            <header>
-                <img
-                    className="logo"
-                    src="../Vector.png"
-                    height="100px"
-                    width="200px"
-                    alt="description of "
-                ></img>
-            </header>
+
+<div className="logo"> 
+<img src="Vector.png"  align="right" padding="10px"/>
+    </div> 
+            
+        
+
+
         );
     }
 }

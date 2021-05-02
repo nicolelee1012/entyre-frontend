@@ -1,5 +1,6 @@
 .logo {
-  position: absolute;
-  float: right;
-  margin-left: 20px;
+  top: 10;
+  right: 0;
+  padding: 20px;
+  position: sticky;
 }

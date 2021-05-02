@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, InputGroup, Container, Form, NavItem } from "react-bootstrap";
 import { Formik, Field, FieldArray, getIn } from "formik";
@@ -39,6 +39,8 @@ function Diagnosis() {
         numberOfDiagnosis: "",
         symptoms: [],
     };
+
+    const saveRef = useRef(null);
 
     function onChangeDiagnosis(e, field, values, setValues) {
         // update dynamic form
@@ -116,7 +118,7 @@ function Diagnosis() {
                             onBlur,
                         }) => (
                             <div>
-                                <Form noValidate onSubmit={handleSubmit}>
+                                <Form noValidate onSubmit={handleSubmit} passSave={(ref) => saveRef.current = ref}>
                                     <Form.Row>
                                         <Form.Group>
                                             <Form.Label>
@@ -319,6 +321,8 @@ function Diagnosis() {
                                     >
                                         Next
                                     </Button>
+                                    {console.log(JSON.stringify(values, null, 2))}
+
                                 </Form>
                             </div>
                         )}

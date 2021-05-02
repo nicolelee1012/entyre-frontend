@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useCallback, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import Wrapper, { scrollTo } from "../Wrapper/Wrapper";
 import styled from "styled-components";
@@ -11,11 +11,14 @@ const OptimizationStyled = styled.div`
     }
 `;
 
+
+
 export default class Optimization extends Component {
     constructor() {
         super();
         this.state = {
             username: "",
+            compilation:[],
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -25,9 +28,14 @@ export default class Optimization extends Component {
             credentials: "include",
             method: "POST",
         };
-        fetch("http://localhost:8080/generate-report", requestOptions);
+        fetch("http://localhost:8080/generate-report", requestOptions)
+        .then(response => response.json())
+        .then(data => console.log(data));
+
+
         scrollTo("patientReport");
     }
+   
 
     render() {
         return (

@@ -33,6 +33,7 @@ export default class Optimization extends Component {
             `${base}/generate-report`,
             requestOptions
         );
+    
         scrollTo("patientReport");
     }
    

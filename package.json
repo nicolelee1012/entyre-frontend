@@ -28,11 +28,10 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start-client": "react-scripts start", 
-    "build": "react-scripts build && (cd ../nodeBackend && yarn install)",
+    "start": "react-scripts start", 
+    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject", 
-    "start": "cd ../nodeBackend && yarn start"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

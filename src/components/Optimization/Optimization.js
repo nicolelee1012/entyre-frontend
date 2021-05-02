@@ -29,10 +29,7 @@ export default class Optimization extends Component {
             credentials: "include",
             method: "POST",
         };
-        fetch(
-            `${base}/generate-report`,
-            requestOptions
-        );
+        fetch(`${base}/generate-report`, requestOptions);
     
         scrollTo("patientReport");
     }

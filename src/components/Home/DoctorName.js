@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Wrapper, { scrollTo } from "../Wrapper/Wrapper";
 import { Container, Button, Form } from "react-bootstrap";
 import { Formik, Field } from "formik";
+import { BASE_API_URL as base } from "../../constants";
 
 const DoctorNameStyled = styled.div`
     .box {
@@ -60,10 +61,7 @@ export default class DoctorName extends Component {
                                     },
                                     body: JSON.stringify(values),
                                 };
-                                fetch(
-                                    "http://localhost:8080/doctor-contact",
-                                    requestOptions
-                                );
+                                fetch(`${base}/doctor-contact`, requestOptions);
                                 // Sets setSubmitting to false after form is reset
                                 setSubmitting(false);
 
